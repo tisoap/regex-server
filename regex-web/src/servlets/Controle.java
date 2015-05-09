@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import teste.Regex;
-import teste.Traducao;
+import regex.Regex;
+import regex.Traducao;
+
 
 /**
  * Servlet que age como mediador entre a pagina HTML e o algoritimo de traducao.
@@ -59,7 +60,7 @@ public class Controle extends HttpServlet {
 		if (traducao.ocorreuErro()) {
 			
 			//Coloca uma mensagem de erro na resposta
-			out.println("<p>A expressao n√£o est√° correta</p>");
+			out.println("<p>A expressao n„o est· correta</p>");
 		}
 		
 		//Se nao ocorreram erros
@@ -68,9 +69,6 @@ public class Controle extends HttpServlet {
 			//Recupera a traducao em forma de listas nao ordenadas,
 			//utilizando o metodo getTextHTML() do objeto Traducao,
 			//e insere estas listas na resposta
-			
-			//TODO traducao para HTML ainda nao esta completa
-			//risco da exibicao nao ser correta
 			out.println(traducao.getTextHTML());
 		}
 	}

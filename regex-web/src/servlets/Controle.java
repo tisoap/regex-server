@@ -1,8 +1,8 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,34 +43,23 @@ public class Controle extends HttpServlet {
 		//para ela o valor recebido do formulario
 		Regex regex = new Regex(input);
 		
-		//Traduz a expressao inserida, gerando um objeto
-		//do tipo Traducao.
+		//Traduz a expressao inserida, 
+		//gerando um objeto Traducao.
 		Traducao traducao = regex.traduzir();
 		
-		//Define o tipo de resposta para html
-		response.setContentType("text/html");
+		//Gera uma lista nao ordenada HTML a partir da traducao
+		String texto = traducao.getTextHTML();
 		
-		//Cria um 'escritor' para adcionar conteudo na resposta
-		PrintWriter out = response.getWriter();
+		//Adiciona esta lista em um parametro do request
+		request.setAttribute("traducao", texto);
 		
-		//TODO Redirecionar para uma pagina JSP
-		//TODO Utilizar biblioteca JS de listas na pagina JSP
+		//TODO Adicionar biblioteca JS de arvore
 		
-		//Verifica se ocorreram erros
-		if (traducao.ocorreuErro()) {
-			
-			//Coloca uma mensagem de erro na resposta
-			out.println("<p>A expressao não está correta</p>");
-		}
-		
-		//Se nao ocorreram erros
-		else {
-			
-			//Recupera a traducao em forma de listas nao ordenadas,
-			//utilizando o metodo getTextHTML() do objeto Traducao,
-			//e insere estas listas na resposta
-			out.println(traducao.getTextHTML());
-		}
+		//Cria um novo "pedido de despache", apontando para a pagina inicial
+        RequestDispatcher dispatcher = request.getRequestDispatcher("teste.jsp");
+        
+        //Encaminha o pedido para a pagina inicial
+        dispatcher.forward(request, response);
 	}
 
 }

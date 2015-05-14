@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic);
 
 .menu {
     color:#FFF;
@@ -7,13 +7,14 @@
     position:absolute;
     top:200px;
     width:100%;
-	   font-family: "Roboto";
-  
+    font-family: "Open Sans", sans-serif;
 }
+
 .fixed {
     position:fixed;
     top:0;
 }
+
 .navbar-header {
 background: #2b2b2b;
 background-image: none;
@@ -27,7 +28,4 @@ background-color: #c8bfe7;
 width: 100%;
 height: 5em;
 font-family: "Roboto";
-}
-
-
 }

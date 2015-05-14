@@ -53,10 +53,8 @@ public class Controle extends HttpServlet {
 		//Adiciona esta lista em um parametro do request
 		request.setAttribute("traducao", texto);
 		
-		//TODO Adicionar biblioteca JS de arvore
-		
 		//Cria um novo "pedido de despache", apontando para a pagina inicial
-        RequestDispatcher dispatcher = request.getRequestDispatcher("teste.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         
         //Encaminha o pedido para a pagina inicial
         dispatcher.forward(request, response);

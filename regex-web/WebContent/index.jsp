@@ -106,12 +106,12 @@ Data: 04/15
 			
 			<form method="post" action="Traducao">
 			
-				<!-- coluna para posição-->
+				<!-- coluna para posicao -->
 				<div class="col-sm-8">
 				
-					<!-- ENTRADA DE TEXTO. Painel de antes de apertar o botão. -->
+					<!-- ENTRADA DE TEXTO. Painel de antes de apertar o botao. -->
 					
-					<!-- panel coloca a caixa de texto e seu titulo. Default é do bootstrap como cinzinha/azulzinho. -->
+					<!-- panel coloca a caixa de texto e seu titulo. Default do bootstrap como cinzinha/azulzinho. -->
 					<div class="panel panel-default">
 					
 						<!-- titulo do Panel nao editavel-->
@@ -125,7 +125,8 @@ Data: 04/15
 						</div>
 					</div>
 					
-					<!-- SAIDA DE TEXTO, apos apertar o botao de operação traduzir.-->
+					<!-- SAIDA DE TEXTO, apos apertar o botao de operacao traduzir.-->
+					
 					<!-- panel coloca a caixa de texto e seu titulo. Default e do bootstrap como cinzinha/azulzinho. -->
 					<div class="panel panel-default">
 					
@@ -140,21 +141,12 @@ Data: 04/15
                         -->
                         <div 
                         class="dhtmlxTree"
-                        id="treeboxbox_tree"
-                        setImagePath="ferramentas/dhtmlxtree/imgs/dhxtree_skyblue/">
+                        id="regex-tree"
+                        setImagePath="ferramentas/dhtmlxtree/imgs/dhxtree_web/">
                         	
                             ${traducao}
                             
-                        </div>
-                        
-                        <!--
-                        Script inline que inicializa a exibicao da arvore de dados 
-                        a partir da lista HTML recebida
-                        -->
-						<script>
-							var myTree = dhtmlXTreeFromHTML("treeboxbox_tree");
-						</script>
-                        
+                        </div>                        
 					</div>
 				</div><!-- /.col-sm-8 -->
 				

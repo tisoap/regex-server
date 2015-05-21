@@ -39,25 +39,39 @@ public class Controle extends HttpServlet {
 		//Recupera o valor digitado pelo usuario
 		String input = request.getParameter("regex");
 		
-		//Instancia a classe responsavel em fazer a traducao, passando
-		//para ela o valor recebido do formulario
-		Regex regex = new Regex(input);
+		//Se o valor recuperado nao for vazio...
+		if (input!=null && !input.isEmpty()){
+			
+			//Instancia a classe responsavel em fazer a traducao, passando
+			//para ela o valor recebido do formulario
+			Regex regex = new Regex(input);
+			
+			//Traduz a expressao inserida,
+			//gerando um objeto Traducao.
+			Traducao traducao = regex.traduzir();
+			
+			//Gera uma lista nao ordenada HTML a partir da traducao
+			String texto = traducao.getTextHTML();
+			
+			//Adiciona esta lista em um parametro do request
+			request.setAttribute("traducao", texto);
+			
+			//Adiciona o proprio texto enviado em um parametro do request
+			request.setAttribute("regex", input);
+			
+			//Cria um novo "pedido de despache", apontando para a pagina inicial
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			
+			//Encaminha o pedido para a pagina inicial
+			dispatcher.forward(request, response);
+		}
 		
-		//Traduz a expressao inserida, 
-		//gerando um objeto Traducao.
-		Traducao traducao = regex.traduzir();
-		
-		//Gera uma lista nao ordenada HTML a partir da traducao
-		String texto = traducao.getTextHTML();
-		
-		//Adiciona esta lista em um parametro do request
-		request.setAttribute("traducao", texto);
-		
-		//Cria um novo "pedido de despache", apontando para a pagina inicial
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        
-        //Encaminha o pedido para a pagina inicial
-        dispatcher.forward(request, response);
+		//Se o valor for vazio...
+		else {
+			
+			//Envia uma redirecionamento para a pagina inicial como resposta
+			response.sendRedirect("index.jsp");
+		}
 	}
 
 }

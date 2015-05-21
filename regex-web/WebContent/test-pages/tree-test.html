@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<meta charset="UTF-8">
+	<title>Teste</title>
+	
+	<!-- CSS da biblioteca dhtmlxTree -->
+	<link rel="stylesheet" type="text/css" href="../ferramentas/dhtmlxtree/dhtmlxtree.css">
+	
+	<!-- Sripts da biblioteca dhtmlxTree -->
+	<script src="../ferramentas/dhtmlxtree/dhtmlxcommon.js"></script>
+	<script src="../ferramentas/dhtmlxtree/dhtmlxtree.js"></script>
+	<script src="../ferramentas/dhtmlxtree/dhtmlxtree_start.js"></script>
+	
+</head>
+<body>
+	
+	<h2>Teste</h2>
+	
+	<!-- TODO -->
+	<button onclick="addNodeOneOrMore()">Um ou Mais</button>
+	
+	<p>Arvore</p>
+	
+	<div
+		id="regex-tree"
+		class="dhtmlxTree"
+	    setImagePath="../ferramentas/dhtmlxtree/imgs/dhxtree_web/"
+	    style="width:250px; height:218px;overflow:auto;">
+	    
+	    <ul>
+	        <li>Root
+	            <ul>
+	                <li>Child1
+	                    <ul>
+	                        <li>Child 1-1</li>
+	                    </ul>
+	                <li>Child2</li>
+	                <li><b>Bold</b> <i>Italic</i></li>
+	            </ul>
+	        </li>
+	    </ul>
+	    
+	</div>
+	
+	<!-- TODO -->
+	<form id="tree-form" method="post" action="TraducaoArvore">
+		<input type="hidden" name="serialized-tree">
+		<button onclick="serializeAndSubmit()">Traduzir</button>
+	</form>
+	
+	<!-- Script principal da pagina -->
+	<script src="../js/main.js"></script>
+	
+</body>
+</html>

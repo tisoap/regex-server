@@ -27,14 +27,18 @@ public class Controle extends HttpServlet {
 	/** 
 	 * Se invocado, o metodo doGet chama o metodo doPost.
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
 		doPost(request, response);
 	}
 	
 	/**
-	 * Recebe a expressao digitada pelo usuario no formulario e retorna uma pagina com a traducao como resposta.
+	 * Recebe a expressao digitada pelo usuario no 
+	 * formulario e retorna uma pagina com a traducao como resposta.
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		
 		//Recupera o valor digitado pelo usuario
 		String input = request.getParameter("regex");
@@ -50,11 +54,11 @@ public class Controle extends HttpServlet {
 			//gerando um objeto Traducao.
 			Traducao traducao = regex.traduzir();
 			
-			//Gera uma lista nao ordenada HTML a partir da traducao
-			String texto = traducao.getTextHTML();
+			//Gera um objeto JSON em formato String a partir da traducao
+			String texto = traducao.getJSONString();
 			
-			//Adiciona esta lista em um parametro do request
-			request.setAttribute("traducao", texto);
+			//Adiciona o JSON em um parametro do request
+			request.setAttribute("traducaoJson", texto);
 			
 			//Adiciona o proprio texto enviado em um parametro do request
 			request.setAttribute("regex", input);

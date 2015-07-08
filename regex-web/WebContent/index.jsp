@@ -10,19 +10,27 @@ Data: 04/15
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>RegEx - Regular Expression Translator</title>
-	
-    <!-- Bootstrap -->
+    
+    <!-- CSS Bootstrap -->
     <link href="ferramentas/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="ferramentas/bootstrap-3.3.4-dist/css/bootstrap-theme.min.css" rel="stylesheet">
 	
-    <!-- dhtmlxtree -->
+    <!-- CSS dhtmlxtree -->
     <link rel="stylesheet" type="text/css" href="ferramentas/dhtmlxtree/dhtmlxtree.css">
-	<script src="ferramentas/dhtmlxtree/dhtmlxcommon.js"></script>
-	<script src="ferramentas/dhtmlxtree/dhtmlxtree.js"></script>
-	<script src="ferramentas/dhtmlxtree/dhtmlxtree_start.js"></script>
-    
+	
     <!-- CSS de teste-->
     <link href="css/teste.css" rel="stylesheet">
+    
+    
+    <!-- JS JQuery 2.1.3 -->
+	<script src="ferramentas/jquery-2.1.3.min.js"></script>
+	
+	<!-- JS Bootstrap -->
+	<script src="ferramentas/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+	
+	<!-- JS dhtmlxtree -->
+    <script src="ferramentas/dhtmlxtree/dhtmlxcommon.js"></script>
+	<script src="ferramentas/dhtmlxtree/dhtmlxtree.js"></script>
 	
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -139,14 +147,7 @@ Data: 04/15
                         div que recebe o resultado da traducao, 
                         fazendo uso da biblioteca dhtmlxTree
                         -->
-                        <div 
-                        class="dhtmlxTree"
-                        id="regex-tree"
-                        setImagePath="ferramentas/dhtmlxtree/imgs/dhxtree_web/">
-                        	
-                            ${traducao}
-                            
-                        </div>                        
+						<div id="regex-tree" style="width:250px;height:218px;overflow:auto;"></div>
 					</div>
 				</div><!-- /.col-sm-8 -->
 				
@@ -159,14 +160,11 @@ Data: 04/15
            </form>
 		</div>
     </div>
-
-    <!-- Bootstrap core JavaScript   
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="ferramentas/jquery-2.1.3.min.js"></script>  <!-- funciona como biblioteca para usar jquery -->
-    <script src="ferramentas/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script> <!-- funciona como biblioteca para usar as funcionalidades do bootstrap-->
-    <!-- <script src="../../assets/js/docs.min.js"></script> -->  
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    
+    <!-- Script para inicializar a visualizacao em arvore -->
+    <script type="text/javascript">
+    	var jsonString = "${traducaoJson}";
+    </script>
+	<script src="js/main.js"></script>
   </body>
 </html>

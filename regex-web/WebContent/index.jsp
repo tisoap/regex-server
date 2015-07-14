@@ -21,7 +21,6 @@ Data: 04/15
     <!-- CSS de teste-->
     <link href="css/teste.css" rel="stylesheet">
     
-    
     <!-- JS JQuery 2.1.3 -->
 	<script src="ferramentas/jquery-2.1.3.min.js"></script>
 	
@@ -31,6 +30,12 @@ Data: 04/15
 	<!-- JS dhtmlxtree -->
     <script src="ferramentas/dhtmlxtree/dhtmlxcommon.js"></script>
 	<script src="ferramentas/dhtmlxtree/dhtmlxtree.js"></script>
+	
+	<!-- Variavel que recebe o objeto JSON do servidor em formato String -->
+    <script>var jsonString = "${traducaoJson}";</script>
+    
+    <!-- Script para inicializar a visualizacao em arvore -->
+	<script src="js/main.js"></script>
 	
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -160,11 +165,5 @@ Data: 04/15
            </form>
 		</div>
     </div>
-    
-    <!-- Script para inicializar a visualizacao em arvore -->
-    <script type="text/javascript">
-    	var jsonString = "${traducaoJson}";
-    </script>
-	<script src="js/main.js"></script>
   </body>
 </html>

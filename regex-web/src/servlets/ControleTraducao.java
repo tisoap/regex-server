@@ -14,13 +14,13 @@ import regex.Traducao;
 
 
 /**
- * Servlet que age como mediador entre a pagina HTML e o algoritimo de traducao.
+ * Servlet que age como mediador entre a pagina JSP e o algoritimo de traducao.
  * 
  * @author Tiso
  *
  */
 @WebServlet("/Traducao")
-public class Controle extends HttpServlet {
+public class ControleTraducao extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	

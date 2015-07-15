@@ -39,6 +39,8 @@ public class ControleRegex extends HttpServlet {
 		String input = request.getParameter("jsonTree");
 		
 		//TODO
+		System.out.println();
+		System.out.println("JSON recebido:");
 		System.out.println(input);
 		
 		//Cria um novo "pedido de despache", apontando para a pagina inicial

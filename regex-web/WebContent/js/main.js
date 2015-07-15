@@ -7,19 +7,19 @@
 
 /** ---- Variaveis Globais ---- **/
 
-//Objeto da arvore de visualizacao
+/**Objeto da arvore de visualizacao.**/
 var tree;
 
-//Objeto JSON no formato String
+/**Objeto JSON no formato String.**/
 var json;
 
-//Array de inteiros com os IDs da arvore
+/**Array de inteiros com os IDs da arvore.**/
 var treeItens
 
-//Inteiro com o ultimo ID da arvore
+/**Inteiro com o ultimo ID da arvore.**/
 var lastID;
 
-//Inteiro com o ID do elemento atualmente selecionado do arvore 
+/**Inteiro com o ID do elemento atualmente selecionado do arvore.**/
 var currentSelected;
 
 /** ----- Inicializacao ----- **/
@@ -41,7 +41,7 @@ $(document).ready(function() {
 	//docs.dhtmlx.com/tree__initialization_of_dhtmlxtree.html#objectbasedinitialization
 	tree = new dhtmlXTreeObject("regex-tree","100%","100%",0);
 	
-	//Ativa a opcao de clicar e arastar elementos da arvore. 
+	//Desativa a opcao de clicar e arastar elementos da arvore. 
 	//http://docs.dhtmlx.com/api__dhtmlxtree_enabledraganddrop.html
 	tree.enableDragAndDrop(false, false);
 	
@@ -240,7 +240,8 @@ function getNodeLevel(nodeID){
 
 /**
  * Retorna verdadeiro se a variavel passada for:
- * - Do tipo undefined;
+ * 
+ * - Do tipo 'undefined';
  * - Nula;
  * - Uma String vazia;
  * - Igual a zero;
@@ -251,17 +252,12 @@ function getNodeLevel(nodeID){
  */
 function isFalse(a) {
 	
-	if (
-		typeof a === 'undefined' ||
-		       a === null        ||
-		       a === ""          ||
-		       a === 0           ||
-		       Number.isNaN(a)
-	)
+	//Se a variavel nao foi definida, retorna verdadeiro
+	if(typeof a === 'undefined') return true;
 	
-	return true;
+	if ( a === null || a === "" || a === 0 || Number.isNaN(a) ) return true;
 	
-	else return false;
+	return false;
 }
 
 /** ---- Submit ---- **/

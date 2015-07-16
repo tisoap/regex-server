@@ -158,7 +158,9 @@ Data: 04/15
 				
 				<!-- Coluna que fica a direita -->
 				<div class="col-sm-4">
-					<!--Botao Traduzir-->  
+					<!--Botao Traduzir-->
+					
+					<!-- DS 2 -->
 					<button type="submit" class="btn btn-default">Traduzir</button> 			  
 				</div><!-- /.col-sm-4 -->
 				

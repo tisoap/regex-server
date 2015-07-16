@@ -37,7 +37,7 @@ public class ControleRegex extends HttpServlet {
 		
 		//Recupera o valor digitado pelo usuario
 		String input = request.getParameter("jsonTree");
-		
+		 
 		//TODO
 		System.out.println();
 		System.out.println("JSON recebido:");

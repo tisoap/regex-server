@@ -48,13 +48,16 @@ public class ControleTraducao extends HttpServlet {
 			
 			//Instancia a classe responsavel em fazer a traducao, passando
 			//para ela o valor recebido do formulario
+			/** ----- DS 3-16 ----- **/
 			Regex regex = new Regex(input);
 			
 			//Traduz a expressao inserida,
 			//gerando um objeto Traducao.
+			/** ----- DS 17-36 ----- **/
 			Traducao traducao = regex.traduzir();
 			
 			//Gera um objeto JSON em formato String a partir da traducao
+			/** ----- DS 37-38 ----- **/
 			String texto = traducao.getJSONString();
 			
 			//Adiciona o JSON em um parametro do request
@@ -67,6 +70,7 @@ public class ControleTraducao extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			
 			//Encaminha o pedido para a pagina inicial
+			/** ----- DS 39 ----- **/
 			dispatcher.forward(request, response);
 		}
 		

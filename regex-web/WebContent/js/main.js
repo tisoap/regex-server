@@ -14,9 +14,9 @@ var tree;
 var json;
 
 /**Array de inteiros com os IDs da arvore.**/
-var treeItens
+var treeItens;
 
-/**Inteiro com o ultimo ID da arvore.**/
+/**Inteiro com o ID do ultimo elemento adcionado na arvore.**/
 var lastID;
 
 /**Inteiro com o ID do elemento atualmente selecionado do arvore.**/
@@ -25,14 +25,14 @@ var currentSelected;
 /** ----- Inicializacao ----- **/
 
 //So executa a inicializacao quando a pagina estiver carregada
-$(document).ready(function() {
+$(document).ready(function(){
 	
 	//TODO
 	//Testa se foi recebida uma String JSON
-	if(isFalse(jsonString)){
+	if(isNotValid(jsonString)){
 		//String JSON Padrao para testes
-		jsonString = "{\"id\":0,\"item\":[{\"id\":1,\"text\":\"Caracteres: a\",\"child\":0,\"userdata\":[{\"name\":\"nivel\",\"content\":0},{\"name\":\"original\",\"content\":\"a\"},{\"name\":\"regra\",\"content\":\"CHARACTERS\"},{\"name\":\"terminal\",\"content\":true}]}]}";
-	}
+		jsonString = "{\"id\":0,\"item\":[{\"id\":1,\"text\":\"Caracteres: a\",\"child\":0,\"userdata\":[{\"name\":\"nivel\",\"content\":0},{\"name\":\"original\",\"content\":\"a\"},{\"name\":\"regra\",\"content\":\"CHARACTERS\"},{\"name\":\"terminal\",\"content\":true},{\"name\":\"texto\",\"content\":\"a\"}]}]}";
+	};
 	
 	//Conversao da string para objeto JSON
 	json = jQuery.parseJSON(jsonString);
@@ -73,41 +73,42 @@ $(document).ready(function() {
 });
 
 /** ----- Funcoes Adcionar Nos ----- **/
+//TODO Criar funcoes restantes
 
 /**
  * Insere 'Um ou mais' na arvore.
  */
 function addOneOrMore(){
 	
-	//Recupera o elemento selecionado atual
-	currentSelected = tree.getSelectedItemId();
-	
-	//Incrementa o contador de IDs
-	lastID++;
-	
-	//Se o elemento selecionado for terminal
-	if (isTerminal(currentSelected))
-		//Adciona o novo no abaixo dele
-		addNonTerminalNext(currentSelected, lastID, "Um ou mais:");
-	
-	else
-		//Se nao, adciona como filho do elemento
-		addNonTerminalChild(currentSelected, lastID, "Um ou mais:");
-	
-	//Adciona o nome da regra do elemento
-	tree.setUserData(lastID,"regra","ONE_OR_MORE");
+	//Adiciona o elemento na arvore
+	addNonTerminal("Um ou mais:","ONE_OR_MORE");
 }
 
 /**
- * Insere um texto qualquer digitado pelo usuario como 'caracteres'.
+ * Insere um texto qualquer digitado pelo usuario na arvore.
  */
 function addCharacters(){
 	
-	var texto;
+	//Exibe um prompt e armazena o que foi digitado nele
+	var texto = prompt("Digite seu texto:");
 	
-	//Continua exibindo o prompt ate que seja digitado um texto
-	while (isFalse(texto))
-		texto = prompt("Digite seu texto:");
+	//Se o texto nao for um valor valido, retorna sem fazer nada
+	if(isNotValid(texto)) return;
+	
+	//Adiciona o elemento na arvore
+	addTerminal("Caracteres: " + texto, "CHARACTERS");
+	
+	//Adiciona o texto digitado pelo usuario nos metadados do elemento
+	tree.setUserData(lastID,"texto",texto);
+}
+
+/**
+ * Adciona um no terminal na arvore.
+ * 
+ * @param nonTerminalText O texto do novo no.
+ * @param rule A regra na qual o no pertence.
+ */
+function addTerminal(terminalText, rule){
 	
 	//Recupera o elemento selecionado atual
 	currentSelected = tree.getSelectedItemId();
@@ -118,40 +119,76 @@ function addCharacters(){
 	//Se o elemento selecionado for terminal
 	if (isTerminal(currentSelected))
 		//Adciona o novo no abaixo dele
-		addTerminalNext(currentSelected, lastID, "Caracteres: " + texto);
+		addTerminalNext(currentSelected, lastID, terminalText);
 	else
 		//Se nao, adciona como filho do elemento
-		addTerminalChild(currentSelected, lastID, "Caracteres: " + texto);
+		addTerminalChild(currentSelected, lastID, terminalText);
 	
-	//Adciona o nome da regra do elemento
-	tree.setUserData(lastID,"regra","CHARACTERS");
+	//Adiciona a regra recebida nos metadados do elemento
+	tree.setUserData(lastID,"regra",rule);
 }
 
 /**
- * Adciona um no nao terminal como filho do no atualmente selecionado.
+ * Adciona um no nao terminal na arvore.
  * 
- * @param label O texto do no.
+ * @param nonTerminalText O texto do novo no.
+ * @param rule A regra na qual o no pertence.
  */
-function addNonTerminalChild(parent, newID, label) {
+function addNonTerminal(nonTerminalText, rule){
+	
+	//Recupera o elemento selecionado atual
+	currentSelected = tree.getSelectedItemId();
+	
+	//Incrementa o contador de IDs
+	lastID++;
+	
+	//Se o elemento selecionado for terminal
+	if (isTerminal(currentSelected)){
+		
+		//Adiciona o no abaixo dele
+		addTerminalNext(currentSelected, lastID, nonTerminalText);
+	}
+	
+	//Se o elemento selecionado nao for terminal
+	else {
+		
+		//Adiciona o no como filho do elemento
+		addTerminalChild(currentSelected, lastID, nonTerminalText);
+	}
+	
+	//Adiciona a regra recebida nos metadados do elemento
+	tree.setUserData(lastID,"regra",rule);
+}
+
+/**
+ * Adciona um no nao terminal como filho de outro no.
+ * 
+ * @param parent O ID do no pai.
+ * @param newID O ID do novo no.
+ * @param label O texto do novo no.
+ */
+function addNonTerminalChild(parent, newID, label){
 	
 	//Adciona como filho do no selecionado
 	//http://docs.dhtmlx.com/api__dhtmlxtree_insertnewchild.html
 	tree.insertNewChild(parent,newID,label,0,0,0,0,"CHILD");
 	
-	//Marca o no como nao terminal
+	//Marca o no como nao terminal nos metadados
 	//http://docs.dhtmlx.com/api__dhtmlxtree_setuserdata.html
 	tree.setUserData(newID,"terminal",false);
 	
-	//Adciona o nivel de profundidade do no
+	//Adciona o nivel de profundidade do no nos metadados
 	tree.setUserData(newID,"nivel",getNodeLevel(lastID));
 }
 
 /**
- * Adciona um no terminal como filho do no atualmente selecionado.
+ * Adciona um no terminal como filho de outro no.
  * 
- * @param label O texto do no.
+ * @param parent O ID do no pai.
+ * @param newID O ID do novo no.
+ * @param label O texto do novo no.
  */
-function addTerminalChild(parent, newID, label) {
+function addTerminalChild(parent, newID, label){
 	
 	//Adciona como filho do no selecionado
 	//http://docs.dhtmlx.com/api__dhtmlxtree_insertnewchild.html
@@ -165,13 +202,14 @@ function addTerminalChild(parent, newID, label) {
 	tree.setUserData(newID,"nivel",getNodeLevel(lastID));
 }
 
-
 /**
- * Adciona um no nao terminal abaixo do no atualmente selecionado.
- * 
- * @param label O texto do no.
+ *  Adciona um no nao terminal abaixo de outro no.
+ *  
+ * @param previous O ID do no anterior.
+ * @param newID O ID do novo no.
+ * @param label O texto do novo no.
  */
-function addNonTerminalNext(previous, newID, label) {
+function addNonTerminalNext(previous, newID, label){
 	
 	//Adciona abaixo do no selecionado
 	//http://docs.dhtmlx.com/api__dhtmlxtree_insertnewnext.html
@@ -185,13 +223,14 @@ function addNonTerminalNext(previous, newID, label) {
 	tree.setUserData(newID,"nivel",getNodeLevel(lastID));	
 }
 
-
 /**
- * Adciona um no terminal abaixo do no atualmente selecionado.
+ * Adciona um no terminal abaixo de outro no.
  * 
- * @param label O texto do no.
+ * @param previous O ID do no anterior.
+ * @param newID O ID do novo no.
+ * @param label O texto do novo no.
  */
-function addTerminalNext(previous, newID, label) {
+function addTerminalNext(previous, newID, label){
 	
 	//Adciona abaixo do no selecionado
 	//http://docs.dhtmlx.com/api__dhtmlxtree_insertnewnext.html
@@ -250,7 +289,7 @@ function getNodeLevel(nodeID){
  * @param a A variavel a ser checada
  * @return Um valor booleano
  */
-function isFalse(a) {
+function isNotValid(a){
 	
 	//Se a variavel nao foi definida, retorna verdadeiro
 	if(typeof a === 'undefined') return true;
@@ -278,5 +317,6 @@ function serializeAndSubmit(){
 	input.value = serializedTree;
 	
 	//Faz o submit do formulario
+	/** ----- DS 2 ----- */
 	document.getElementById('tree-form').submit();
 }

@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet que age como mediador entre a pagina JSP e o algoritimo de montagem de expressao.
+ * Servlet que age como mediador entre a pagina JSP e o algoritimo
+ * de montagem de expressoes regulares.
  * 
  * @author Tiso
  *
@@ -38,13 +39,13 @@ public class ControleRegex extends HttpServlet {
 		//Recupera o valor digitado pelo usuario
 		String input = request.getParameter("jsonTree");
 		 
-		//TODO
+		//TODO Tratar o JSON recebido
 		System.out.println();
 		System.out.println("JSON recebido:");
 		System.out.println(input);
 		
 		//Cria um novo "pedido de despache", apontando para a pagina inicial
-		RequestDispatcher dispatcher = request.getRequestDispatcher("tree-test.html");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("tree-test.jsp");
 		
 		//Encaminha o pedido para a pagina inicial
 		dispatcher.forward(request, response);

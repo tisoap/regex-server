@@ -7,19 +7,21 @@
 
 /** ---- Variaveis Globais ---- **/
 
-/**Objeto da arvore de visualizacao.**/
+/** Objeto da arvore de visualizacao.**/
 var tree;
 
-/**Objeto JSON no formato String.**/
+/** Objeto JSON no formato String.**/
 var json;
 
-/**Array de inteiros com os IDs da arvore.**/
+/** Array de inteiros com os IDs da arvore.**/
 var treeItens;
 
-/**Inteiro com o ID do ultimo elemento adcionado na arvore.**/
+/** Inteiro com o ID do ultimo elemento adcionado na arvore.
+ *  Funcoes que adicionam elementos sempre incrementam esta
+ *  variavel. */
 var lastID;
 
-/**Inteiro com o ID do elemento atualmente selecionado do arvore.**/
+/** Inteiro com o ID do elemento atualmente selecionado do arvore.**/
 var currentSelected;
 
 /** ----- Inicializacao ----- **/
@@ -27,17 +29,18 @@ var currentSelected;
 //So executa a inicializacao quando a pagina estiver carregada
 $(document).ready(function(){
 	
-	//TODO
+	//TODO Remover teste
 	//Testa se foi recebida uma String JSON
 	if(isNotValid(jsonString)){
 		//String JSON Padrao para testes
-		jsonString = "{\"id\":0,\"item\":[{\"id\":1,\"text\":\"Caracteres: a\",\"child\":0,\"userdata\":[{\"name\":\"nivel\",\"content\":0},{\"name\":\"original\",\"content\":\"a\"},{\"name\":\"regra\",\"content\":\"CHARACTERS\"},{\"name\":\"terminal\",\"content\":true},{\"name\":\"texto\",\"content\":\"a\"}]}]}";
+		//jsonString = "{\"id\":0,\"item\":[{\"id\":1,\"text\":\"Caracteres: a\",\"child\":0,\"userdata\":[{\"name\":\"nivel\",\"content\":0},{\"name\":\"original\",\"content\":\"a\"},{\"name\":\"regra\",\"content\":\"CHARACTERS\"},{\"name\":\"terminal\",\"content\":true},{\"name\":\"texto\",\"content\":\"a\"}]}]}";
+		jsonString = "{\"id\":\"0\", \"item\":[{ \"id\":\"1\", \"text\":\"Caracteres: a\", \"userdata\":[{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"original\" , \"content\":\"a\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"texto\" , \"content\":\"a\" }]}\n,{ \"id\":\"12\", \"open\":\"1\", \"select\":\"1\", \"text\":\"Um ou mais:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"ONE_OR_MORE\" }], \"item\":[{ \"id\":\"13\", \"text\":\"Caracteres: bla\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"bla\" }]}\n]\n}\n,{ \"id\":\"10\", \"open\":\"1\", \"text\":\"Zero ou mais:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"ZERO_OR_MORE\" }], \"item\":[{ \"id\":\"11\", \"text\":\"Caracteres: nothing\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"nothing\" }]}\n]\n}\n,{ \"id\":\"8\", \"open\":\"1\", \"text\":\"Pelo menos 9 repeticoes de:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"AT_LEAST\" },{ \"name\":\"numero1\" , \"content\":\"9\" }], \"item\":[{ \"id\":\"9\", \"text\":\"Caracteres: sdhaksfdh\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"sdhaksfdh\" }]}\n]\n}\n,{ \"id\":\"6\", \"open\":\"1\", \"text\":\"Entre 5 e 9 repeticoes de:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"BETWEEN\" },{ \"name\":\"numero1\" , \"content\":\"5\" },{ \"name\":\"numero2\" , \"content\":\"9\" }], \"item\":[{ \"id\":\"7\", \"text\":\"Caracteres: teste\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"teste\" }]}\n]\n}\n,{ \"id\":\"2\", \"open\":\"1\", \"text\":\"Pode ou nao ter:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"CONDITIONAL\" }], \"item\":[{ \"id\":\"3\", \"text\":\"Caracteres: b\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"b\" }]}\n,{ \"id\":\"4\", \"open\":\"1\", \"text\":\"Exatamente 5 repeticoes de:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"EXACT\" },{ \"name\":\"numero1\" , \"content\":\"5\" }], \"item\":[{ \"id\":\"5\", \"text\":\"Caracteres: c\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"2\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"c\" }]}\n]\n}\n]\n}\n]}";
 	};
 	
-	//Conversao da string para objeto JSON
+	//Conversao da string para um objeto JSON
 	json = jQuery.parseJSON(jsonString);
 	
-	//Inicializa um novo objeto de arvore
+	//Inicializa um novo objeto da arvore
 	//docs.dhtmlx.com/tree__initialization_of_dhtmlxtree.html#objectbasedinitialization
 	tree = new dhtmlXTreeObject("regex-tree","100%","100%",0);
 	
@@ -56,11 +59,25 @@ $(document).ready(function(){
 	//Carrega os dados do objeto JSON na arvore
 	tree.loadJSONObject(json);
 	
-	//Recupera um array com todos os IDs de todos os itens dentro da raiz da arvore
-	treeItens = tree.getAllSubItems(0);
+	//Recupera uma String com todos os IDs de todos os itens dentro da raiz da arvore
+	//separados por virgula
+	stringTreeItens = tree.getAllSubItems(0);
 	
-	//Recupera o ultimo ID do array, convertendo-o para numero inteiro
-	lastID = parseInt(treeItens[treeItens.length - 1]);
+	//Cria um array de IDs a partir de uma string, usando virgula
+	//como separador de elementos
+	treeItens = stringTreeItens.split(",");
+	
+	//Converte todos os itens do array de Strings para inteiros
+	for (var i=0; i<treeItens.length; i++){
+		treeItens[i] = parseInt(treeItens[i]);
+	}
+	
+	//Ordena os itens do array por ordem numerica
+	//http://stackoverflow.com/questions/1063007/how-to-sort-an-array-of-integers-correctly
+	treeItens = treeItens.sort(sortNumber);
+	
+	//Recupera o ultimo ID do array
+	lastID = treeItens[treeItens.length - 1];
 	
 	//Seleciona o primeiro elemento
 	//http://docs.dhtmlx.com/api__dhtmlxtree_selectitem.html
@@ -73,22 +90,118 @@ $(document).ready(function(){
 });
 
 /** ----- Funcoes Adcionar Nos ----- **/
-//TODO Criar funcoes restantes
 
-/**
- * Insere 'Um ou mais' na arvore.
- */
+//TODO Criar funcoes restantes
+//TODO Recuperar texto do usuario de outra forma que nao sejam prompts
+//TODO Bloquear adicao de nos em certas situacoes
 function addOneOrMore(){
-	
-	//Adiciona o elemento na arvore
 	addNonTerminal("Um ou mais:","ONE_OR_MORE");
 }
-
-/**
- * Insere um texto qualquer digitado pelo usuario na arvore.
- */
-function addCharacters(){
+function addZeroOrMore(){
+	addNonTerminal("Zero ou mais:","ZERO_OR_MORE");
+}
+function addConditional(){
+	addNonTerminal("Pode ou nao ter:","CONDITIONAL");
+}
+function addExact(){
+	//Exibe um prompt e armazena o que foi digitado nele
+	var texto = prompt("Digite a quantidade:");
 	
+	//Converte o texto para um numero inteiro
+	var numero = parseInt(texto);
+	
+	//So adiciona se o numero for maior ou igual a zero
+	if(numero < 0) return;
+	
+	addNonTerminal("Exatamente " + numero + " repeticoes de:","EXACT");
+
+	//Adiciona o numero digitado pelo usuario nos metadados do elemento
+	tree.setUserData(lastID,"numero1",numero);
+}
+function addAtLeast(){
+	//Exibe um prompt e armazena o que foi digitado nele
+	var texto = prompt("Digite a quantidade:");
+	
+	//Converte o texto para um numero inteiro
+	var numero = parseInt(texto);
+	
+	//So adiciona se o numero for maior ou igual a zero
+	if(numero < 0) return;
+		
+	addNonTerminal("Pelo menos " + numero + " repeticoes de:","AT_LEAST");
+
+	//Adiciona o numero digitado pelo usuario nos metadados do elemento
+	tree.setUserData(lastID,"numero1",numero);
+}
+function addBetween(){
+	//Exibe um prompt e armazena o que foi digitado nele
+	var texto1 = prompt("Digite o primeiro numero:");
+	var texto2 = prompt("Digite o segundo numero:");
+	
+	//Converte o texto para um numero inteiro
+	var numero1 = parseInt(texto1);
+	var numero2 = parseInt(texto2);
+	
+	//So adiciona se o primeiro numero for maior ou igual a zero
+	//e menor que o segundo numero
+	if(numero1 < 0 || numero2 < numero1) return;
+		
+	addNonTerminal("Entre " + numero1 + " e " + numero2 + " repeticoes de:","BETWEEN");
+	
+	//Adiciona os numeros digitados pelo usuario nos metadados do elemento
+	tree.setUserData(lastID,"numero1",numero1);
+	tree.setUserData(lastID,"numero2",numero2);
+}
+function addList(){
+	addNonTerminal("Qualquer um dos caracteres:","POSITIVE_LIST");
+}
+function addNegativeList(){
+	addNonTerminal("Qualquer caractere que nao seja:","NEGATIVE_LIST");
+}
+function addGroup(){
+	addNonTerminal("Grupo:","GROUP");
+}
+function addMultiple(){
+	//Adiciona um elemento MULTIPLE na arvore
+	addNonTerminal("Uma das opcoes:","MULTIPLE");
+	
+	//Recupera o ID do elemento MULTIPLE que acabou de ser adcionado na arvore.
+	var multipleID = lastID;
+	
+	//Adiciona dois elementos SUB_EXPRESSION como filhos do elemento MULTIPLE.
+	//E obrigatorio que um elemento MULTIPLE tenha no minino duas opcoes.
+	addNonTerminalNextTo("Opcao:","SUB_EXPRESSION",multipleID);
+	addNonTerminalNextTo("Opcao:","SUB_EXPRESSION",multipleID);
+}
+function addOption(){
+	addNonTerminal("Opcao:","SUB_EXPRESSION");
+}
+function addStart(){
+	addTerminal("Inicio", "START_ANCHOR");
+}
+function addEnd(){
+	addTerminal("Fim", "END_ANCHOR");
+}
+function addAnyChar(){
+	addTerminal("Qualquer caractere", "ANY_CHAR");
+}
+function addRange(){
+	//Exibe um prompt e armazena o que foi digitado nele
+	var texto1 = prompt("Digite o primeiro caractere:");
+	var texto2 = prompt("Digite o ultimo caractere:");
+	
+	//Se foi digitado mais de um caractere ou nenhum caractere,
+	//retorna sem fazer nada
+	if (texto1.length != 1 || texto2.length != 1) return;
+	
+	//Adiciona o elemento na arvore
+	addTerminal("Todos os caracteres entre " + texto1 + " e " + texto2, "RANGE");
+	
+	//Adiciona o texto digitado pelo usuario nos metadados do elemento
+	tree.setUserData(lastID,"caractere1",texto1);
+	tree.setUserData(lastID,"caractere2",texto2);
+}
+function addCharacters(){
 	//Exibe um prompt e armazena o que foi digitado nele
 	var texto = prompt("Digite seu texto:");
 	
@@ -102,58 +215,106 @@ function addCharacters(){
 	tree.setUserData(lastID,"texto",texto);
 }
 
+/** ----- Funcoes Adcionar Nos Auxiliares ----- **/
+
 /**
- * Adciona um no terminal na arvore.
+ * Adciona um no terminal na arvore em relacao ao no atualmente
+ * selecionado.
  * 
- * @param nonTerminalText O texto do novo no.
- * @param rule A regra na qual o no pertence.
+ * Este novo no pode ser posiciona do logo abaixo do no selecionado,
+ * ou como filho dele. Isto ira depender se o no selecionado e
+ * terminal ou nao.
+ * 
+ * @param nonTerminalText	O texto do novo no.
+ * @param rule				A regra na qual o no pertence.
  */
 function addTerminal(terminalText, rule){
 	
-	//Recupera o elemento selecionado atual
+	//Recupera o elemento atualmente selecionado na arvore
 	currentSelected = tree.getSelectedItemId();
+	
+	//Adiciona o novo elemento em relacao ao elemento selecionado 
+	addTerminalNextTo(terminalText, rule, currentSelected);
+}
+
+/**
+ * Adciona um no nao terminal na arvore em relacao a um outro no.
+ * 
+ * Este novo no pode ser posiciona do logo abaixo de um elemento,
+ * ou como filho dele. Isto ira depender se este elemento e 
+ * terminal ou nao.
+ * 
+ * @param nonTerminalText	O texto do novo no.
+ * @param rule				A regra na qual o no pertence.
+ * @param nextTo			O ID do no onde o novo elemento ficara abaixo 
+ * 							ou sera filho de.
+ */
+function addTerminalNextTo(terminalText, rule, nextTo){
 	
 	//Incrementa o contador de IDs
 	lastID++;
 	
 	//Se o elemento selecionado for terminal
-	if (isTerminal(currentSelected))
+	if (isTerminal(nextTo))
 		//Adciona o novo no abaixo dele
-		addTerminalNext(currentSelected, lastID, terminalText);
+		addTerminalNext(nextTo, lastID, terminalText);
 	else
 		//Se nao, adciona como filho do elemento
-		addTerminalChild(currentSelected, lastID, terminalText);
+		addTerminalChild(nextTo, lastID, terminalText);
 	
 	//Adiciona a regra recebida nos metadados do elemento
 	tree.setUserData(lastID,"regra",rule);
 }
 
 /**
- * Adciona um no nao terminal na arvore.
+ * Adciona um no nao terminal na arvore em relacao ao no atualmente
+ * selecionado.
  * 
- * @param nonTerminalText O texto do novo no.
- * @param rule A regra na qual o no pertence.
+ * Este novo no pode ser posiciona do logo abaixo do no selecionado,
+ * ou como filho dele. Isto ira depender se o no selecionado e
+ * terminal ou nao.
+ * 
+ * @param nonTerminalText	O texto do novo no.
+ * @param rule				A regra na qual o no pertence.
  */
 function addNonTerminal(nonTerminalText, rule){
 	
-	//Recupera o elemento selecionado atual
+	//Recupera o elemento atualmente selecionado na arvore
 	currentSelected = tree.getSelectedItemId();
+	
+	//Adiciona o novo elemento em relacao ao elemento selecionado 
+	addNonTerminalNextTo(nonTerminalText, rule, currentSelected);
+}
+
+/**
+ * Adciona um no nao terminal na arvore em relacao a um outro no.
+ * 
+ * Este novo no pode ser posiciona do logo abaixo de um elemento,
+ * ou como filho dele. Isto ira depender se este elemento e 
+ * terminal ou nao.
+ * 
+ * @param nonTerminalText	O texto do novo no.
+ * @param rule				A regra na qual o no pertence.
+ * @param nextTo			O ID do no onde o novo elemento ficara abaixo 
+ * 							ou sera filho de.
+ */
+function addNonTerminalNextTo(nonTerminalText, rule, nextTo){
 	
 	//Incrementa o contador de IDs
 	lastID++;
 	
 	//Se o elemento selecionado for terminal
-	if (isTerminal(currentSelected)){
+	if (isTerminal(nextTo)){
 		
 		//Adiciona o no abaixo dele
-		addTerminalNext(currentSelected, lastID, nonTerminalText);
+		addNonTerminalNext(nextTo, lastID, nonTerminalText);
 	}
 	
 	//Se o elemento selecionado nao for terminal
 	else {
 		
 		//Adiciona o no como filho do elemento
-		addTerminalChild(currentSelected, lastID, nonTerminalText);
+		addNonTerminalChild(nextTo, lastID, nonTerminalText);
 	}
 	
 	//Adiciona a regra recebida nos metadados do elemento
@@ -163,9 +324,9 @@ function addNonTerminal(nonTerminalText, rule){
 /**
  * Adciona um no nao terminal como filho de outro no.
  * 
- * @param parent O ID do no pai.
- * @param newID O ID do novo no.
- * @param label O texto do novo no.
+ * @param parent	O ID do no pai.
+ * @param newID		O ID do novo no.
+ * @param label		O texto do novo no.
  */
 function addNonTerminalChild(parent, newID, label){
 	
@@ -184,9 +345,9 @@ function addNonTerminalChild(parent, newID, label){
 /**
  * Adciona um no terminal como filho de outro no.
  * 
- * @param parent O ID do no pai.
- * @param newID O ID do novo no.
- * @param label O texto do novo no.
+ * @param parent	O ID do no pai.
+ * @param newID		O ID do novo no.
+ * @param label		O texto do novo no.
  */
 function addTerminalChild(parent, newID, label){
 	
@@ -205,9 +366,9 @@ function addTerminalChild(parent, newID, label){
 /**
  *  Adciona um no nao terminal abaixo de outro no.
  *  
- * @param previous O ID do no anterior.
- * @param newID O ID do novo no.
- * @param label O texto do novo no.
+ * @param previous	O ID do no anterior.
+ * @param newID		O ID do novo no.
+ * @param label		O texto do novo no.
  */
 function addNonTerminalNext(previous, newID, label){
 	
@@ -226,9 +387,9 @@ function addNonTerminalNext(previous, newID, label){
 /**
  * Adciona um no terminal abaixo de outro no.
  * 
- * @param previous O ID do no anterior.
- * @param newID O ID do novo no.
- * @param label O texto do novo no.
+ * @param previous	O ID do no anterior.
+ * @param newID		O ID do novo no.
+ * @param label		O texto do novo no.
  */
 function addTerminalNext(previous, newID, label){
 	
@@ -244,30 +405,29 @@ function addTerminalNext(previous, newID, label){
 	tree.setUserData(newID,"nivel",getNodeLevel(lastID));
 }
 
-/** ----- Funcoes Auxiliares ----- **/
+/** ----- Funcoes Auxiliares Gerais ----- **/
 
 /**
  * Verifica se o no e terminal.
  * 
- * @param nodeID O id do no.
- * @returns {boolean} Verdadeiro se for terminal.
+ * @param nodeID		O id do no.
+ * @returns {boolean}	Verdadeiro se for terminal.
  */
 function isTerminal(nodeID){
 	
+	//Recupera o valor boleano dos metadados do no
 	var terminal = tree.getUserData(nodeID,"terminal");
 	
 	return terminal;
-	
 }
 
 /**
  * Retorna o nivel de profundidado do no.
  * 
- * @param nodeID O id do no
- * @returns {Number} O nivel de profundidade
+ * @param nodeID		O ID do no.
+ * @returns {Number}	O nivel de profundidade.
  */
 function getNodeLevel(nodeID){
-	
 	//Recupera o nivel de profundidade do no
 	var level = tree.getLevel(nodeID);
 	
@@ -286,8 +446,8 @@ function getNodeLevel(nodeID){
  * - Igual a zero;
  * - Do tipo NaN;
  * 
- * @param a A variavel a ser checada
- * @return Um valor booleano
+ * @param a		A variavel a ser checada
+ * @return		Um valor booleano
  */
 function isNotValid(a){
 	
@@ -299,8 +459,15 @@ function isNotValid(a){
 	return false;
 }
 
-/** ---- Submit ---- **/
+/**
+ * Funcao de comparacao numerica para ser usada pelo
+ * array.sort() do Javascript.
+ */
+function sortNumber(a,b) {
+    return a - b;
+}
 
+/** ---- Submit ---- **/
 
 /**
  * Serializa a arvore e envia para o servidor.
@@ -313,7 +480,7 @@ function serializeAndSubmit(){
 	//Serializa a arvore para JSON, em formato String
 	var serializedTree = tree.serializeTreeToJSON();
 	
-	//Define o valor do campo como o objeto JSON
+	//Define o valor do campo como o objeto JSON serializado
 	input.value = serializedTree;
 	
 	//Faz o submit do formulario

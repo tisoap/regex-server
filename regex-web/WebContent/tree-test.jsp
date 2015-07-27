@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
 	<meta charset="UTF-8">
 	<title>Teste</title>
 	
@@ -15,14 +14,12 @@
 	<script src="ferramentas/dhtmlxtree/dhtmlxcommon.js"></script>
 	<script src="ferramentas/dhtmlxtree/dhtmlxtree.js"></script>
 	
-	<script>var jsonString;</script>
-	
 	<!-- Script principal da pagina -->
+	<script>var jsonString;</script>
 	<script src="js/main.js"></script>
 </head>
 <body>
-	
-	<h2>Teste</h2>
+	<h1>Teste</h1>
 	
 	<button onclick="addOneOrMore()">Um ou Mais</button>
 	<button onclick="addZeroOrMore()">Zero ou Mais</button>
@@ -42,14 +39,35 @@
 	<button onclick="addAnyChar()">Qualquer caractere</button>
 	<button onclick="addRange()">Serie</button>
 	<br>
+	<select id="class-select" onchange="addClass()">
+		<option selected="selected" value="none"></option>
+		<option value="ALNUM">Caracteres alfanumericos</option>
+		<option value="ALPHA">Caracteres alfabeticos</option>
+		<option value="BLANK">Espacos e tabulacoes</option>
+		<option value="CNTRL">Caracteres de controle</option>
+		<option value="DIGIT_CLASS">Digitos</option>
+		<option value="GRAPH">Caracteres visiveis</option>
+		<option value="LOWER">Letras minusculas</option>
+		<option value="PRINT">Caracteres visiveis e espaco</option>
+		<option value="PUNCT">Caracteres de pontuacao</option>
+		<option value="SPACE_CLASS">Caracteres brancos</option>
+		<option value="UPPER">Letras maiusculas</option>
+		<option value="X_DIGIT">Numeros hexadecimais</option>
+	</select>
+	<br>
 	<button onclick="addCharacters()">Texto</button>
 	
-	<div id="regex-tree" style="width:500px;height:400px;overflow:auto;"></div>
+	<br>
+	
+	<div id="regex-tree" style="width:500px;height:100%;overflow:auto;"></div>
+	
+	<br>
 	
 	<form id="tree-form" method="post" action="Regex">
 		<input type="text" name="regex" id="regexInput">
 		<input type="hidden" name="jsonTree" id="serializedInput">
 		<button onclick="serializeAndSubmit()">Traduzir</button>
-	</form>	
+	</form>
+	
 </body>
 </html>

@@ -176,6 +176,30 @@ function addMultiple(){
 function addOption(){
 	addNonTerminal("Opcao:","SUB_EXPRESSION");
 }
+/**
+ * Funcao que e executada no "onchange" do seletor de classes
+ * (elemento HTML option de ID "class-select").
+ */
+function addClass(){
+	
+	//Recupera o valor da opcao selecionada
+	//Sera colocado nos metadados do no como o valor da regra
+	var regra = getSelectedValue("class-select")
+	
+	//Se a opcao escolhida for uma em branco, retorna sem fazer nada
+	if (regra == "none") return;
+	
+	//Recupera o texto da opcao selecionada
+	//Sera utilizado no texto do no
+	var texto = getSelectedText("class-select");
+	
+	//Adiciona a classe escolhida na arvore
+	addTerminal(texto, regra);
+	
+	//Seleciona a primeira opcao do elemento option
+	//(Esta deve ser a opcao em branco)
+	selectFirstValue("class-select");
+}
 function addStart(){
 	addTerminal("Inicio", "START_ANCHOR");
 }
@@ -466,6 +490,47 @@ function isNotValid(a){
 function sortNumber(a,b) {
     return a - b;
 }
+
+/**
+ * Retorna o texto da opcao selecionada em
+ * um elemento option.
+ * 
+ * @param elementId		O ID do elemento option.
+ * @returns				O texto puro da opcao selecionada.
+ */
+function getSelectedText(elementId) {
+    var element = document.getElementById(elementId);
+
+    if (element.selectedIndex == -1)
+        return null;
+
+    return element.options[element.selectedIndex].text;
+}
+
+/**
+ * Retorna o valor da opcao selecionada em
+ * um elemento option.
+ * 
+ * @param elementId		O ID do elemento option.
+ * @returns				O valor contido no atributo "value" da opcao selecionada.
+ */
+function getSelectedValue(elementId){
+	var element = document.getElementById(elementId);
+	
+	return element.value;
+}
+
+/**
+ * Seleciona a primeira opcao de um elemento option.
+ * 
+ * @param elementId		O ID do elemento option.
+ */
+function selectFirstValue(elementId){
+	var element = document.getElementById(elementId);
+	
+	element.selectedIndex = "0";
+}
+
 
 /** ---- Submit ---- **/
 

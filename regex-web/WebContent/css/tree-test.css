@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+
+button, select {
+	margin: 3px;
+}
+
+#content-wrapper {
+	width: 70%;
+	margin:auto;
+}
+
+#regex-tree {
+	width:400px;
+	height:100%;
+	overflow:auto;
+	margin: 2em;
+}
+
+#regex-tree, #buttons {
+	border: solid 1px black;
+	padding: 2px;
+}

@@ -13,15 +13,12 @@ var tree;
 /** Objeto JSON no formato String.**/
 var json;
 
-/** Array de inteiros com os IDs da arvore.**/
-var treeItens;
-
 /** Inteiro com o ID do ultimo elemento adcionado na arvore.
  *  Funcoes que adicionam elementos sempre incrementam esta
  *  variavel. */
 var lastID;
 
-/** Inteiro com o ID do elemento atualmente selecionado do arvore.**/
+/** String com o ID do elemento atualmente selecionado do arvore.**/
 var currentSelected;
 
 /** ----- Inicializacao ----- **/
@@ -32,9 +29,10 @@ $(document).ready(function(){
 	//TODO Remover teste
 	//Testa se foi recebida uma String JSON
 	if(isNotValid(jsonString)){
-		//String JSON Padrao para testes
+		//String JSON para testes
 		//jsonString = "{\"id\":0,\"item\":[{\"id\":1,\"text\":\"Caracteres: a\",\"child\":0,\"userdata\":[{\"name\":\"nivel\",\"content\":0},{\"name\":\"original\",\"content\":\"a\"},{\"name\":\"regra\",\"content\":\"CHARACTERS\"},{\"name\":\"terminal\",\"content\":true},{\"name\":\"texto\",\"content\":\"a\"}]}]}";
-		jsonString = "{\"id\":\"0\", \"item\":[{ \"id\":\"1\", \"text\":\"Caracteres: a\", \"userdata\":[{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"original\" , \"content\":\"a\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"texto\" , \"content\":\"a\" }]}\n,{ \"id\":\"12\", \"open\":\"1\", \"select\":\"1\", \"text\":\"Um ou mais:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"ONE_OR_MORE\" }], \"item\":[{ \"id\":\"13\", \"text\":\"Caracteres: bla\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"bla\" }]}\n]\n}\n,{ \"id\":\"10\", \"open\":\"1\", \"text\":\"Zero ou mais:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"ZERO_OR_MORE\" }], \"item\":[{ \"id\":\"11\", \"text\":\"Caracteres: nothing\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"nothing\" }]}\n]\n}\n,{ \"id\":\"8\", \"open\":\"1\", \"text\":\"Pelo menos 9 repeticoes de:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"AT_LEAST\" },{ \"name\":\"numero1\" , \"content\":\"9\" }], \"item\":[{ \"id\":\"9\", \"text\":\"Caracteres: sdhaksfdh\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"sdhaksfdh\" }]}\n]\n}\n,{ \"id\":\"6\", \"open\":\"1\", \"text\":\"Entre 5 e 9 repeticoes de:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"BETWEEN\" },{ \"name\":\"numero1\" , \"content\":\"5\" },{ \"name\":\"numero2\" , \"content\":\"9\" }], \"item\":[{ \"id\":\"7\", \"text\":\"Caracteres: teste\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"teste\" }]}\n]\n}\n,{ \"id\":\"2\", \"open\":\"1\", \"text\":\"Pode ou nao ter:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"CONDITIONAL\" }], \"item\":[{ \"id\":\"3\", \"text\":\"Caracteres: b\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"b\" }]}\n,{ \"id\":\"4\", \"open\":\"1\", \"text\":\"Exatamente 5 repeticoes de:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"EXACT\" },{ \"name\":\"numero1\" , \"content\":\"5\" }], \"item\":[{ \"id\":\"5\", \"text\":\"Caracteres: c\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"2\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"c\" }]}\n]\n}\n]\n}\n]}";
+		//jsonString = "{\"id\":\"0\", \"item\":[{ \"id\":\"1\", \"text\":\"Caracteres: a\", \"userdata\":[{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"original\" , \"content\":\"a\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"texto\" , \"content\":\"a\" }]}\n,{ \"id\":\"12\", \"open\":\"1\", \"select\":\"1\", \"text\":\"Um ou mais:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"ONE_OR_MORE\" }], \"item\":[{ \"id\":\"13\", \"text\":\"Caracteres: bla\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"bla\" }]}\n]\n}\n,{ \"id\":\"10\", \"open\":\"1\", \"text\":\"Zero ou mais:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"ZERO_OR_MORE\" }], \"item\":[{ \"id\":\"11\", \"text\":\"Caracteres: nothing\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"nothing\" }]}\n]\n}\n,{ \"id\":\"8\", \"open\":\"1\", \"text\":\"Pelo menos 9 repeticoes de:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"AT_LEAST\" },{ \"name\":\"numero1\" , \"content\":\"9\" }], \"item\":[{ \"id\":\"9\", \"text\":\"Caracteres: sdhaksfdh\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"sdhaksfdh\" }]}\n]\n}\n,{ \"id\":\"6\", \"open\":\"1\", \"text\":\"Entre 5 e 9 repeticoes de:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"BETWEEN\" },{ \"name\":\"numero1\" , \"content\":\"5\" },{ \"name\":\"numero2\" , \"content\":\"9\" }], \"item\":[{ \"id\":\"7\", \"text\":\"Caracteres: teste\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"teste\" }]}\n]\n}\n,{ \"id\":\"2\", \"open\":\"1\", \"text\":\"Pode ou nao ter:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"CONDITIONAL\" }], \"item\":[{ \"id\":\"3\", \"text\":\"Caracteres: b\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"b\" }]}\n,{ \"id\":\"4\", \"open\":\"1\", \"text\":\"Exatamente 5 repeticoes de:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"EXACT\" },{ \"name\":\"numero1\" , \"content\":\"5\" }], \"item\":[{ \"id\":\"5\", \"text\":\"Caracteres: c\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"2\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"c\" }]}\n]\n}\n]\n}\n]}";
+		jsonString = "{\"id\":\"0\", \"item\":[]}";
 	};
 	
 	//Conversao da string para um objeto JSON
@@ -61,39 +59,60 @@ $(document).ready(function(){
 	
 	//Recupera uma String com todos os IDs de todos os itens dentro da raiz da arvore
 	//separados por virgula
-	stringTreeItens = tree.getAllSubItems(0);
+	var stringTreeItens = tree.getAllSubItems(0);
 	
-	//Cria um array de IDs a partir de uma string, usando virgula
-	//como separador de elementos
-	treeItens = stringTreeItens.split(",");
-	
-	//Converte todos os itens do array de Strings para inteiros
-	for (var i=0; i<treeItens.length; i++){
-		treeItens[i] = parseInt(treeItens[i]);
+	//Se nao existir nenhum item dentro da arvore, considera o
+	//ultimo ID como o da raiz da arvore, que e zero.
+	if (stringTreeItens.length == 0){
+		lastID = 0;
 	}
+	//Se existirem itens dentro da arvore, recupera o maior ID
+	//dentre eles e o define como o ultimo ID.
+	else{
 	
-	//Ordena os itens do array por ordem numerica
-	//http://stackoverflow.com/questions/1063007/how-to-sort-an-array-of-integers-correctly
-	treeItens = treeItens.sort(sortNumber);
-	
-	//Recupera o ultimo ID do array
-	lastID = treeItens[treeItens.length - 1];
-	
-	//Seleciona o primeiro elemento
-	//http://docs.dhtmlx.com/api__dhtmlxtree_selectitem.html
-	tree.selectItem(1,false,false);
-	currentSelected = tree.getSelectedItemId();
+		//Cria um array de IDs a partir de uma string, usando virgula
+		//como separador de elementos
+		var treeItens = stringTreeItens.split(",");
+		
+		//Converte todos os itens do array de Strings para inteiros
+		for (var i=0; i<treeItens.length; i++){
+			treeItens[i] = parseInt(treeItens[i]);
+		}
+		
+		//Ordena os itens do array por ordem numerica
+		//http://stackoverflow.com/questions/1063007/how-to-sort-an-array-of-integers-correctly
+		treeItens = treeItens.sort(sortNumber);
+		
+		//Recupera o ultimo ID do array
+		lastID = treeItens[treeItens.length - 1];
+	}
 	
 	//Expande a visualizacao da arvore a partir da raiz (id=0)
 	tree.openAllItems(0);
+	
+	//Adiciona uma funcao na acao de clique, que
+	//limpa a selecao da arvore quando clicado fora dela.
+    $(document).click(function(e){
+    	
+    	//Se foi clicado ou no elemento que contem a arvore,
+    	//ou em um dos botoes...
+        if ($(e.target).is('#regex-tree, #regex-tree *, #buttons, #buttons *')) {
+        	//Nao faz nada
+            return;
+        }
+        
+        //Se foi clicado fora dela...
+        else {
+        	//Recupera o item selecionado e remove a selecao dele.
+        	tree.clearSelection(tree.getSelectedItemId());
+        }
+    });
 	
 });
 
 /** ----- Funcoes Adcionar Nos ----- **/
 
-//TODO Criar funcoes restantes
 //TODO Recuperar texto do usuario de outra forma que nao sejam prompts
-//TODO Bloquear adicao de nos em certas situacoes
 function addOneOrMore(){
 	addNonTerminal("Um ou mais:","ONE_OR_MORE");
 }
@@ -255,7 +274,7 @@ function addCharacters(){
 function addTerminal(terminalText, rule){
 	
 	//Recupera o elemento atualmente selecionado na arvore
-	currentSelected = tree.getSelectedItemId();
+	currentSelected = getCurrentSelectedNode();
 	
 	//Adiciona o novo elemento em relacao ao elemento selecionado 
 	addTerminalNextTo(terminalText, rule, currentSelected);
@@ -274,6 +293,11 @@ function addTerminal(terminalText, rule){
  * 							ou sera filho de.
  */
 function addTerminalNextTo(terminalText, rule, nextTo){
+	
+	//Se nao for permitido adicionar este novo no proximo 
+	//do no selecionado, retorna sem fazer nada.
+	//TODO Adicionar checagem de bloqueio aqui
+	//if (!canAddNode(rule, nextTo)) return;
 	
 	//Incrementa o contador de IDs
 	lastID++;
@@ -304,7 +328,7 @@ function addTerminalNextTo(terminalText, rule, nextTo){
 function addNonTerminal(nonTerminalText, rule){
 	
 	//Recupera o elemento atualmente selecionado na arvore
-	currentSelected = tree.getSelectedItemId();
+	currentSelected = getCurrentSelectedNode();
 	
 	//Adiciona o novo elemento em relacao ao elemento selecionado 
 	addNonTerminalNextTo(nonTerminalText, rule, currentSelected);
@@ -429,6 +453,26 @@ function addTerminalNext(previous, newID, label){
 	tree.setUserData(newID,"nivel",getNodeLevel(lastID));
 }
 
+//TODO Implementar funcao de bloqueio
+function canAddNode(nodeRule, parentID){
+	
+}
+
+/** ----- Funcoes Excluir Nos ----- **/
+
+function removeNode(){
+	
+	//Recupera o elemento atualmente selecionado na arvore
+	currentSelected = getCurrentSelectedNode();
+	
+	//Se nenhum elemento estiver selecionado, nao faz nada.
+	if (currentSelected == "0") return;
+	
+	//Deleta o item selecionado da arvore, sem selecionar um novo.
+	//http://docs.dhtmlx.com/api__dhtmlxtree_deleteitem.html
+	tree.deleteItem(currentSelected, false);
+}
+
 /** ----- Funcoes Auxiliares Gerais ----- **/
 
 /**
@@ -452,6 +496,7 @@ function isTerminal(nodeID){
  * @returns {Number}	O nivel de profundidade.
  */
 function getNodeLevel(nodeID){
+	
 	//Recupera o nivel de profundidade do no
 	var level = tree.getLevel(nodeID);
 	
@@ -500,10 +545,7 @@ function sortNumber(a,b) {
  */
 function getSelectedText(elementId) {
     var element = document.getElementById(elementId);
-
-    if (element.selectedIndex == -1)
-        return null;
-
+    if (element.selectedIndex == -1) return null;
     return element.options[element.selectedIndex].text;
 }
 
@@ -516,7 +558,6 @@ function getSelectedText(elementId) {
  */
 function getSelectedValue(elementId){
 	var element = document.getElementById(elementId);
-	
 	return element.value;
 }
 
@@ -527,8 +568,26 @@ function getSelectedValue(elementId){
  */
 function selectFirstValue(elementId){
 	var element = document.getElementById(elementId);
-	
 	element.selectedIndex = "0";
+}
+
+/**
+ * Retorna uma String com o ID do no atualmente selecionado na arvore.
+ * Se nenhum no estiver selecionado, retorna o ID da raiz da arvore,
+ * que sera igual a "0".
+ * 
+ * @returns {String} 
+ */
+function getCurrentSelectedNode(){
+	
+	//Recupera o elemento atualmente selecionado na arvore
+	var selected = tree.getSelectedItemId();
+	
+	//Se nenhum elemento estiver selecionado, utilize
+	//o ID da raiz da arvore.
+	if (selected == "") selected = "0";
+	
+	return selected;
 }
 
 

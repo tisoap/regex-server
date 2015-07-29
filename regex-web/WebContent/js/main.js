@@ -1,5 +1,5 @@
 /**
- * JS para manipulacao da arvore dhtmlxTree.
+ * JS para inicializacao e manipulacao da arvore dhtmlxTree.
  * 
  * @author Tiso
  *
@@ -18,9 +18,6 @@ var json;
  *  variavel. */
 var lastID;
 
-/** String com o ID do elemento atualmente selecionado do arvore.**/
-var currentSelected;
-
 /** ----- Inicializacao ----- **/
 
 //So executa a inicializacao quando a pagina estiver carregada
@@ -32,7 +29,7 @@ $(document).ready(function(){
 		//String JSON para testes
 		//jsonString = "{\"id\":0,\"item\":[{\"id\":1,\"text\":\"Caracteres: a\",\"child\":0,\"userdata\":[{\"name\":\"nivel\",\"content\":0},{\"name\":\"original\",\"content\":\"a\"},{\"name\":\"regra\",\"content\":\"CHARACTERS\"},{\"name\":\"terminal\",\"content\":true},{\"name\":\"texto\",\"content\":\"a\"}]}]}";
 		//jsonString = "{\"id\":\"0\", \"item\":[{ \"id\":\"1\", \"text\":\"Caracteres: a\", \"userdata\":[{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"original\" , \"content\":\"a\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"texto\" , \"content\":\"a\" }]}\n,{ \"id\":\"12\", \"open\":\"1\", \"select\":\"1\", \"text\":\"Um ou mais:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"ONE_OR_MORE\" }], \"item\":[{ \"id\":\"13\", \"text\":\"Caracteres: bla\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"bla\" }]}\n]\n}\n,{ \"id\":\"10\", \"open\":\"1\", \"text\":\"Zero ou mais:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"ZERO_OR_MORE\" }], \"item\":[{ \"id\":\"11\", \"text\":\"Caracteres: nothing\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"nothing\" }]}\n]\n}\n,{ \"id\":\"8\", \"open\":\"1\", \"text\":\"Pelo menos 9 repeticoes de:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"AT_LEAST\" },{ \"name\":\"numero1\" , \"content\":\"9\" }], \"item\":[{ \"id\":\"9\", \"text\":\"Caracteres: sdhaksfdh\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"sdhaksfdh\" }]}\n]\n}\n,{ \"id\":\"6\", \"open\":\"1\", \"text\":\"Entre 5 e 9 repeticoes de:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"BETWEEN\" },{ \"name\":\"numero1\" , \"content\":\"5\" },{ \"name\":\"numero2\" , \"content\":\"9\" }], \"item\":[{ \"id\":\"7\", \"text\":\"Caracteres: teste\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"teste\" }]}\n]\n}\n,{ \"id\":\"2\", \"open\":\"1\", \"text\":\"Pode ou nao ter:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"0\" },{ \"name\":\"regra\" , \"content\":\"CONDITIONAL\" }], \"item\":[{ \"id\":\"3\", \"text\":\"Caracteres: b\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"b\" }]}\n,{ \"id\":\"4\", \"open\":\"1\", \"text\":\"Exatamente 5 repeticoes de:\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"false\" },{ \"name\":\"nivel\" , \"content\":\"1\" },{ \"name\":\"regra\" , \"content\":\"EXACT\" },{ \"name\":\"numero1\" , \"content\":\"5\" }], \"item\":[{ \"id\":\"5\", \"text\":\"Caracteres: c\", \"userdata\":[{ \"name\":\"terminal\" , \"content\":\"true\" },{ \"name\":\"nivel\" , \"content\":\"2\" },{ \"name\":\"regra\" , \"content\":\"CHARACTERS\" },{ \"name\":\"texto\" , \"content\":\"c\" }]}\n]\n}\n]\n}\n]}";
-		jsonString = "{\"id\":\"0\", \"item\":[]}";
+		jsonString = "{\"id\":0, \"item\":[]}";
 	};
 	
 	//Conversao da string para um objeto JSON
@@ -113,8 +110,12 @@ $(document).ready(function(){
 /** ----- Funcoes Adcionar Nos ----- **/
 
 //TODO Recuperar texto do usuario de outra forma que nao sejam prompts
+//TODO Adicionar checagens "canAdd" nos metodos de adicionar nos principais
 function addOneOrMore(){
-	addNonTerminal("Um ou mais:","ONE_OR_MORE");
+	
+	if ( canAddNode("ONE_OR_MORE") ){
+		addNonTerminal("Um ou mais:","ONE_OR_MORE");
+	}
 }
 function addZeroOrMore(){
 	addNonTerminal("Zero ou mais:","ZERO_OR_MORE");
@@ -251,11 +252,18 @@ function addCharacters(){
 	//Se o texto nao for um valor valido, retorna sem fazer nada
 	if(isNotValid(texto)) return;
 	
-	//Adiciona o elemento na arvore
-	addTerminal("Caracteres: " + texto, "CHARACTERS");
+	//Checa se e possivel adicionar o no de caracteres em relacao
+	//ao elemento selecionado
+	if ( canAddCharactersNode(texto) ){
+		
+		//Adiciona o elemento na arvore
+		addTerminal("Caracteres: " + texto, "CHARACTERS");
+		
+		//Adiciona o texto digitado pelo usuario nos metadados do elemento
+		tree.setUserData(lastID,"texto",texto);
+	}
 	
-	//Adiciona o texto digitado pelo usuario nos metadados do elemento
-	tree.setUserData(lastID,"texto",texto);
+
 }
 
 /** ----- Funcoes Adcionar Nos Auxiliares ----- **/
@@ -273,8 +281,10 @@ function addCharacters(){
  */
 function addTerminal(terminalText, rule){
 	
+	//TODO eleminar esta funcao
+	
 	//Recupera o elemento atualmente selecionado na arvore
-	currentSelected = getCurrentSelectedNode();
+	var currentSelected = getCurrentSelectedNode();
 	
 	//Adiciona o novo elemento em relacao ao elemento selecionado 
 	addTerminalNextTo(terminalText, rule, currentSelected);
@@ -294,21 +304,20 @@ function addTerminal(terminalText, rule){
  */
 function addTerminalNextTo(terminalText, rule, nextTo){
 	
-	//Se nao for permitido adicionar este novo no proximo 
-	//do no selecionado, retorna sem fazer nada.
-	//TODO Adicionar checagem de bloqueio aqui
-	//if (!canAddNode(rule, nextTo)) return;
-	
 	//Incrementa o contador de IDs
 	lastID++;
 	
 	//Se o elemento selecionado for terminal
-	if (isTerminal(nextTo))
+	if (isTerminal(nextTo)){
 		//Adciona o novo no abaixo dele
 		addTerminalNext(nextTo, lastID, terminalText);
-	else
-		//Se nao, adciona como filho do elemento
+	}
+	
+	//Se o elemento selecionado nao for terminal
+	else{
+		//Adciona como filho do elemento
 		addTerminalChild(nextTo, lastID, terminalText);
+	}
 	
 	//Adiciona a regra recebida nos metadados do elemento
 	tree.setUserData(lastID,"regra",rule);
@@ -327,8 +336,10 @@ function addTerminalNextTo(terminalText, rule, nextTo){
  */
 function addNonTerminal(nonTerminalText, rule){
 	
+	//TODO eleminar esta funcao
+	
 	//Recupera o elemento atualmente selecionado na arvore
-	currentSelected = getCurrentSelectedNode();
+	var currentSelected = getCurrentSelectedNode();
 	
 	//Adiciona o novo elemento em relacao ao elemento selecionado 
 	addNonTerminalNextTo(nonTerminalText, rule, currentSelected);
@@ -453,9 +464,112 @@ function addTerminalNext(previous, newID, label){
 	tree.setUserData(newID,"nivel",getNodeLevel(lastID));
 }
 
-//TODO Implementar funcao de bloqueio
-function canAddNode(nodeRule, parentID){
+/**
+ * Testa se um no pode ser adicionado em relacao a outro no.
+ * 
+ * @param rule			A regra do no a ser adicionado.
+ * @param nextTo		(opcional) O ID do outro no. Utiliza o no selecionado ou a raiz por padrao.
+ * @returns {Boolean}	
+ */
+function canAddNode(rule, nextTo){
 	
+	//Se nao foi passado o parametro nextTo,
+	//assume o elemento atualmente selecionado.
+	if (typeof nextTo === 'undefined') nextTo = getCurrentSelectedNode();
+	
+	var parentID, parentRule;
+	
+	//Verifica se o elemento selecionado e terminal ou nao
+	var terminal = isTerminal(nextTo);
+	
+	//Se for terminal, o pai do novo elemento sera o pai do
+	//elemento selecionado
+	if(terminal){
+		parentID = tree.getParentId(nextTo);
+	}
+	//Se nao for terminal, o pai do novo elemento sera o
+	//proprio elemento selecionado.
+	else {
+		parentID = nextTo;
+	}
+	
+	//Se o pai for a raiz da arvore, a regra sera "ROOT"
+	if (parentID == "0"){
+		parentRule = "ROOT";
+	}
+	//Se nao, recupera a regra do pai a partir dos metadados dele
+	else{
+		parentRule = tree.getUserData(parentID,"regra");
+	}
+	
+	//TODO Implementar bloqueio
+	switch (rule) {
+		case "ONE_OR_MORE":
+			
+			break;
+	
+		default:
+			break;
+	}
+	
+	return true;
+}
+
+/**
+ * Testa se um no do tipo CHARACTERS pode ser adicionado
+ * em relacao a outro no.
+ * 
+ * @param text				O texto do no CHARACTERS.
+ * @param nextTo			(opcional) O ID do outro no. Utiliza o no selecionado ou a raiz por padrao.
+ * @returns {Boolean}
+ */
+function canAddCharactersNode(text, nextTo){
+	
+	//Se nao foi passado o parametro nextTo,
+	//assume o elemento atualmente selecionado.
+	if (typeof nextTo === 'undefined') nextTo = getCurrentSelectedNode();
+	
+	var parentID, parentRule;
+	
+	//Verifica se o elemento selecionado e terminal ou nao
+	var terminal = isTerminal(nextTo);
+	
+	//Se for terminal, o pai do novo elemento sera o pai do
+	//elemento selecionado
+	if(terminal){
+		parentID = tree.getParentId(nextTo);
+	}
+	//Se nao for terminal, o pai do novo elemento sera o
+	//proprio elemento selecionado.
+	else {
+		parentID = nextTo;
+	}
+	
+	//Se o pai for a raiz da arvore, a regra sera "ROOT"
+	if (parentID == "0"){
+		parentRule = "ROOT";
+	}
+	//Se nao, recupera a regra do pai a partir dos metadados dele
+	else{
+		parentRule = tree.getUserData(parentID,"regra");
+	}
+	
+	if (text.length > 1){
+		
+		//TODO implementar bloqueio
+		switch (parentRule) {
+			case "ONE_OR_MORE":
+				return false;
+			break;
+			
+			default:
+				//nada
+			break;
+		}
+		
+	}
+	
+	return true;
 }
 
 /** ----- Funcoes Excluir Nos ----- **/
@@ -463,7 +577,7 @@ function canAddNode(nodeRule, parentID){
 function removeNode(){
 	
 	//Recupera o elemento atualmente selecionado na arvore
-	currentSelected = getCurrentSelectedNode();
+	var currentSelected = getCurrentSelectedNode();
 	
 	//Se nenhum elemento estiver selecionado, nao faz nada.
 	if (currentSelected == "0") return;
@@ -483,6 +597,10 @@ function removeNode(){
  */
 function isTerminal(nodeID){
 	
+	//Se for passado o ID da raiz, retorna falso.
+	//A raiz e considerada nao terminal.
+	if (nodeID == 0) return false;
+	
 	//Recupera o valor boleano dos metadados do no
 	var terminal = tree.getUserData(nodeID,"terminal");
 	
@@ -500,7 +618,7 @@ function getNodeLevel(nodeID){
 	//Recupera o nivel de profundidade do no
 	var level = tree.getLevel(nodeID);
 	
-	//Compensacao para que a profundidade da raiz inicie em zero
+	//Compensacao para que a profundidade inicie em zero
 	level = level - 1;
 	
 	return level;

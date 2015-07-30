@@ -15,9 +15,21 @@
 	<script src="ferramentas/dhtmlxtree/dhtmlxcommon.js"></script>
 	<script src="ferramentas/dhtmlxtree/dhtmlxtree.js"></script>
 	
-	<!-- Script principal da pagina -->
-	<script>var jsonString;</script>
-	<script src="js/main.js"></script>
+	<!-- Variavel String com a traducao em formato JSON  recebida pelo servidor -->
+	<script>
+		//Se nao receber um JSON do servidor, utiliza um valor padrao.
+		var jsonString = "${traducaoJson}" || "{\"id\":0, \"item\":[]}";
+	</script>
+	
+	<!-- Scripts principais da pagina -->
+	<script src="js/construtor.js"></script>
+	<script src="js/addFunctions.js"></script>
+	<script src="js/auxiliaryAddFunctions.js"></script>
+	<script src="js/testFunctions.js"></script>
+	<script src="js/deleteFunctions.js"></script>
+	<script src="js/generalFunctions.js"></script>
+	<script src="js/submit.js"></script>
+	
 </head>
 <body>
 

@@ -31,11 +31,15 @@ Data: 04/15
     <script src="ferramentas/dhtmlxtree/dhtmlxcommon.js"></script>
 	<script src="ferramentas/dhtmlxtree/dhtmlxtree.js"></script>
 	
-	<!-- Variavel que recebe o objeto JSON do servidor em formato String -->
-    <script>var jsonString = "${traducaoJson}";</script>
-    
-    <!-- Script para inicializar a visualizacao em arvore -->
-	<script src="js/main.js"></script>
+	<!-- Scripts principais da pagina -->
+	<script>var jsonString = "${traducaoJson}" || "{\"id\":0, \"item\":[]}";</script>
+	<script src="js/construtor.js"></script>
+	<script src="js/addFunctions.js"></script>
+	<script src="js/auxiliaryAddFunctions.js"></script>
+	<script src="js/testFunctions.js"></script>
+	<script src="js/deleteFunctions.js"></script>
+	<script src="js/generalFunctions.js"></script>
+	<script src="js/submit.js"></script>
 	
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

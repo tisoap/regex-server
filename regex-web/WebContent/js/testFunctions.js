@@ -6,6 +6,13 @@
  *
  */
 
+
+/** ----- Variaveis globais ----- */
+
+/** Valor boleano setado pela funcao canAddNode(), que indica
+ * se o no pai tem regra quantificadora. */
+var parentIsQuantifier;
+
 /**
  * Testa se um no pode ser adicionado em relacao a outro no.
  * 
@@ -19,119 +26,157 @@ function canAddNode(rule, nextTo){
 	//assume o elemento atualmente selecionado.
 	if (typeof nextTo === 'undefined') nextTo = getCurrentSelectedNode();
 	
-	var parentID, parentRule;
+	//Se o no selecionado nao for terminal, utiliza o ID dele
+	//Se for terminal, utiliza do ID do pai dele.
+	var parentID = getNonTerminalID(nextTo);
 	
-	//Verifica se o elemento selecionado e terminal ou nao
-	var terminal = isTerminal(nextTo);
+	//Recupera a regra do no pai
+	var parentRule = getRule(parentID);
 	
-	//Se for terminal, o pai do novo elemento sera o pai do
-	//elemento selecionado
-	if(terminal){
-		parentID = tree.getParentId(nextTo);
-	}
-	//Se nao for terminal, o pai do novo elemento sera o
-	//proprio elemento selecionado.
-	else {
-		parentID = nextTo;
-	}
+	/** INICIO DOS TESTES */
 	
-	//Se o pai for a raiz da arvore, a regra sera "ROOT"
-	if (parentID == "0"){
-		parentRule = "ROOT";
-	}
-	//Se nao, recupera a regra do pai a partir dos metadados dele
-	else{
-		parentRule = tree.getUserData(parentID,"regra");
-	}
+	//Apenas "SUB_EXPRESSION" pode ser filho direto de "MULTIPLE"
+	if (rule != "SUB_EXPRESSION" && parentRule == "MULTIPLE")
+		return false;
 	
-	//TODO Implementar bloqueio
+	if (rule == "SUB_EXPRESSION" && parentRule != "MULTIPLE")
+		return false;
+	
+	//MULTIPLE nao pode ser filho direto de SUB_EXPRESSION
+	if (rule == "MULTIPLE" && parentRule == "SUB_EXPRESSION")
+		return false;
+	
+	//Verifica se a regra do no e do tipo que
+	//deve existir apenas dentro de uma lista
+	var listOnly = false;
 	switch (rule) {
-		case "ONE_OR_MORE":
-			
+		case "ALNUM":
+		case "ALPHA":
+		case "BLANK":
+		case "CNTRL":
+		case "DIGIT_CLASS":
+		case "GRAPH":
+		case "LOWER":
+		case "PRINT":
+		case "PUNCT":
+		case "SPACE_CLASS":
+		case "UPPER":
+		case "X_DIGIT":
+		case "RANGE":
+			listOnly = true;
 			break;
-	
+		
 		default:
 			break;
 	}
 	
-	return true;
-}
-
-/**
- * Testa se um no do tipo CHARACTERS pode ser adicionado
- * em relacao a outro no.
- * 
- * @param text				O texto do no CHARACTERS.
- * @param nextTo			(opcional) O ID do outro no. Utiliza o no selecionado ou a raiz por padrao.
- * @returns {Boolean}
- */
-function canAddCharactersNode(text, nextTo){
+	//Verifica se o pai tem uma regra de lista
+	var parentIsList =	(parentRule == "POSITIVE_LIST") || 
+						(parentRule == "NEGATIVE_LIST") ;
 	
-	//Se nao foi passado o parametro nextTo,
-	//assume o elemento atualmente selecionado.
-	if (typeof nextTo === 'undefined') nextTo = getCurrentSelectedNode();
+	//Apenas elementos de lista podem ser adicionados em uma lista
+	if (listOnly && !parentIsList)
+		return false;
 	
-	var parentID, parentRule;
-	
-	//Verifica se o elemento selecionado e terminal ou nao
-	var terminal = isTerminal(nextTo);
-	
-	//Se for terminal, o pai do novo elemento sera o pai do
-	//elemento selecionado
-	if(terminal){
-		parentID = tree.getParentId(nextTo);
-	}
-	//Se nao for terminal, o pai do novo elemento sera o
-	//proprio elemento selecionado.
-	else {
-		parentID = nextTo;
-	}
-	
-	//Se o pai for a raiz da arvore, a regra sera "ROOT"
-	if (parentID == "0"){
-		parentRule = "ROOT";
-	}
-	//Se nao, recupera a regra do pai a partir dos metadados dele
-	else{
-		parentRule = tree.getUserData(parentID,"regra");
-	}
-	
-	//Se o pai tiver regra "MULTIPLE", nao pode adicionar.
-	//Apenas "SUB_EXPRESSION" pode ser filho de "MULTIPLE"
-	//TODO mover este teste para outra funcao
-	if (parentRule == "MULTIPLE") return false;
-	
-	//Se o texto do no tem mais de 1 caractere
-	var moreThanOneCharacter = (text.length > 1);
-	
-	//Se o (futuro) pai deste no ja tem outros filhos
-	var parentHasChildren = (tree.getSubItems(parentID).length >= 1);
-	
-	//Se a regra do pai e do tipo condicional
-	var parentIsConditional = false;
+	if (!listOnly && parentIsList)
+		return false;
 	
 	//Verifica se a regra do pai e condicioal
+	parentIsQuantifier = false;
 	switch (parentRule) {
 		case "ONE_OR_MORE":
 		case "ZERO_OR_MORE":
 		case "CONDITIONAL":
 		case "EXACT":
 		case "BETWEEN":
-			parentIsConditional = true;
+			parentIsQuantifier = true;
 			break;
 		
 		default:
-			//nada
 			break;
 	}
 	
-	//Se o texto tiver mais de um caractere ou o pai ja possuir filhos,
-	//e o pai tiver uma regra condicional, nao pode adicionar o no.
-	if ((moreThanOneCharacter && parentIsConditional) || 
-		(parentHasChildren && parentIsConditional)){
-		
+	//Se o (futuro) pai deste no ja tem outros filhos
+	var parentHasChildren = (tree.getSubItems(parentID).length >= 1);
+	
+	//Se o pai tiver regra condicional e ja tiver filhos,
+	//nao pode adicionar. Uma regra condiciona so pode
+	//ter um filho.
+	if (parentHasChildren && parentIsQuantifier)
 		return false;
+	
+	//Verifica se a regra do elemento a ser adicionado e condicioal
+	var childIsQuantifier = false;
+	switch (rule) {
+		case "ONE_OR_MORE":
+		case "ZERO_OR_MORE":
+		case "CONDITIONAL":
+		case "EXACT":
+		case "BETWEEN":
+			childIsQuantifier = true;
+			break;
+		
+		default:
+			break;
 	}
+	
+	//Quantificadores nao podem quantificar outros quantificadores
+	if (parentIsQuantifier && childIsQuantifier)
+		return false;
 	
 	return true;
 }
+
+/**
+ * Testa se um no do tipo CHARACTERS pode ser adicionado.
+ * Necessario ter executado a funcao canAddNode() anteriormente
+ * para que a variavel global parentIsConditional esteja
+ * setada.
+ * 
+ * @param text				O texto do no CHARACTERS.
+ * @returns {Boolean}
+ */
+function canAddCharactersNode(text){
+	
+	var moreThanOneChar = (text.length > 1);
+	
+	if(moreThanOneChar && parentIsQuantifier)
+		return false;
+	
+	return true;
+}
+
+
+function canRemoveNode(currentSelected){
+	
+	//Recupera a regra do elemento selecionado
+	var rule = getRule(currentSelected);
+	
+	//Recupera o ID do pai 
+	var parentID = tree.getParentId(currentSelected);
+	
+	//Recupera a regra do pai
+	var parentRule = getRule(parentID);
+	
+	//Se uma opcao esta sendo removida de uma regra de multiplas opcoes,
+	//verificar se vao existir pelo menos duas no final.
+	if (parentRule == "MULTIPLE" && rule == "SUB_EXPRESSION"){
+		
+		//Recupera uma String com todos os IDs de todos os filhos
+		//do pai
+		var parentChildrenString = tree.getSubItems(parentID);
+		
+		//Cria um array de IDs a partir de uma string, usando virgula
+		//como separador de elementos
+		var parentChildren = parentChildrenString.split(",");
+		
+		//Se tem mais de duas opcoes, pode remover
+		if (parentChildren.length > 2)
+			return true;
+		
+		else
+			return false;
+	}
+}
+
+

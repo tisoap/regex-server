@@ -8,92 +8,139 @@
  */
 
 //TODO Recuperar texto do usuario de outra forma que nao sejam prompts
-//TODO Adicionar checagens "canAdd" nos metodos de adicao
 function addOneOrMore(){
 	
-	if ( canAddNode("ONE_OR_MORE") ){
+	if (canAddNode("ONE_OR_MORE")){
 		addNonTerminal("Um ou mais:","ONE_OR_MORE");
 	}
 }
+
 function addZeroOrMore(){
-	addNonTerminal("Zero ou mais:","ZERO_OR_MORE");
+	
+	if (canAddNode("ZERO_OR_MORE")){
+		addNonTerminal("Zero ou mais:","ZERO_OR_MORE");
+	}
 }
+
 function addConditional(){
-	addNonTerminal("Pode ou nao ter:","CONDITIONAL");
+	
+	if (canAddNode("CONDITIONAL")){
+		addNonTerminal("Pode ou nao ter:","CONDITIONAL");
+	}
 }
+
 function addExact(){
-	//Exibe um prompt e armazena o que foi digitado nele
-	var texto = prompt("Digite a quantidade:");
 	
-	//Converte o texto para um numero inteiro
-	var numero = parseInt(texto);
+	if (canAddNode("EXACT")){
+		
+		//Exibe um prompt e armazena o que foi digitado nele
+		var texto = prompt("Digite a quantidade:");
+		
+		//Converte o texto para um numero inteiro
+		var numero = parseInt(texto);
+		
+		//So adiciona se o numero for maior ou igual a zero
+		if(numero < 0) return;
+		
+		addNonTerminal("Exatamente " + numero + " repeticoes de:","EXACT");
 	
-	//So adiciona se o numero for maior ou igual a zero
-	if(numero < 0) return;
+		//Adiciona o numero digitado pelo usuario nos metadados do elemento
+		tree.setUserData(lastID,"numero1",numero);
 	
-	addNonTerminal("Exatamente " + numero + " repeticoes de:","EXACT");
-
-	//Adiciona o numero digitado pelo usuario nos metadados do elemento
-	tree.setUserData(lastID,"numero1",numero);
+	}
 }
+
 function addAtLeast(){
-	//Exibe um prompt e armazena o que foi digitado nele
-	var texto = prompt("Digite a quantidade:");
 	
-	//Converte o texto para um numero inteiro
-	var numero = parseInt(texto);
+	if (canAddNode("AT_LEAST")){
 	
-	//So adiciona se o numero for maior ou igual a zero
-	if(numero < 0) return;
+		//Exibe um prompt e armazena o que foi digitado nele
+		var texto = prompt("Digite a quantidade:");
 		
-	addNonTerminal("Pelo menos " + numero + " repeticoes de:","AT_LEAST");
+		//Converte o texto para um numero inteiro
+		var numero = parseInt(texto);
+		
+		//So adiciona se o numero for maior ou igual a zero
+		if(numero < 0) return;
+			
+		addNonTerminal("Pelo menos " + numero + " repeticoes de:","AT_LEAST");
+	
+		//Adiciona o numero digitado pelo usuario nos metadados do elemento
+		tree.setUserData(lastID,"numero1",numero);
+		
+	}
+}
 
-	//Adiciona o numero digitado pelo usuario nos metadados do elemento
-	tree.setUserData(lastID,"numero1",numero);
-}
 function addBetween(){
-	//Exibe um prompt e armazena o que foi digitado nele
-	var texto1 = prompt("Digite o primeiro numero:");
-	var texto2 = prompt("Digite o segundo numero:");
 	
-	//Converte o texto para um numero inteiro
-	var numero1 = parseInt(texto1);
-	var numero2 = parseInt(texto2);
-	
-	//So adiciona se o primeiro numero for maior ou igual a zero
-	//e menor que o segundo numero
-	if(numero1 < 0 || numero2 < numero1) return;
+	if (canAddNode("BETWEEN")){
 		
-	addNonTerminal("Entre " + numero1 + " e " + numero2 + " repeticoes de:","BETWEEN");
+		//Exibe um prompt e armazena o que foi digitado nele
+		var texto1 = prompt("Digite o primeiro numero:");
+		var texto2 = prompt("Digite o segundo numero:");
+		
+		//Converte o texto para um numero inteiro
+		var numero1 = parseInt(texto1);
+		var numero2 = parseInt(texto2);
+		
+		//So adiciona se o primeiro numero for maior ou igual a zero
+		//e menor que o segundo numero
+		if(numero1 < 0 || numero2 < numero1) return;
+		
+		addNonTerminal("Entre " + numero1 + " e " + numero2 + " repeticoes de:","BETWEEN");
+		
+		//Adiciona os numeros digitados pelo usuario nos metadados do elemento
+		tree.setUserData(lastID,"numero1",numero1);
+		tree.setUserData(lastID,"numero2",numero2);
 	
-	//Adiciona os numeros digitados pelo usuario nos metadados do elemento
-	tree.setUserData(lastID,"numero1",numero1);
-	tree.setUserData(lastID,"numero2",numero2);
+	}
 }
+
 function addList(){
-	addNonTerminal("Qualquer um dos caracteres:","POSITIVE_LIST");
+	
+	if (canAddNode("POSITIVE_LIST")){
+		addNonTerminal("Qualquer um dos caracteres:","POSITIVE_LIST");
+	}
 }
+
 function addNegativeList(){
-	addNonTerminal("Qualquer caractere que nao seja:","NEGATIVE_LIST");
+	
+	if (canAddNode("NEGATIVE_LIST")){
+		addNonTerminal("Qualquer caractere que nao seja:","NEGATIVE_LIST");
+	}
 }
+
 function addGroup(){
-	addNonTerminal("Grupo:","GROUP");
+	
+	if (canAddNode("GROUP")){
+		addNonTerminal("Grupo:","GROUP");
+	}
 }
+
 function addMultiple(){
-	//Adiciona um elemento MULTIPLE na arvore
-	addNonTerminal("Uma das opcoes:","MULTIPLE");
 	
-	//Recupera o ID do elemento MULTIPLE que acabou de ser adcionado na arvore.
-	var multipleID = lastID;
-	
-	//Adiciona dois elementos SUB_EXPRESSION como filhos do elemento MULTIPLE.
-	//E obrigatorio que um elemento MULTIPLE tenha no minino duas opcoes.
-	addNonTerminalNextTo("Opcao:","SUB_EXPRESSION",multipleID);
-	addNonTerminalNextTo("Opcao:","SUB_EXPRESSION",multipleID);
+	if (canAddNode("MULTIPLE")){
+		
+		//Adiciona um elemento MULTIPLE na arvore
+		addNonTerminal("Uma das opcoes:","MULTIPLE");
+		
+		//Recupera o ID do elemento MULTIPLE que acabou de ser adcionado na arvore.
+		var multipleID = lastID;
+		
+		//Adiciona dois elementos SUB_EXPRESSION como filhos do elemento MULTIPLE.
+		//E obrigatorio que um elemento MULTIPLE tenha no minino duas opcoes.
+		addNonTerminal("Opcao:","SUB_EXPRESSION",multipleID);
+		addNonTerminal("Opcao:","SUB_EXPRESSION",multipleID);
+	}
 }
+
 function addOption(){
-	addNonTerminal("Opcao:","SUB_EXPRESSION");
+	
+	if (canAddNode("SUB_EXPRESSION")){
+		addNonTerminal("Opcao:","SUB_EXPRESSION");
+	}
 }
+
 /**
  * Funcao que e executada no "onchange" do seletor de classes
  * (elemento HTML option de ID "class-select").
@@ -111,55 +158,79 @@ function addClass(){
 	//Sera utilizado no texto do no
 	var texto = getSelectedText("class-select");
 	
-	//Adiciona a classe escolhida na arvore
-	addTerminal(texto, regra);
+	if (canAddNode(regra)){
+		//Adiciona a classe escolhida na arvore
+		addTerminal(texto, regra);
+	}
 	
 	//Seleciona a primeira opcao do elemento option
 	//(Esta deve ser a opcao em branco)
 	selectFirstValue("class-select");
 }
+
 function addStart(){
-	addTerminal("Inicio", "START_ANCHOR");
+	
+	if (canAddNode("START_ANCHOR")){
+		addTerminal("Inicio", "START_ANCHOR");
+	}
 }
+
 function addEnd(){
-	addTerminal("Fim", "END_ANCHOR");
+	
+	if (canAddNode("END_ANCHOR")){
+		addTerminal("Fim", "END_ANCHOR");
+	}
 }
+
 function addAnyChar(){
-	addTerminal("Qualquer caractere", "ANY_CHAR");
+	
+	if (canAddNode("ANY_CHAR")){
+		addTerminal("Qualquer caractere", "ANY_CHAR");
+	}
 }
+
 function addRange(){
-	//Exibe um prompt e armazena o que foi digitado nele
-	var texto1 = prompt("Digite o primeiro caractere:");
-	var texto2 = prompt("Digite o ultimo caractere:");
 	
-	//Se foi digitado mais de um caractere ou nenhum caractere,
-	//retorna sem fazer nada
-	if (texto1.length != 1 || texto2.length != 1) return;
-	
-	//Adiciona o elemento na arvore
-	addTerminal("Todos os caracteres entre " + texto1 + " e " + texto2, "RANGE");
-	
-	//Adiciona o texto digitado pelo usuario nos metadados do elemento
-	tree.setUserData(lastID,"caractere1",texto1);
-	tree.setUserData(lastID,"caractere2",texto2);
-}
-function addCharacters(){
-	//Exibe um prompt e armazena o que foi digitado nele
-	var texto = prompt("Digite seu texto:");
-	
-	//Se o texto nao for um valor valido, retorna sem fazer nada
-	if(isNotValid(texto)) return;
-	
-	//Checa se e possivel adicionar o no de caracteres em relacao
-	//ao elemento selecionado
-	if ( canAddCharactersNode(texto) ){
+	if (canAddNode("RANGE")){
+		
+		//Exibe um prompt e armazena o que foi digitado nele
+		var texto1 = prompt("Digite o primeiro caractere:");
+		var texto2 = prompt("Digite o ultimo caractere:");
+		
+		//Se foi digitado mais de um caractere ou nenhum caractere,
+		//retorna sem fazer nada
+		if (texto1.length != 1 || texto2.length != 1) return;
 		
 		//Adiciona o elemento na arvore
-		addTerminal("Caracteres: " + texto, "CHARACTERS");
+		addTerminal("Todos os caracteres entre " + texto1 + " e " + texto2, "RANGE");
 		
 		//Adiciona o texto digitado pelo usuario nos metadados do elemento
-		tree.setUserData(lastID,"texto",texto);
+		tree.setUserData(lastID,"caractere1",texto1);
+		tree.setUserData(lastID,"caractere2",texto2);
 	}
+}
+
+function addCharacters(){
 	
+	if (canAddNode("CHARACTERS")){
+	
+		//Exibe um prompt e armazena o que foi digitado nele
+		var texto = prompt("Digite seu texto:");
+		
+		//Se o texto nao for um valor valido, retorna sem fazer nada
+		if(isNotValid(texto)) return;
+		
+		//Checa se e possivel adicionar o no de caracteres em relacao
+		//ao elemento selecionado
+		if (canAddCharactersNode(texto)){
+			
+			//Adiciona o elemento na arvore
+			addTerminal("Caracteres: " + texto, "CHARACTERS");
+			
+			//Adiciona o texto digitado pelo usuario nos metadados do elemento
+			tree.setUserData(lastID,"texto",texto);
+		}
+	
+	}
 
 }

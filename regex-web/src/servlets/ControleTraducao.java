@@ -41,6 +41,9 @@ public class ControleTraducao extends HttpServlet {
 			throws ServletException, IOException {
 		
 		//Recupera o valor digitado pelo usuario
+		String testPage = request.getParameter("testPage");
+		
+		//Recupera o valor digitado pelo usuario
 		String input = request.getParameter("regex");
 		
 		//Se o valor recuperado nao for vazio...
@@ -67,7 +70,17 @@ public class ControleTraducao extends HttpServlet {
 			request.setAttribute("regex", input);
 			
 			//Cria um novo "pedido de despache", apontando para a pagina inicial
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			RequestDispatcher dispatcher;
+			
+			if (testPage == null || testPage.isEmpty()){
+				dispatcher = request.getRequestDispatcher("index.jsp");
+			}
+			else if (testPage.equals("true")){
+				dispatcher = request.getRequestDispatcher("tree-test.jsp");
+			}
+			else{
+				dispatcher = request.getRequestDispatcher("index.jsp");
+			}
 			
 			//Encaminha o pedido para a pagina inicial
 			/** ----- DS 39 ----- **/

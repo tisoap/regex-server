@@ -7,28 +7,6 @@
  */
 
 /**
- * Adciona um no terminal na arvore em relacao ao no atualmente
- * selecionado.
- * 
- * Este novo no pode ser posiciona do logo abaixo do no selecionado,
- * ou como filho dele. Isto ira depender se o no selecionado e
- * terminal ou nao.
- * 
- * @param nonTerminalText	O texto do novo no.
- * @param rule				A regra na qual o no pertence.
- */
-function addTerminal(terminalText, rule){
-	
-	//TODO eleminar esta funcao
-	
-	//Recupera o elemento atualmente selecionado na arvore
-	var currentSelected = getCurrentSelectedNode();
-	
-	//Adiciona o novo elemento em relacao ao elemento selecionado 
-	addTerminalNextTo(terminalText, rule, currentSelected);
-}
-
-/**
  * Adciona um no nao terminal na arvore em relacao a um outro no.
  * 
  * Este novo no pode ser posiciona do logo abaixo de um elemento,
@@ -37,10 +15,15 @@ function addTerminal(terminalText, rule){
  * 
  * @param nonTerminalText	O texto do novo no.
  * @param rule				A regra na qual o no pertence.
- * @param nextTo			O ID do no onde o novo elemento ficara abaixo 
- * 							ou sera filho de.
+ * @param nextTo			(opcional) O ID do no onde o novo no ficara abaixo 
+ * 							ou sera filho de. Utiliza o no atualmente selecionado ou
+ * 							a raiz por padrao.
  */
-function addTerminalNextTo(terminalText, rule, nextTo){
+function addTerminal(terminalText, rule, nextTo){
+	
+	//Se nao foi passado o parametro nextTo,
+	//assume o elemento atualmente selecionado.
+	if (typeof nextTo === 'undefined') nextTo = getCurrentSelectedNode();
 	
 	//Incrementa o contador de IDs
 	lastID++;
@@ -62,28 +45,6 @@ function addTerminalNextTo(terminalText, rule, nextTo){
 }
 
 /**
- * Adciona um no nao terminal na arvore em relacao ao no atualmente
- * selecionado.
- * 
- * Este novo no pode ser posiciona do logo abaixo do no selecionado,
- * ou como filho dele. Isto ira depender se o no selecionado e
- * terminal ou nao.
- * 
- * @param nonTerminalText	O texto do novo no.
- * @param rule				A regra na qual o no pertence.
- */
-function addNonTerminal(nonTerminalText, rule){
-	
-	//TODO eleminar esta funcao
-	
-	//Recupera o elemento atualmente selecionado na arvore
-	var currentSelected = getCurrentSelectedNode();
-	
-	//Adiciona o novo elemento em relacao ao elemento selecionado 
-	addNonTerminalNextTo(nonTerminalText, rule, currentSelected);
-}
-
-/**
  * Adciona um no nao terminal na arvore em relacao a um outro no.
  * 
  * Este novo no pode ser posiciona do logo abaixo de um elemento,
@@ -92,10 +53,16 @@ function addNonTerminal(nonTerminalText, rule){
  * 
  * @param nonTerminalText	O texto do novo no.
  * @param rule				A regra na qual o no pertence.
- * @param nextTo			O ID do no onde o novo elemento ficara abaixo 
- * 							ou sera filho de.
+ * @param nextTo			(opcional) O ID do no onde o novo no ficara abaixo 
+ * 							ou sera filho de. Utiliza o no atualmente selecionado ou
+ * 							a raiz por padrao.
  */
-function addNonTerminalNextTo(nonTerminalText, rule, nextTo){
+function addNonTerminal(nonTerminalText, rule, nextTo){
+	
+	//Se nao foi passado o parametro nextTo,
+	//assume o elemento atualmente selecionado.
+	if (typeof nextTo === 'undefined') nextTo = getCurrentSelectedNode();
+	
 	
 	//Incrementa o contador de IDs
 	lastID++;

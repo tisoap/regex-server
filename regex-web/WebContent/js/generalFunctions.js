@@ -125,3 +125,49 @@ function getCurrentSelectedNode(){
 	
 	return selected;
 }
+
+/**
+ * Testa se o no recebido e terminal. Se for terminal,
+ * retorna o ID do pai dele. Se nao for teminal, retorna o 
+ * proprio ID do elemento.
+ * 
+ * @param id	O ID do elemento.
+ * @returns		O ID do elemento nao terminal, que pode ser do
+ * 				pai ou ele proprio.
+ */
+function getNonTerminalID(id){
+	
+	var parentID;
+	
+	if(isTerminal(id)){
+		parentID = tree.getParentId(id);
+	}
+	else {
+		parentID = id;
+	}
+	
+	return id;
+}
+
+/**
+ * Recupera a regra de um no.
+ * 
+ * @param id	O ID do no.
+ * @returns		A regra do no.
+ */
+function getRule(id){
+	
+	var rule;
+	
+	//Se o pai for a raiz da arvore, a regra sera "ROOT"
+	if (id == "0"){
+		rule = "ROOT";
+	}
+	//Se nao, recupera a regra a partir dos metadados dele
+	else{
+		rule = tree.getUserData(id,"regra");
+	}
+	
+	return rule;
+}
+

@@ -36,6 +36,12 @@
 	<div id="content-wrapper">
 		<h1>Teste</h1>
 		
+		<form id="regex-form" method="post" action="Traducao">
+			<button type="submit" class="btn btn-default">Traduzir Regex</button>
+			<input type="text" name="regex" class="form-control" value="${regex}" placeholder="(a|b)*">
+			<input type="hidden" name="testPage" value="true">
+		</form>
+		
 		<div id="buttons">
 			<button onclick="addOneOrMore()">Um ou Mais</button>
 			<button onclick="addZeroOrMore()">Zero ou Mais</button>
@@ -82,8 +88,9 @@
 		
 		<form id="tree-form" method="post" action="Regex">
 			<input type="text" name="regex" id="regexInput">
-			<input type="hidden" name="jsonTree" id="serializedInput">
 			<button onclick="serializeAndSubmit()">Construir Regex</button>
+			<br>
+			<input type="hidden" name="jsonTree" id="serializedInput">
 		</form>
 	</div>
 </body>

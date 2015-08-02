@@ -21,25 +21,28 @@ Data: 04/15
     <!-- CSS de teste-->
     <link href="css/teste.css" rel="stylesheet">
     
-    <!-- JS JQuery 2.1.3 -->
+    
+    <!-- JQuery 2.1.3 -->
 	<script src="ferramentas/jquery-2.1.3.min.js"></script>
 	
-	<!-- JS Bootstrap -->
+	<!-- Bootstrap -->
 	<script src="ferramentas/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
 	
-	<!-- JS dhtmlxtree -->
+	<!-- DHTMLX Tree -->
     <script src="ferramentas/dhtmlxtree/dhtmlxcommon.js"></script>
 	<script src="ferramentas/dhtmlxtree/dhtmlxtree.js"></script>
 	
+	<!-- cookies.js -->
+	<script src="ferramentas/cookies.js"></script>
+	
 	<!-- Scripts principais da pagina -->
-	<script>var jsonString = "${traducaoJson}" || "{\"id\":0, \"item\":[]}";</script>
-	<script src="js/construtor.js"></script>
-	<script src="js/addFunctions.js"></script>
-	<script src="js/auxiliaryAddFunctions.js"></script>
-	<script src="js/testFunctions.js"></script>
-	<script src="js/deleteFunctions.js"></script>
-	<script src="js/generalFunctions.js"></script>
-	<script src="js/submit.js"></script>
+	<script src="js/01-construtor.js"></script>
+	<script src="js/02-addFunctions.js"></script>
+	<script src="js/03-auxiliaryAddFunctions.js"></script>
+	<script src="js/04-testFunctions.js"></script>
+	<script src="js/05-deleteFunctions.js"></script>
+	<script src="js/06-generalFunctions.js"></script>
+	<script src="js/07-submit.js"></script>
 	
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

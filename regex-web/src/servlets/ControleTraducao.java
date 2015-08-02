@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -66,8 +67,18 @@ public class ControleTraducao extends HttpServlet {
 			//Adiciona o JSON em um parametro do request
 			request.setAttribute("traducaoJson", texto);
 			
+			//Adiciona o JSON em um cookie
+			Cookie cookieJson = new Cookie("traducaoJson",texto);
+			cookieJson.setMaxAge(60);
+			response.addCookie(cookieJson);
+			
 			//Adiciona o proprio texto enviado em um parametro do request
 			request.setAttribute("regex", input);
+			
+			//Adiciona o proprio texto enviado em um cookie
+			Cookie cookieRegex = new Cookie("regex",input);
+			cookieRegex.setMaxAge(60);
+			response.addCookie(cookieRegex);
 			
 			//Cria um novo "pedido de despache", apontando para a pagina inicial
 			RequestDispatcher dispatcher;

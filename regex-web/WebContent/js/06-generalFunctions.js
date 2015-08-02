@@ -22,6 +22,13 @@ function isTerminal(nodeID){
 	//Recupera o valor boleano dos metadados do no
 	var terminal = tree.getUserData(nodeID,"terminal");
 	
+	//Se por algum acaso o metodo retornar uma string
+	//em vez de um boolean
+	if (typeof(terminal) === 'string'){
+		if (terminal === "true") return true;
+		else return false;
+	}
+	
 	return terminal;
 }
 
@@ -169,5 +176,26 @@ function getRule(id){
 	}
 	
 	return rule;
+}
+
+/**
+ * Remove barras de escape e aspas duplas no inicio e no fim.
+ * 
+ * @param text		O texto a ser alterad.
+ * @returns			O texto sem aspas duplas no comeco e no fim.
+ */
+function convertJSON(text){
+	
+	while(text.charAt(0) === "\""){
+		text = text.substr(1);
+	}
+	
+	while (text.charAt(text.length-1) === "\""){
+		text = text.substr(0,text.length-1);
+	}
+	
+	text = text.replace(/\\"/g, "\"");
+	
+	return text;
 }
 

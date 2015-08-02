@@ -5,7 +5,7 @@ button, select {
 }
 
 #content-wrapper {
-	width: 70%;
+	width: 80%;
 	margin:auto;
 }
 
@@ -13,7 +13,8 @@ button, select {
 	width:400px;
 	height:100%;
 	overflow:auto;
-	margin: 2em;
+	margin: 1em;
+	float: left;
 }
 
 #regex-tree, #buttons {

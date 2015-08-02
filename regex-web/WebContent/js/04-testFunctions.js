@@ -177,6 +177,8 @@ function canRemoveNode(currentSelected){
 		else
 			return false;
 	}
+	
+	return true;
 }
 
 

@@ -60,47 +60,57 @@ public class ControleTraducao extends HttpServlet {
 			/** ----- DS 17-36 ----- **/
 			Traducao traducao = regex.traduzir();
 			
-			//Gera um objeto JSON em formato String a partir da traducao
-			/** ----- DS 37-38 ----- **/
-			String texto = traducao.getJSONString();
+			//Se nao ocorreu erro na analise
+			if (!traducao.ocorreuErro()){
+				
+				//Gera um objeto JSON em formato String a partir da traducao
+				/** ----- DS 37-38 ----- **/
+				String texto = traducao.getJSONString();
+				
+				//Adiciona o JSON em um parametro do request
+				request.setAttribute("traducaoJson", texto);
+				
+				//Adiciona o JSON em um cookie
+				Cookie cookieJson = new Cookie("traducaoJson",texto);
+				cookieJson.setMaxAge(60);
+				response.addCookie(cookieJson);
+				
+				//Adiciona o proprio texto enviado em um parametro do request
+				request.setAttribute("regex", input);
+				
+				//Adiciona o proprio texto enviado em um cookie
+				Cookie cookieRegex = new Cookie("regex",input);
+				cookieRegex.setMaxAge(60);
+				response.addCookie(cookieRegex);
+				
+				//Cria um novo "pedido de despache", apontando para a pagina inicial
+				RequestDispatcher dispatcher;
+				
+				if (testPage == null || testPage.isEmpty()){
+					dispatcher = request.getRequestDispatcher("index.jsp");
+				}
+				else if (testPage.equals("true")){
+					dispatcher = request.getRequestDispatcher("tree-test.jsp");
+				}
+				else{
+					dispatcher = request.getRequestDispatcher("index.jsp");
+				}
+				
+				//Encaminha o pedido para a pagina inicial
+				/** ----- DS 39 ----- **/
+				dispatcher.forward(request, response);
 			
-			//Adiciona o JSON em um parametro do request
-			request.setAttribute("traducaoJson", texto);
-			
-			//Adiciona o JSON em um cookie
-			Cookie cookieJson = new Cookie("traducaoJson",texto);
-			cookieJson.setMaxAge(60);
-			response.addCookie(cookieJson);
-			
-			//Adiciona o proprio texto enviado em um parametro do request
-			request.setAttribute("regex", input);
-			
-			//Adiciona o proprio texto enviado em um cookie
-			Cookie cookieRegex = new Cookie("regex",input);
-			cookieRegex.setMaxAge(60);
-			response.addCookie(cookieRegex);
-			
-			//Cria um novo "pedido de despache", apontando para a pagina inicial
-			RequestDispatcher dispatcher;
-			
-			if (testPage == null || testPage.isEmpty()){
-				dispatcher = request.getRequestDispatcher("index.jsp");
 			}
-			else if (testPage.equals("true")){
-				dispatcher = request.getRequestDispatcher("tree-test.jsp");
-			}
-			else{
-				dispatcher = request.getRequestDispatcher("index.jsp");
-			}
 			
-			//Encaminha o pedido para a pagina inicial
-			/** ----- DS 39 ----- **/
-			dispatcher.forward(request, response);
+			//Se ocorreu erro de analise...
+			else {
+				//Envia uma redirecionamento para a pagina inicial como resposta
+				response.sendRedirect("index.jsp");
+			}
 		}
 		
 		//Se o valor for vazio...
 		else {
-			
 			//Envia uma redirecionamento para a pagina inicial como resposta
 			response.sendRedirect("index.jsp");
 		}

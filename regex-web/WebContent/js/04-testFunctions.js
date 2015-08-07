@@ -63,6 +63,8 @@ function canAddNode(rule, nextTo){
 		case "UPPER":
 		case "X_DIGIT":
 		case "RANGE":
+		case "CHARACTERS":
+		case "CHARACTER":
 			listOnly = true;
 			break;
 		

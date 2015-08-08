@@ -63,8 +63,6 @@ function canAddNode(rule, nextTo){
 		case "UPPER":
 		case "X_DIGIT":
 		case "RANGE":
-		case "CHARACTERS":
-		case "CHARACTER":
 			listOnly = true;
 			break;
 		
@@ -80,7 +78,9 @@ function canAddNode(rule, nextTo){
 	if (listOnly && !parentIsList)
 		return false;
 	
-	if (!listOnly && parentIsList)
+	//Se nao for um elemento exclusivo de lista ou caracteres, e o pai for
+	//uma lista, nao pode adicionar
+	if ((!listOnly && parentIsList) && (rule !="CHARACTERS" && rule !="CHARACTER"))
 		return false;
 	
 	//Verifica se a regra do pai e condicioal

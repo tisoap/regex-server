@@ -104,6 +104,8 @@
 			<input type="hidden" name="jsonTree" id="serializedInput">
 		</form>
 		
+		<p>${error}</p>
+		
 	</div>
 </body>
 </html>

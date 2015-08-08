@@ -24,6 +24,11 @@ import regex.Regex;
 public class ControleRegex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	private Regex regex;
+	private Construtor construtor;
+	private String json, stringRegex, errorMessage = null;
+	private boolean regexValida = false;
+	
 	/** 
 	 * Se invocado, o metodo doGet chama o metodo doPost.
 	 */
@@ -41,29 +46,50 @@ public class ControleRegex extends HttpServlet {
 			throws ServletException, IOException {
 		
 		//Recupera o objeto JSON em formato String
-		String json = request.getParameter("jsonTree");
-		 
+		json = request.getParameter("jsonTree");
+		
 		//Se o valor recuperado nao for vazio...
 		if (json!=null && !json.isEmpty()){
 			
 			//TODO Remover println
-			System.out.println();
 			System.out.println("JSON recebido:");
 			System.out.println(json);
 			System.out.println();
 			
 			//Instancia a classe responsavel por construir o regex
-			Construtor construtor = new Construtor();
+			construtor = new Construtor();
 			
-			//Constroi a expressao regular a partir do objeto JSON
-			String stringRegex = construtor.construir(json);
+			//Tenta construir a expressao regular a partir do objeto JSON
+			try {
+				stringRegex = construtor.construir(json);
+			} catch (Exception e) {
+				errorMessage = e.getMessage();
+				System.err.println(errorMessage);
+				e.printStackTrace();
+			}
 			
-			//Instancia a classe responsavel em fazer a validacao
-			//da expressao regular
-			Regex regex = new Regex(stringRegex);
+			//Se conseguiu construir construir a expressao regular...
+			if (stringRegex != null){
+				
+				//Instancia a classe responsavel em fazer a validacao
+				//da expressao regular
+				regex = new Regex(stringRegex);
+				
+				//Valida a expressao regular
+				regexValida = regex.validar();
 			
-			//Valida a expressao regular
-			boolean regexValida = regex.validar();
+			}
+			
+			//Se nao conseguiu construir a expressao regular...
+			else {
+				//Adiciona uma mensagem de erro em um parametro do request
+				request.setAttribute("error", "JSON invalido!");
+				
+				//Adiciona uma mensagem de erro em um cookie
+				Cookie cookieError = new Cookie("error","JSON invalido! " + errorMessage);
+				cookieError.setMaxAge(60);
+				response.addCookie(cookieError);
+			}
 			
 			//Se a expressao regular for valida
 			if (regexValida){
@@ -76,14 +102,14 @@ public class ControleRegex extends HttpServlet {
 				cookieRegex.setMaxAge(60);
 				response.addCookie(cookieRegex);
 			}
-			else {
+			else if (stringRegex != null){
 				//TODO Melhorar envio de mensagens de erro
 				
 				//Adiciona uma mensagem de erro em um parametro do request
 				request.setAttribute("error", "Regex invalida!");
 				
 				//Adiciona uma mensagem de erro em um cookie
-				Cookie cookieError = new Cookie("regex","Regex invalida!");
+				Cookie cookieError = new Cookie("error","Regex invalida!");
 				cookieError.setMaxAge(60);
 				response.addCookie(cookieError);
 			}

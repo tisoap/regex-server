@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import exception.MalformedJson;
 import regex.Construtor;
 import regex.Regex;
 
@@ -24,10 +25,10 @@ import regex.Regex;
 public class ControleRegex extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private Regex regex;
-	private Construtor construtor;
-	private String json, stringRegex, errorMessage = null;
-	private boolean regexValida = false;
+	private Regex		regex;
+	private Construtor	construtor;
+	private String		json, stringRegex, errorMessage = null;
+	private boolean	regexValida = false;
 	
 	/** 
 	 * Se invocado, o metodo doGet chama o metodo doPost.
@@ -49,9 +50,10 @@ public class ControleRegex extends HttpServlet {
 		json = request.getParameter("jsonTree");
 		
 		//Se o valor recuperado nao for vazio...
-		if (json!=null && !json.isEmpty()){
+		if (json!=null && !json.isEmpty()) {
 			
-			//TODO Remover println
+			//Para testes apenas
+			
 			System.out.println("JSON recebido:");
 			System.out.println(json);
 			System.out.println();
@@ -62,7 +64,7 @@ public class ControleRegex extends HttpServlet {
 			//Tenta construir a expressao regular a partir do objeto JSON
 			try {
 				stringRegex = construtor.construir(json);
-			} catch (Exception e) {
+			} catch (MalformedJson e) {
 				errorMessage = e.getMessage();
 				System.err.println(errorMessage);
 				e.printStackTrace();
@@ -102,6 +104,8 @@ public class ControleRegex extends HttpServlet {
 				cookieRegex.setMaxAge(60);
 				response.addCookie(cookieRegex);
 			}
+			//Se a expressao regular nao for valida e nao ocorreu erro na
+			//Leitura do JSON
 			else if (stringRegex != null){
 				//TODO Melhorar envio de mensagens de erro
 				
@@ -128,6 +132,8 @@ public class ControleRegex extends HttpServlet {
 			//Encaminha o pedido para a pagina inicial
 			dispatcher.forward(request, response);
 		}
+		
+		//Se o valor do JSON recuperdo for vazio
 		else {
 			//Envia uma redirecionamento para a pagina inicial como resposta
 			response.sendRedirect("tree-test.jsp");

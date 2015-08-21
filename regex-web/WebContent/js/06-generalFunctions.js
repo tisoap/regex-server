@@ -6,29 +6,28 @@
  *
  */
 
-
 /**
  * Verifica se o no e terminal.
  * 
  * @param nodeID		O id do no.
  * @returns {boolean}	Verdadeiro se for terminal.
  */
-function isTerminal(nodeID){
-	
+function isTerminal( nodeID ) {
+
 	//Se for passado o ID da raiz, retorna falso.
 	//A raiz e considerada nao terminal.
-	if (nodeID == 0) return false;
-	
+	if( nodeID == 0 ) return false;
+
 	//Recupera o valor boleano dos metadados do no
-	var terminal = tree.getUserData(nodeID,"terminal");
-	
+	var terminal = tree.getUserData( nodeID, "terminal" );
+
 	//Se por algum acaso o metodo retornar uma string
 	//em vez de um boolean
-	if (typeof(terminal) === 'string'){
-		if (terminal === "true") return true;
+	if( typeof ( terminal ) === 'string' ) {
+		if( terminal === "true" ) return true;
 		else return false;
 	}
-	
+
 	return terminal;
 }
 
@@ -38,14 +37,14 @@ function isTerminal(nodeID){
  * @param nodeID		O ID do no.
  * @returns {Number}	O nivel de profundidade.
  */
-function getNodeLevel(nodeID){
-	
+function getNodeLevel( nodeID ) {
+
 	//Recupera o nivel de profundidade do no
-	var level = tree.getLevel(nodeID);
-	
+	var level = tree.getLevel( nodeID );
+
 	//Compensacao para que a profundidade inicie em zero
 	level = level - 1;
-	
+
 	return level;
 }
 
@@ -61,13 +60,13 @@ function getNodeLevel(nodeID){
  * @param a		A variavel a ser checada
  * @return		Um valor booleano
  */
-function isNotValid(a){
-	
+function isNotValid( a ) {
+
 	//Se a variavel nao foi definida, retorna verdadeiro
-	if(typeof a === 'undefined') return true;
-	
-	if ( a === null || a === "" || a === 0 || Number.isNaN(a) ) return true;
-	
+	if( typeof a === 'undefined' ) return true;
+
+	if( a === null || a === "" || a === 0 || Number.isNaN( a ) ) return true;
+
 	return false;
 }
 
@@ -75,8 +74,8 @@ function isNotValid(a){
  * Funcao de comparacao numerica para ser usada pelo
  * array.sort() do Javascript.
  */
-function sortNumber(a,b) {
-    return a - b;
+function sortNumber( a, b ) {
+	return a - b;
 }
 
 /**
@@ -86,10 +85,10 @@ function sortNumber(a,b) {
  * @param elementId		O ID do elemento option.
  * @returns				O texto puro da opcao selecionada.
  */
-function getSelectedText(elementId) {
-    var element = document.getElementById(elementId);
-    if (element.selectedIndex == -1) return null;
-    return element.options[element.selectedIndex].text;
+function getSelectedText( elementId ) {
+	var element = document.getElementById( elementId );
+	if( element.selectedIndex == -1 ) return null;
+	return element.options[ element.selectedIndex ].text;
 }
 
 /**
@@ -99,8 +98,8 @@ function getSelectedText(elementId) {
  * @param elementId		O ID do elemento option.
  * @returns				O valor contido no atributo "value" da opcao selecionada.
  */
-function getSelectedValue(elementId){
-	var element = document.getElementById(elementId);
+function getSelectedValue( elementId ) {
+	var element = document.getElementById( elementId );
 	return element.value;
 }
 
@@ -109,8 +108,8 @@ function getSelectedValue(elementId){
  * 
  * @param elementId		O ID do elemento option.
  */
-function selectFirstValue(elementId){
-	var element = document.getElementById(elementId);
+function selectFirstValue( elementId ) {
+	var element = document.getElementById( elementId );
 	element.selectedIndex = "0";
 }
 
@@ -121,15 +120,15 @@ function selectFirstValue(elementId){
  * 
  * @returns {String} 
  */
-function getCurrentSelectedNode(){
-	
+function getCurrentSelectedNode() {
+
 	//Recupera o elemento atualmente selecionado na arvore
 	var selected = tree.getSelectedItemId();
-	
+
 	//Se nenhum elemento estiver selecionado, utilize
 	//o ID da raiz da arvore.
-	if (selected == "") selected = "0";
-	
+	if( selected == "" ) selected = "0";
+
 	return selected;
 }
 
@@ -142,17 +141,16 @@ function getCurrentSelectedNode(){
  * @returns		O ID do elemento nao terminal, que pode ser do
  * 				pai ou ele proprio.
  */
-function getNonTerminalID(id){
-	
+function getNonTerminalID( id ) {
+
 	var parentID;
-	
-	if(isTerminal(id)){
-		parentID = tree.getParentId(id);
-	}
-	else {
+
+	if( isTerminal( id ) ) {
+		parentID = tree.getParentId( id );
+	} else {
 		parentID = id;
 	}
-	
+
 	return id;
 }
 
@@ -162,40 +160,39 @@ function getNonTerminalID(id){
  * @param id	O ID do no.
  * @returns		A regra do no.
  */
-function getRule(id){
-	
+function getRule( id ) {
+
 	var rule;
-	
+
 	//Se o pai for a raiz da arvore, a regra sera "ROOT"
-	if (id == "0"){
+	if( id == "0" ) {
 		rule = "ROOT";
 	}
 	//Se nao, recupera a regra a partir dos metadados dele
-	else{
-		rule = tree.getUserData(id,"regra");
+	else {
+		rule = tree.getUserData( id, "regra" );
 	}
-	
+
 	return rule;
 }
 
 /**
  * Remove barras de escape e aspas duplas no inicio e no fim.
  * 
- * @param text		O texto a ser alterad.
+ * @param text		O texto a ser alterado.
  * @returns			O texto sem aspas duplas no comeco e no fim.
  */
-function convertJSON(text){
-	
-	while(text.charAt(0) === "\""){
-		text = text.substr(1);
+function convertJSON( text ) {
+
+	while( text.charAt( 0 ) === "\"" ) {
+		text = text.substr( 1 );
 	}
-	
-	while (text.charAt(text.length-1) === "\""){
-		text = text.substr(0,text.length-1);
+
+	while( text.charAt( text.length - 1 ) === "\"" ) {
+		text = text.substr( 0, text.length - 1 );
 	}
-	
-	text = text.replace(/\\"/g, "\"");
-	
+
+	text = text.replace( /\\"/g, "\"" );
+
 	return text;
 }
-

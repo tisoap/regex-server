@@ -13,9 +13,6 @@ var tree;
 /** Objeto JSON. **/
 var json;
 
-/** Objeto JSON no formato String. */
-var jsonString
-
 /** Inteiro com o ID do ultimo elemento adcionado na arvore.
  *  Funcoes que adicionam elementos sempre incrementam esta
  *  variavel. */
@@ -25,10 +22,9 @@ var lastID;
 
 //So executa a inicializacao quando a pagina estiver carregada
 $( document ).ready( function () {
-
-	jsonString = docCookies.getItem( "traducaoJson" );
+	
 	console.log( jsonString );
-
+	
 	//Testa se foi recebida uma String JSON
 	if( isNotValid( jsonString ) ) {
 		jsonString = "{\"id\":0, \"item\":[]}";

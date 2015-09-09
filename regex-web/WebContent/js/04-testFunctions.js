@@ -91,6 +91,7 @@ function canAddNode( rule, nextTo ) {
 	case "CONDITIONAL":
 	case "EXACT":
 	case "BETWEEN":
+	case "AT_LEAST":
 		parentIsQuantifier = true;
 		break;
 

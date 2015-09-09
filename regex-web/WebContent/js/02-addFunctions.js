@@ -7,7 +7,6 @@
  *
  */
 
-//TODO Recuperar texto do usuario de outra forma que nao sejam prompts
 function addOneOrMore() {
 
 	if( canAddNode( "ONE_OR_MORE" ) ) {

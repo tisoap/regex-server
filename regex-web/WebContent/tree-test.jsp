@@ -16,9 +16,11 @@
 	<!-- DHTMLX Tree -->
 	<script src="ferramentas/dhtmlxtree/dhtmlxcommon.js"></script>
 	<script src="ferramentas/dhtmlxtree/dhtmlxtree.js"></script>
-
-	<!-- cookies.js -->
-	<script src="ferramentas/cookies.js"></script>
+	
+	<!-- Recuperacao dos valores do response -->
+	<script>
+		var jsonString  = "${jsonString}";
+	</script>
 
 	<!-- Scripts principais da pagina -->
 	<script src="js/01-construtor.js"></script>
@@ -28,7 +30,6 @@
 	<script src="js/05-deleteFunctions.js"></script>
 	<script src="js/06-generalFunctions.js"></script>
 	<script src="js/07-submit.js"></script>
-
 </head>
 <body>
 
@@ -98,6 +99,7 @@
 		<br>
 
 		<div id="regex-tree"></div>
+		<textarea rows="13" cols="40">${traducao}</textarea>
 
 		<form id="tree-form" method="post" action="Regex">
 			<button onclick="serializeAndSubmit()">Construir Regex</button>

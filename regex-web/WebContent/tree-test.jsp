@@ -16,7 +16,7 @@
 	<!-- DHTMLX Tree -->
 	<script src="ferramentas/dhtmlxtree/dhtmlxcommon.js"></script>
 	<script src="ferramentas/dhtmlxtree/dhtmlxtree.js"></script>
-	
+
 	<!-- Recuperacao dos valores do response -->
 	<script>
 		var jsonString  = "${jsonString}";
@@ -49,7 +49,7 @@
 
 			<button onclick="addOneOrMore()">Um ou Mais</button>
 			<button onclick="addZeroOrMore()">Zero ou Mais</button>
-			<button onclick="addConditional()">Pode ou nao ter</button>
+			<button onclick="addConditional()">Pode ou n&atilde;o ter</button>
 			<button onclick="addExact()">Exatamente</button>
 			<button onclick="addAtLeast()">Pelo menos</button>
 			<button onclick="addBetween()">Entre</button>
@@ -59,32 +59,32 @@
 			<button onclick="addList()">Lista</button>
 			<button onclick="addNegativeList()">Lista Negada</button>
 			<button onclick="addGroup()">Grupo</button>
-			<button onclick="addMultiple()">Multiplas Opcoes</button>
-			<button onclick="addOption()">Opcao</button>
+			<button onclick="addMultiple()">M&uacute;ltiplas Op&ccedil;&otilde;es</button>
+			<button onclick="addOption()">Op&ccedil;&atilde;o</button>
 
 			<br>
 
-			<button onclick="addStart()">Inicio</button>
+			<button onclick="addStart()">In&iacute;cio</button>
 			<button onclick="addEnd()">Fim</button>
 			<button onclick="addAnyChar()">Qualquer caractere</button>
-			<button onclick="addRange()">Serie</button>
+			<button onclick="addRange()">S&eacute;rie</button>
 
 			<br>
 
 			<select id="class-select" onchange="addClass()">
 				<option selected="selected" value="none">(Escolha uma classe)</option>
-				<option value="ALNUM">Caracteres alfanumericos</option>
-				<option value="ALPHA">Caracteres alfabeticos</option>
-				<option value="BLANK">Espacos e tabulacoes</option>
+				<option value="ALNUM">Caracteres Alfanum&eacute;ricos</option>
+				<option value="ALPHA">Caracteres Alfab&eacute;ticos</option>
+				<option value="BLANK">Espa&ccedil;os e Tabula&ccedil;&otilde;es</option>
 				<option value="CNTRL">Caracteres de controle</option>
-				<option value="DIGIT_CLASS">Digitos</option>
-				<option value="GRAPH">Caracteres visiveis</option>
-				<option value="LOWER">Letras minusculas</option>
-				<option value="PRINT">Caracteres visiveis e espaco</option>
-				<option value="PUNCT">Caracteres de pontuacao</option>
-				<option value="SPACE_CLASS">Caracteres brancos</option>
-				<option value="UPPER">Letras maiusculas</option>
-				<option value="X_DIGIT">Numeros hexadecimais</option>
+				<option value="DIGIT_CLASS">D&iacute;gitos</option>
+				<option value="GRAPH">Caracteres Vis&iacute;veis</option>
+				<option value="LOWER">Letras Min&uacute;sculas</option>
+				<option value="PRINT">Caracteres Vis&iacute;veis e Espa&ccedil;o</option>
+				<option value="PUNCT">Caracteres de Pontua&ccedil;&atilde;o</option>
+				<option value="SPACE_CLASS">Caracteres Brancos</option>
+				<option value="UPPER">Letras Mai&uacute;sculas</option>
+				<option value="X_DIGIT">N&uacute;meros Hexadecimais</option>
 			</select>
 
 			<br>

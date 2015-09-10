@@ -86,8 +86,11 @@ function sortNumber( a, b ) {
  * @returns				O texto puro da opcao selecionada.
  */
 function getSelectedText( elementId ) {
+	
 	var element = document.getElementById( elementId );
+	
 	if( element.selectedIndex == -1 ) return null;
+	
 	return element.options[ element.selectedIndex ].text;
 }
 
@@ -99,7 +102,9 @@ function getSelectedText( elementId ) {
  * @returns				O valor contido no atributo "value" da opcao selecionada.
  */
 function getSelectedValue( elementId ) {
+	
 	var element = document.getElementById( elementId );
+	
 	return element.value;
 }
 
@@ -109,7 +114,9 @@ function getSelectedValue( elementId ) {
  * @param elementId		O ID do elemento option.
  */
 function selectFirstValue( elementId ) {
+	
 	var element = document.getElementById( elementId );
+	
 	element.selectedIndex = "0";
 }
 

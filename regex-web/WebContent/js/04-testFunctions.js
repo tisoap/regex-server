@@ -49,25 +49,26 @@ function canAddNode( rule, nextTo ) {
 	//Verifica se a regra do no e do tipo que
 	//deve existir apenas dentro de uma lista
 	var listOnly = false;
+	
 	switch( rule ) {
-	case "ALNUM":
-	case "ALPHA":
-	case "BLANK":
-	case "CNTRL":
-	case "DIGIT_CLASS":
-	case "GRAPH":
-	case "LOWER":
-	case "PRINT":
-	case "PUNCT":
-	case "SPACE_CLASS":
-	case "UPPER":
-	case "X_DIGIT":
-	case "RANGE":
-		listOnly = true;
-		break;
-
-	default:
-		break;
+		case "ALNUM":
+		case "ALPHA":
+		case "BLANK":
+		case "CNTRL":
+		case "DIGIT_CLASS":
+		case "GRAPH":
+		case "LOWER":
+		case "PRINT":
+		case "PUNCT":
+		case "SPACE_CLASS":
+		case "UPPER":
+		case "X_DIGIT":
+		case "RANGE":
+			listOnly = true;
+			break;
+	
+		default:
+			break;
 	}
 
 	//Verifica se o pai tem uma regra de lista
@@ -110,17 +111,18 @@ function canAddNode( rule, nextTo ) {
 
 	//Verifica se a regra do elemento a ser adicionado e condicioal
 	var childIsQuantifier = false;
+	
 	switch( rule ) {
-	case "ONE_OR_MORE":
-	case "ZERO_OR_MORE":
-	case "CONDITIONAL":
-	case "EXACT":
-	case "BETWEEN":
-		childIsQuantifier = true;
-		break;
-
-	default:
-		break;
+		case "ONE_OR_MORE":
+		case "ZERO_OR_MORE":
+		case "CONDITIONAL":
+		case "EXACT":
+		case "BETWEEN":
+			childIsQuantifier = true;
+			break;
+	
+		default:
+			break;
 	}
 
 	//Quantificadores nao podem quantificar outros quantificadores

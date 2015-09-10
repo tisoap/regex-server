@@ -10,7 +10,7 @@
  * Adciona um no nao terminal na arvore em relacao a um outro no.
  *
  * Este novo no pode ser posiciona do logo abaixo de um elemento,
- * ou como filho dele.Isto ira depender se este elemento e * terminal ou nao.
+ * ou como filho dele.Isto ira depender se este elemento e terminal ou nao.
  *
  * @param nonTerminalText	O texto do novo no.
  * @param rule				A regra na qual o no pertence.

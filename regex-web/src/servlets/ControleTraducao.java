@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import helper.EscapeHelper;
 import regex.Regex;
 import regex.Traducao;
 
@@ -44,7 +45,7 @@ public class ControleTraducao extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		//Recupera o valor digitado pelo usuario
 		input = request.getParameter("regex");
 
@@ -69,7 +70,13 @@ public class ControleTraducao extends HttpServlet {
 			//Gera um objeto JSON em formato String a partir da traducao
 			/** ----- DS 37-38 ----- **/
 			jsonString = traducao.getEscapedJSONString();
-			texto = traducao.getText();
+			
+			//Gera um texto puro a partir da traducao, com
+			//caracteres especiais convertidos para entidades HTML
+			texto = traducao.getTextHtml();
+			
+			//Converte os caracteres especiais do input pra entidades HTML
+			input = EscapeHelper.encodeHtmlString(input);
 			
 			//Adiciona os parametros do request
 			request.setAttribute("jsonString", jsonString);
@@ -77,7 +84,7 @@ public class ControleTraducao extends HttpServlet {
 			request.setAttribute("regex", input);
 
 			dispatcher = request.getRequestDispatcher("tree-test.jsp");
-			
+
 			//Encaminha o pedido para a pagina inicial
 			/** ----- DS 39 ----- **/
 			dispatcher.forward(request, response);

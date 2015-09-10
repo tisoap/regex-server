@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import exception.MalformedJson;
-import helper.JsonHelper;
+import helper.EscapeHelper;
 import regex.Construtor;
 import regex.Regex;
 
@@ -46,8 +46,6 @@ public class ControleRegex extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		//TODO Encode de entidade HTML para caracteres especiais
-		
 		//Recupera o objeto JSON em formato String
 		json = request.getParameter("jsonTree");
 
@@ -85,7 +83,7 @@ public class ControleRegex extends HttpServlet {
 				}
 				else{
 					//Adiciona uma mensagem de erro em um parametro do request
-					request.setAttribute("error", errorMessage);
+					request.setAttribute("error", regex.getErrorMessage());
 				}
 
 			}
@@ -97,13 +95,19 @@ public class ControleRegex extends HttpServlet {
 			}
 
 			//Adiciona o proprio JSON recebido em um parametro do request
-			request.setAttribute("jsonString", JsonHelper.getEscapedJSONString(json));
+			request.setAttribute("jsonString", EscapeHelper.escapeString(json) );
 			
 			//Cria um novo "pedido de despache", apontando para a pagina inicial
 			RequestDispatcher dispatcher = request.getRequestDispatcher("tree-test.jsp");
 
 			//Encaminha o pedido para a pagina inicial
 			dispatcher.forward(request, response);
+		}
+		
+		//Se o valor for vazio...
+		else {
+			//Envia uma redirecionamento para a pagina inicial como resposta
+			response.sendRedirect("tree-test.jsp");
 		}
 	}
 

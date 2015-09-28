@@ -21,7 +21,7 @@ import regex.Traducao;
  *
  */
 @WebServlet("/Traducao")
-public class ControleTraducao extends HttpServlet {
+public class ControleTradutor extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	

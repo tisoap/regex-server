@@ -2,10 +2,9 @@
  * Contem todos as funcoes para adicionar elementos na
  * arvore. Estas funcoes sao implementados pelos botoes
  * atraves de eventos "onClick()".
- * 
- * @author Tiso
- *
  */
+
+//TODO Fazer encode do texto digitado pelo usuario para entidades HTML
 
 function addOneOrMore() {
 
@@ -38,8 +37,8 @@ function addExact() {
 		//Converte o texto para um numero inteiro
 		var numero = parseInt( texto );
 
-		//So adiciona se o numero for maior ou igual a zero
-		if( numero < 0 ) return;
+		//So adiciona se o numero for valido
+		if( isNotValid( numero ) ) return;
 
 		addNonTerminal( "Exatamente " + numero + " repeticoes de:", "EXACT" );
 
@@ -59,8 +58,8 @@ function addAtLeast() {
 		//Converte o texto para um numero inteiro
 		var numero = parseInt( texto );
 
-		//So adiciona se o numero for maior ou igual a zero
-		if( numero < 0 ) return;
+		//So adiciona se o numero for valido
+		if( isNotValid( numero ) ) return;
 
 		addNonTerminal( "Pelo menos " + numero + " repeticoes de:", "AT_LEAST" );
 
@@ -82,9 +81,11 @@ function addBetween() {
 		var numero1 = parseInt( texto1 );
 		var numero2 = parseInt( texto2 );
 
-		//So adiciona se o primeiro numero for maior ou igual a zero
-		//e menor que o segundo numero
-		if( numero1 < 0 || numero2 < numero1 ) return;
+		//So adiciona se os numeros forem validos
+		if( isNotValid( numero1 ) || isNotValid( numero2 ) ) return;
+		
+		//So adiciona se o 1o numero for menor que o 2o
+		if( numero1 > numero2 ) return;
 
 		addNonTerminal( "Entre " + numero1 + " e " + numero2 + " repeticoes de:", "BETWEEN" );
 
@@ -210,25 +211,22 @@ function addRange() {
 }
 
 function addCharacters() {
+	
+	//TODO Alterar regra para CHARACTER se tiver apenas 1 caractere
+	
+	//Exibe um prompt e armazena o que foi digitado nele
+	var texto = prompt( "Digite seu texto:" );
 
-	if( canAddNode( "CHARACTERS" ) ) {
+	//Se o texto nao for um valor valido, retorna sem fazer nada
+	if( isNotValid( texto ) ) return;
 
-		//Exibe um prompt e armazena o que foi digitado nele
-		var texto = prompt( "Digite seu texto:" );
+	if( canAddNode( "CHARACTERS" , undefined , texto ) ) {
 
-		//Se o texto nao for um valor valido, retorna sem fazer nada
-		if( isNotValid( texto ) ) return;
-
-		//Checa se e possivel adicionar o no de caracteres em relacao
-		//ao elemento selecionado
-		if( canAddCharactersNode( texto ) ) {
-
-			//Adiciona o elemento na arvore
-			addTerminal( "Caracteres: " + texto, "CHARACTERS" );
-
-			//Adiciona o texto digitado pelo usuario nos metadados do elemento
-			tree.setUserData( lastID, "texto", texto );
-		}
+		//Adiciona o elemento na arvore
+		addTerminal( "Caracteres: " + texto, "CHARACTERS" );
+	
+		//Adiciona o texto digitado pelo usuario nos metadados do elemento
+		tree.setUserData( lastID, "texto", texto );
 
 	}
 

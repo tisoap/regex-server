@@ -9,8 +9,11 @@
 /**
  * Verifica se o no e terminal.
  * 
- * @param nodeID		O id do no.
- * @returns {boolean}	Verdadeiro se for terminal.
+ * @param nodeID
+ *  O id do no.
+ *  
+ * @returns {boolean}
+ *  Verdadeiro se for terminal.
  */
 function isTerminal( nodeID ) {
 
@@ -34,8 +37,10 @@ function isTerminal( nodeID ) {
 /**
  * Retorna o nivel de profundidado do no.
  * 
- * @param nodeID		O ID do no.
- * @returns {Number}	O nivel de profundidade.
+ * @param nodeID
+ *  O ID do no.
+ * @returns {Number}
+ *  O nivel de profundidade.
  */
 function getNodeLevel( nodeID ) {
 
@@ -57,8 +62,11 @@ function getNodeLevel( nodeID ) {
  * - Igual a zero;
  * - Do tipo NaN;
  * 
- * @param a		A variavel a ser checada
- * @return		Um valor booleano
+ * @param a
+ *  A variavel a ser checada
+ *  
+ * @return
+ *  Um valor booleano
  */
 function isNotValid( a ) {
 
@@ -82,8 +90,11 @@ function sortNumber( a, b ) {
  * Retorna o texto da opcao selecionada em
  * um elemento option.
  * 
- * @param elementId		O ID do elemento option.
- * @returns				O texto puro da opcao selecionada.
+ * @param elementId
+ *  O ID do elemento option.
+ *  
+ * @returns
+ *  O texto puro da opcao selecionada.
  */
 function getSelectedText( elementId ) {
 	
@@ -98,8 +109,11 @@ function getSelectedText( elementId ) {
  * Retorna o valor da opcao selecionada em
  * um elemento option.
  * 
- * @param elementId		O ID do elemento option.
- * @returns				O valor contido no atributo "value" da opcao selecionada.
+ * @param elementId
+ *  O ID do elemento option.
+ *  
+ * @returns
+ *  O valor contido no atributo "value" da opcao selecionada.
  */
 function getSelectedValue( elementId ) {
 	
@@ -111,7 +125,8 @@ function getSelectedValue( elementId ) {
 /**
  * Seleciona a primeira opcao de um elemento option.
  * 
- * @param elementId		O ID do elemento option.
+ * @param elementId
+ *  O ID do elemento option.
  */
 function selectFirstValue( elementId ) {
 	
@@ -144,9 +159,12 @@ function getCurrentSelectedNode() {
  * retorna o ID do pai dele. Se nao for teminal, retorna o 
  * proprio ID do elemento.
  * 
- * @param id	O ID do elemento.
- * @returns		O ID do elemento nao terminal, que pode ser do
- * 				pai ou ele proprio.
+ * @param id
+ *  O ID do elemento.
+ *  
+ * @returns
+ *  O ID do elemento nao terminal, que pode ser do
+ *  pai ou ele proprio.
  */
 function getNonTerminalID( id ) {
 
@@ -164,8 +182,11 @@ function getNonTerminalID( id ) {
 /**
  * Recupera a regra de um no.
  * 
- * @param id	O ID do no.
- * @returns		A regra do no.
+ * @param id
+ *  O ID do no.
+ *  
+ * @returns
+ *  A regra do no.
  */
 function getRule( id ) {
 
@@ -186,8 +207,11 @@ function getRule( id ) {
 /**
  * Remove barras de escape e aspas duplas no inicio e no fim.
  * 
- * @param text		O texto a ser alterado.
- * @returns			O texto sem aspas duplas no comeco e no fim.
+ * @param text
+ *  O texto a ser alterado.
+ *  
+ * @returns
+ *  O texto sem aspas duplas no comeco e no fim.
  */
 function convertJSON( text ) {
 

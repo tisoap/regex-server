@@ -1,9 +1,6 @@
 /**
  * Contem todos as funcoes genericas de adicao
  * de elementos.
- *
- * @author Tiso
- *
  */
 
 /**
@@ -12,11 +9,16 @@
  * Este novo no pode ser posiciona do logo abaixo de um elemento,
  * ou como filho dele.Isto ira depender se este elemento e terminal ou nao.
  *
- * @param nonTerminalText	O texto do novo no.
- * @param rule				A regra na qual o no pertence.
- * @param nextTo			(opcional) O ID do no onde o novo no ficara abaixo
- * 							ou sera filho de. Utiliza o no atualmente selecionado ou
- * 							a raiz por padrao.
+ * @param nonTerminalText
+ *  O texto do novo no.
+ *  
+ * @param rule
+ *  A regra na qual o no pertence.
+ *  
+ * @param nextTo
+ *  (opcional) O ID do no onde o novo no ficara abaixo
+ * 	ou sera filho de. Utiliza o no atualmente selecionado ou
+ *  a raiz por padrao.
  */
 function addTerminal( terminalText, rule, nextTo ) {
 
@@ -50,18 +52,22 @@ function addTerminal( terminalText, rule, nextTo ) {
  * ou como filho dele. Isto ira depender se este elemento e
  * terminal ou nao.
  *
- * @param nonTerminalText	O texto do novo no.
- * @param rule				A regra na qual o no pertence.
- * @param nextTo			(opcional) O ID do no onde o novo no ficara abaixo
- * 							ou sera filho de. Utiliza o no atualmente selecionado ou
- * 							a raiz por padrao.
+ * @param nonTerminalText
+ *  O texto do novo no.
+ *  
+ * @param rule
+ *  A regra na qual o no pertence.
+ *  
+ * @param nextTo
+ *  (opcional) O ID do no onde o novo no ficara abaixo
+ *  ou sera filho de. Utiliza o no atualmente selecionado ou
+ *  a raiz por padrao.
  */
 function addNonTerminal( nonTerminalText, rule, nextTo ) {
 
 	//Se nao foi passado o parametro nextTo,
 	//assume o elemento atualmente selecionado.
 	if( typeof nextTo === 'undefined' ) nextTo = getCurrentSelectedNode();
-
 
 	//Incrementa o contador de IDs
 	lastID++;
@@ -87,9 +93,14 @@ function addNonTerminal( nonTerminalText, rule, nextTo ) {
 /**
  * Adciona um no nao terminal como filho de outro no.
  *
- * @param parent	O ID do no pai.
- * @param newID		O ID do novo no.
- * @param label		O texto do novo no.
+ * @param parent
+ *  O ID do no pai.
+ *  
+ * @param newID
+ *  O ID do novo no.
+ *  
+ * @param label
+ *  O texto do novo no.
  */
 function addNonTerminalChild( parent, newID, label ) {
 
@@ -108,9 +119,14 @@ function addNonTerminalChild( parent, newID, label ) {
 /**
  * Adciona um no terminal como filho de outro no.
  *
- * @param parent	O ID do no pai.
- * @param newID		O ID do novo no.
- * @param label		O texto do novo no.
+ * @param parent
+ *  O ID do no pai.
+ *  
+ * @param newID
+ *  O ID do novo no.
+ *  
+ * @param label
+ *  O texto do novo no.
  */
 function addTerminalChild( parent, newID, label ) {
 
@@ -127,11 +143,16 @@ function addTerminalChild( parent, newID, label ) {
 }
 
 /**
- *  Adciona um no nao terminal abaixo de outro no.
+ * Adciona um no nao terminal abaixo de outro no.
  *
- * @param previous	O ID do no anterior.
- * @param newID		O ID do novo no.
- * @param label		O texto do novo no.
+ * @param previous
+ *  O ID do no anterior.
+ *  
+ * @param newID
+ *  O ID do novo no.
+ *  
+ * @param label
+ *  O texto do novo no.
  */
 function addNonTerminalNext( previous, newID, label ) {
 
@@ -150,9 +171,14 @@ function addNonTerminalNext( previous, newID, label ) {
 /**
  * Adciona um no terminal abaixo de outro no.
  *
- * @param previous	O ID do no anterior.
- * @param newID		O ID do novo no.
- * @param label		O texto do novo no.
+ * @param previous
+ *  O ID do no anterior.
+ *  
+ * @param newID
+ *  O ID do novo no.
+ *  
+ * @param label
+ *  O texto do novo no.
  */
 function addTerminalNext( previous, newID, label ) {
 

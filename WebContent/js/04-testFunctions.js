@@ -1,30 +1,59 @@
 /**
  * Contem todos as funcoes que testam se e possivel
  * adicionar/remover um elemento na arvore.
- * 
- * @author Tiso
- *
  */
 
-
-/** ----- Variaveis globais ----- */
-
-/** Valor boleano setado pela funcao canAddNode(), que indica
- * se o no pai tem regra quantificadora. */
-var parentIsQuantifier;
+/**
+ * Testa se um no pode ser adicionado em relacao a outro no. Exibe
+ * uma mensagem de erro se nao puder.
+ * 
+ * @param rule
+ *  A regra do no a ser adicionado.
+ *  
+ * @param nextTo
+ *  (opcional) O ID do outro no. Utiliza o no selecionado ou a raiz por padrao.
+ *  
+ * @param text
+ *  (opcional) O texto digitado pelo usuario para este no. Aplicavel
+ *  para testar se um no CHARACTERS pode ser adcionado.
+ *  
+ * @returns {Boolean}
+ */
+function canAddNode( rule, nextTo, text ) {
+	
+	var resultado = canAddNodeTest( rule, nextTo, text );
+	
+	if (!resultado){
+		alert("Nao pode adicionar esse elemento aqui!");
+	}
+	
+	return resultado;
+}
 
 /**
  * Testa se um no pode ser adicionado em relacao a outro no.
  * 
- * @param rule			A regra do no a ser adicionado.
- * @param nextTo		(opcional) O ID do outro no. Utiliza o no selecionado ou a raiz por padrao.
- * @returns {Boolean}	
+ * @param rule
+ *  A regra do no a ser adicionado.
+ *  
+ * @param nextTo
+ *  (opcional) O ID do outro no. Utiliza o no selecionado ou a raiz por padrao.
+ *  
+ * @param text
+ *  (opcional) O texto digitado pelo usuario para este no. Aplicavel
+ *  para testar se um no CHARACTERS pode ser adcionado.
+ *  
+ * @returns {Boolean}
  */
-function canAddNode( rule, nextTo ) {
+function canAddNodeTest( rule, nextTo, text ) {
 
 	//Se nao foi passado o parametro nextTo,
 	//assume o elemento atualmente selecionado.
 	if( typeof nextTo === 'undefined' ) nextTo = getCurrentSelectedNode();
+	
+	//Se nao foi passado o parametro text,
+	//inicializa como uma String vazia.
+	if( typeof text === 'undefined' ) text = "";
 
 	//Se o no selecionado nao for terminal, utiliza o ID dele
 	//Se for terminal, utiliza do ID do pai dele.
@@ -33,6 +62,7 @@ function canAddNode( rule, nextTo ) {
 	//Recupera a regra do no pai
 	var parentRule = getRule( parentID );
 
+	
 	/** INICIO DOS TESTES */
 
 	//Apenas "SUB_EXPRESSION" pode ser filho direto de "MULTIPLE"
@@ -85,19 +115,20 @@ function canAddNode( rule, nextTo ) {
 		return false;
 
 	//Verifica se a regra do pai e condicioal
-	parentIsQuantifier = false;
+	var parentIsQuantifier = false;
+	
 	switch( parentRule ) {
-	case "ONE_OR_MORE":
-	case "ZERO_OR_MORE":
-	case "CONDITIONAL":
-	case "EXACT":
-	case "BETWEEN":
-	case "AT_LEAST":
-		parentIsQuantifier = true;
-		break;
-
-	default:
-		break;
+		case "ONE_OR_MORE":
+		case "ZERO_OR_MORE":
+		case "CONDITIONAL":
+		case "EXACT":
+		case "BETWEEN":
+		case "AT_LEAST":
+			parentIsQuantifier = true;
+			break;
+	
+		default:
+			break;
 	}
 
 	//Se o (futuro) pai deste no ja tem outros filhos
@@ -128,31 +159,53 @@ function canAddNode( rule, nextTo ) {
 	//Quantificadores nao podem quantificar outros quantificadores
 	if( parentIsQuantifier && childIsQuantifier )
 		return false;
+	
+	//Se o filho for do tipo caracteres
+	var childIsCharacters = (rule == "CHARACTERS");
+	
+	if (childIsCharacters) {
+		
+		var moreThanOneChar = ( text.length > 1 );
+		
+		//Quantificadores so podem quantificar 1 caractere
+		//por vez
+		if( moreThanOneChar && parentIsQuantifier )
+			return false;
+		
+	}
 
 	return true;
 }
 
 /**
- * Testa se um no do tipo CHARACTERS pode ser adicionado.
- * Necessario ter executado a funcao canAddNode() anteriormente
- * para que a variavel global parentIsConditional esteja
- * setada.
+ * Testa se um no pode ser removido. Exibe um alerta 
+ * se nao puder.
  * 
- * @param text				O texto do no CHARACTERS.
+ * @param currentSelected
+ *  O ID do no a ser removido.
+ * 
  * @returns {Boolean}
  */
-function canAddCharactersNode( text ) {
-
-	var moreThanOneChar = ( text.length > 1 );
-
-	if( moreThanOneChar && parentIsQuantifier )
-		return false;
-
-	return true;
+function canRemoveNode( currentSelected ) {
+	
+	var resultado = canRemoveNodeTest( currentSelected );
+	
+	if (!resultado){
+		alert("Nao pode remover este no!");
+	}
+	
+	return resultado;
 }
 
-
-function canRemoveNode( currentSelected ) {
+/**
+ * Testa se um no pode ser removido.
+ * 
+ * @param currentSelected
+ *  O ID do no a ser removido.
+ * 
+ * @returns {Boolean}
+ */
+function canRemoveNodeTest( currentSelected ) {
 
 	//Recupera a regra do elemento selecionado
 	var rule = getRule( currentSelected );

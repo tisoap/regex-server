@@ -22,7 +22,7 @@ import regex.Regex;
  *
  */
 @WebServlet("/Regex")
-public class ControleRegex extends HttpServlet {
+public class ControleConstrutor extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 

@@ -1,8 +1,5 @@
 /**
  * Inicializa a arvore dhtmlxTree.
- * 
- * @author Tiso
- *
  */
 
 /** ---- Variaveis Globais ---- **/

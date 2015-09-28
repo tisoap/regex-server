@@ -1,9 +1,6 @@
 /**
  * Contem todos as funcoes que tratam do
  * envio do formulario.
- * 
- * @author Tiso
- *
  */
 
 /**

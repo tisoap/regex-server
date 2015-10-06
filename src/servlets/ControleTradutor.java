@@ -1,5 +1,7 @@
 package servlets;
 
+import static helper.EscapeHelper.*;
+
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -9,10 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import helper.EscapeHelper;
 import regex.Regex;
 import regex.Traducao;
-
 
 /**
  * Servlet que age como mediador entre a pagina JSP e o algoritimo de traducao.
@@ -75,13 +75,18 @@ public class ControleTradutor extends HttpServlet {
 			//caracteres especiais convertidos para entidades HTML
 			texto = traducao.getTextHtml();
 			
+			//TODO descobrir origem bug
+			//Correcao temporario para um bug que adiciona
+			//uma quebra de linha no final do texto traduzido
+			texto = removeNewLines(texto);
+			
 			//Converte os caracteres especiais do input pra entidades HTML
-			input = EscapeHelper.encodeHtmlString(input);
+			input = encodeHtmlString(input);
 			
 			//Adiciona os parametros do request
 			request.setAttribute("jsonString", jsonString);
-			request.setAttribute("traducao", texto);
 			request.setAttribute("regex", input);
+			request.setAttribute("traducao", texto);
 
 			dispatcher = request.getRequestDispatcher("tree-test.jsp");
 

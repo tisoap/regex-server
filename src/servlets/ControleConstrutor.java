@@ -1,5 +1,7 @@
 package servlets;
 
+import static helper.EscapeHelper.*;
+
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -10,16 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import exception.MalformedJson;
-import helper.EscapeHelper;
 import regex.Construtor;
 import regex.Regex;
 
 /**
  * Servlet que age como mediador entre a pagina JSP e o algoritimo
  * de montagem de expressoes regulares.
- *
- * @author Tiso
- *
  */
 @WebServlet("/Regex")
 public class ControleConstrutor extends HttpServlet {
@@ -28,7 +26,7 @@ public class ControleConstrutor extends HttpServlet {
 
 	private Regex       regex;
 	private Construtor  construtor;
-	private String      json, errorMessage = null;
+	private String      json, errorMessage, textoRegex = null;
 
 	/**
 	 * Se invocado, o metodo doGet chama o metodo doPost.
@@ -51,13 +49,20 @@ public class ControleConstrutor extends HttpServlet {
 
 		//Se o valor recuperado nao for vazio...
 		if (json!=null && !json.isEmpty()) {
-
+			
 			//Instancia a classe responsavel por construir o regex
 			construtor = new Construtor();
+			
+			//Remove qualquer quebra de linha no JSON
+			json = removeNewLines(json);
 
 			//Tenta construir a expressao regular a partir do objeto JSON
 			try {
-				regex = construtor.construir(json);
+				regex = construtor.construir(
+							
+							//Escapa todas as barras invertidas do JSON
+							escapeReverseSolidus(json)
+						);
 			}
 			catch (MalformedJson e) {
 				errorMessage = e.getMessage();
@@ -78,8 +83,10 @@ public class ControleConstrutor extends HttpServlet {
 				
 				if (regex.isExpressaoValida()){
 					
+					textoRegex = regex.getRegularExpresion();
+					
 					//Adiciona a regex construida em um parametro do request
-					request.setAttribute("regex", regex.getRegularExpresion());
+					request.setAttribute("regex", textoRegex);
 				}
 				else{
 					//Adiciona uma mensagem de erro em um parametro do request
@@ -93,9 +100,27 @@ public class ControleConstrutor extends HttpServlet {
 				//Adiciona uma mensagem de erro em um parametro do request
 				request.setAttribute("error", errorMessage);
 			}
-
+			
+			//Segundo escape de barras invertidas para que seja
+			//possivel colocar a string dentro de uma variavel
+			//javascript da pagina, atraves de:
+			//var jsonString = "${jsonString}"; 
+			json = escapeReverseSolidus(json);
+			
+			//Terceiro escape de barras invertidas para que seja possivel
+			//converter a string para um objeto json via javascript no
+			//cliente, atraves de:
+			//var json = jQuery.parseJSON( jsonString );
+			json = escapeReverseSolidus(json);
+			
+			//Escapa todas as aspas duplas para que seja
+			//possivel colocar a string dentro de uma variavel
+			//javascript da pagina, atraves de:
+			//var jsonString = "${jsonString}"; 
+			json = escapeDoubleQuote(json);
+			
 			//Adiciona o proprio JSON recebido em um parametro do request
-			request.setAttribute("jsonString", EscapeHelper.escapeString(json) );
+			request.setAttribute("jsonString", json );
 			
 			//Cria um novo "pedido de despache", apontando para a pagina inicial
 			RequestDispatcher dispatcher = request.getRequestDispatcher("tree-test.jsp");

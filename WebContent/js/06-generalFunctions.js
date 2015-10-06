@@ -205,25 +205,35 @@ function getRule( id ) {
 }
 
 /**
- * Remove barras de escape e aspas duplas no inicio e no fim.
- * 
- * @param text
- *  O texto a ser alterado.
- *  
- * @returns
- *  O texto sem aspas duplas no comeco e no fim.
+ * Faz encode de caracteres para entidades HTML.
  */
-function convertJSON( text ) {
+function htmlEncode(value){
+	return String(value)
+		.replace(/&/g, '&amp;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#39;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;');
+}
 
-	while( text.charAt( 0 ) === "\"" ) {
-		text = text.substr( 1 );
-	}
+/**
+ * Faz decode de entidades HTML para caracteres.
+ */
+function htmlDecode(value){
+	return String(value)
+		.replace(/&quot;/g, '"')
+		.replace(/&#39;/g, "'")
+		.replace(/&lt;/g, '<')
+		.replace(/&gt;/g, '>')
+		.replace(/&amp;/g, '&');
+}
 
-	while( text.charAt( text.length - 1 ) === "\"" ) {
-		text = text.substr( 0, text.length - 1 );
-	}
-
-	text = text.replace( /\\"/g, "\"" );
-
+function escapeString(text){
+	
+	var escape = "\\";
+	var quote = "\"";
+	
+	text = text.replace(quote,escape+escape+quote);
+	
 	return text;
 }

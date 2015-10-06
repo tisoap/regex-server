@@ -4,8 +4,6 @@
  * atraves de eventos "onClick()".
  */
 
-//TODO Fazer encode do texto digitado pelo usuario para entidades HTML
-
 function addOneOrMore() {
 
 	if( canAddNode( "ONE_OR_MORE" ) ) {
@@ -199,8 +197,15 @@ function addRange() {
 
 		//Se foi digitado mais de um caractere ou nenhum caractere,
 		//retorna sem fazer nada
-		if( texto1.length != 1 || texto2.length != 1 ) return;
-
+		if( texto1.length != 1 || texto2.length != 1 ){
+			alert("So pode ter 1 caractere de cada lado!")
+			return;
+		}
+		
+		//Faz o encode do texto digitado para entidades HTML
+		texto1 = htmlEncode(texto1);
+		texto2 = htmlEncode(texto2);
+		
 		//Adiciona o elemento na arvore
 		addTerminal( "Todos os caracteres entre " + texto1 + " e " + texto2, "RANGE" );
 
@@ -212,22 +217,41 @@ function addRange() {
 
 function addCharacters() {
 	
-	//TODO Alterar regra para CHARACTER se tiver apenas 1 caractere
-	
 	//Exibe um prompt e armazena o que foi digitado nele
 	var texto = prompt( "Digite seu texto:" );
 
 	//Se o texto nao for um valor valido, retorna sem fazer nada
 	if( isNotValid( texto ) ) return;
-
-	if( canAddNode( "CHARACTERS" , undefined , texto ) ) {
-
-		//Adiciona o elemento na arvore
-		addTerminal( "Caracteres: " + texto, "CHARACTERS" );
 	
-		//Adiciona o texto digitado pelo usuario nos metadados do elemento
-		tree.setUserData( lastID, "texto", texto );
-
+	//Faz o encode dos caracteres para entidades HTML
+	var textoHtml = htmlEncode(texto);
+	
+	if (texto.length == 1){
+	
+		if( canAddNode( "CHARACTER" ) ) {
+			
+			//Adiciona o elemento na arvore
+			addTerminal( "Caractere: " + textoHtml, "CHARACTER" );
+			
+			//Adiciona o texto digitado pelo usuario nos metadados do elemento
+			tree.setUserData( lastID, "texto", textoHtml );
+			
+		}
+	
+	}
+	
+	else {
+		
+		if( canAddNode( "CHARACTERS" ) ) {
+			
+			//Adiciona o elemento na arvore
+			addTerminal( "Caracteres: " + textoHtml, "CHARACTERS" );
+			
+			//Adiciona o texto digitado pelo usuario nos metadados do elemento
+			tree.setUserData( lastID, "texto", textoHtml );
+			
+		}
+		
 	}
 
 }

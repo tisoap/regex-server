@@ -45,15 +45,11 @@ function canAddNode( rule, nextTo, text ) {
  *  
  * @returns {Boolean}
  */
-function canAddNodeTest( rule, nextTo, text ) {
+function canAddNodeTest( rule, nextTo ) {
 
 	//Se nao foi passado o parametro nextTo,
 	//assume o elemento atualmente selecionado.
 	if( typeof nextTo === 'undefined' ) nextTo = getCurrentSelectedNode();
-	
-	//Se nao foi passado o parametro text,
-	//inicializa como uma String vazia.
-	if( typeof text === 'undefined' ) text = "";
 
 	//Se o no selecionado nao for terminal, utiliza o ID dele
 	//Se for terminal, utiliza do ID do pai dele.
@@ -155,23 +151,14 @@ function canAddNodeTest( rule, nextTo, text ) {
 		default:
 			break;
 	}
-
+	
 	//Quantificadores nao podem quantificar outros quantificadores
 	if( parentIsQuantifier && childIsQuantifier )
 		return false;
 	
-	//Se o filho for do tipo caracteres
-	var childIsCharacters = (rule == "CHARACTERS");
-	
-	if (childIsCharacters) {
-		
-		var moreThanOneChar = ( text.length > 1 );
-		
-		//Quantificadores so podem quantificar 1 caractere
-		//por vez
-		if( moreThanOneChar && parentIsQuantifier )
-			return false;
-		
+	//Quantificadores so podem quantificar 1 caractere por vez
+	if (rule == "CHARACTERS" && parentIsQuantifier){
+		return false;
 	}
 
 	return true;

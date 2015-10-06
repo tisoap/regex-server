@@ -26,11 +26,7 @@ $( document ).ready( function () {
 	if( isNotValid( jsonString ) ) {
 		jsonString = "{\"id\":0, \"item\":[]}";
 	};
-
-	jsonString = convertJSON( jsonString );
-
-	console.log( jsonString );
-
+	
 	//Conversao da string para um objeto JSON
 	json = jQuery.parseJSON( jsonString );
 

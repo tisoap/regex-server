@@ -1,8 +1,5 @@
 /**
  * Contem todos as funcoes que removem elementos da arvore.
- * 
- * @author Tiso
- *
  */
 
 /**

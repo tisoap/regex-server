@@ -37,7 +37,7 @@ $( document ).ready( function () {
 	//Desativa a opcao de clicar e arastar elementos da arvore. 
 	//http://docs.dhtmlx.com/api__dhtmlxtree_enabledraganddrop.html
 	tree.enableDragAndDrop( false, false );
-
+	
 	//Define o caminho com as imagens a serem usadas pela arvore
 	//docs.dhtmlx.com/tree__initialization_of_dhtmlxtree.html#objectbasedinitialization
 	tree.setImagePath( "ferramentas/dhtmlxtree/imgs/dhxtree_web/" );
@@ -90,7 +90,6 @@ $( document ).ready( function () {
 		//ou em um dos botoes...
 		if( $( e.target ).is( '#regex-tree, #regex-tree *, #buttons, #buttons *' ) ) {
 			//Nao faz nada
-
 			return;
 		}
 

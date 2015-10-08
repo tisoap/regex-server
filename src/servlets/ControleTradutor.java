@@ -66,7 +66,7 @@ public class ControleTradutor extends HttpServlet {
 			if (traducao.ocorreuErro()){
 				request.setAttribute("error", traducao.getMensagemErro());
 			}
-
+			
 			//Gera um objeto JSON em formato String a partir da traducao
 			/** ----- DS 37-38 ----- **/
 			jsonString = traducao.getEscapedJSONString();
@@ -74,11 +74,6 @@ public class ControleTradutor extends HttpServlet {
 			//Gera um texto puro a partir da traducao, com
 			//caracteres especiais convertidos para entidades HTML
 			texto = traducao.getTextHtml();
-			
-			//TODO descobrir origem bug
-			//Correcao temporario para um bug que adiciona
-			//uma quebra de linha no final do texto traduzido
-			texto = removeNewLines(texto);
 			
 			//Converte os caracteres especiais do input pra entidades HTML
 			input = encodeHtmlString(input);

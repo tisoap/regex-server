@@ -4,6 +4,79 @@
  * atraves de eventos "onClick()".
  */
 
+
+function addAlNum() {
+	if( canAddNode( "ALNUM" ) ) {
+		addTerminal( "Caracteres alfanumericos", "ALNUM" );
+	}
+}
+
+function addAlpha(){
+	if( canAddNode( "ALPHA" ) ) {
+		addTerminal( "Caracteres alfabeticos", "ALPHA" );
+	}
+}
+
+function addBlank() {
+	if( canAddNode( "BLANK" ) ) {
+		addTerminal( "Espacos e tabulacoes", "BLANK" );
+	}
+}
+
+function addCntrl(){
+	if( canAddNode( "CNTRL" ) ) {
+		addTerminal( "Caracteres de controle", "CNTRL" );
+	}	
+}
+
+function addDigitClass(){
+	if( canAddNode( "DIGIT_CLASS" ) ) {
+		addTerminal( "Digitos", "DIGIT_CLASS" );
+	}	
+}
+
+function addGraph(){
+	if( canAddNode( "GRAPH" ) ) {
+		addTerminal( "Caracteres visiveis", "GRAPH" );
+	}	
+}
+
+function addLower(){
+	if( canAddNode( "LOWER" ) ) {
+		addTerminal( "Letras minusculas", "LOWER" );
+	}	
+}
+
+function addPrint(){
+	if( canAddNode( "PRINT" ) ) {
+		addTerminal( "Caracteres visiveis e espaco", "PRINT" );
+	}	
+}
+
+function addPunct(){
+	if( canAddNode( "PUNCT" ) ) {
+		addTerminal( "Caracteres de pontuacao", "PUNCT" );
+	}	
+}
+
+function addSpaceClass(){
+	if( canAddNode( "SPACE_CLASS" ) ) {
+		addTerminal( "Caracteres brancos", "SPACE_CLASS" );
+	}	
+}
+
+function addUpper(){
+	if( canAddNode( "UPPER" ) ) {
+		addTerminal( "Letras maiusculas", "UPPER" );
+	}	
+}
+
+function addXDigit(){
+	if( canAddNode( "X_DIGIT" ) ) {
+		addTerminal( "Numeros hexadecimais", "X_DIGIT" );
+	}	
+}
+
 function addOneOrMore() {
 
 	if( canAddNode( "ONE_OR_MORE" ) ) {

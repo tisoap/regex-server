@@ -1,9 +1,6 @@
 /**
  * Contem todos as funcoes auxiliares gerais, que
  * sao utilizadas por outras funcoes.
- * 
- * @author Tiso
- *
  */
 
 /**

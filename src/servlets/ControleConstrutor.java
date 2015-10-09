@@ -59,7 +59,7 @@ public class ControleConstrutor extends HttpServlet {
 			//Tenta construir a expressao regular a partir do objeto JSON
 			try {
 				regex = construtor.construir(
-							
+							//TODO a biblioteca DHTMLX escapa " mas nao escapa \
 							//Escapa todas as barras invertidas do JSON
 							escapeReverseSolidus(json)
 						);
@@ -124,7 +124,7 @@ public class ControleConstrutor extends HttpServlet {
 			
 			//Cria um novo "pedido de despache", apontando para a pagina inicial
 			RequestDispatcher dispatcher = request.getRequestDispatcher("tree-test.jsp");
-
+			
 			//Encaminha o pedido para a pagina inicial
 			dispatcher.forward(request, response);
 		}

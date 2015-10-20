@@ -26,7 +26,7 @@ $( document ).ready( function () {
 	if( isNotValid( jsonString ) ) {
 		jsonString = "{\"id\":0, \"item\":[]}";
 	};
-	
+
 	//Conversao da string para um objeto JSON
 	json = jQuery.parseJSON( jsonString );
 
@@ -45,12 +45,6 @@ $( document ).ready( function () {
 	//Abilita a serializacao de dados adicionais
 	//http://forum.dhtmlx.com/viewtopic.php?f=3&t=23155&p=74442&hilit=json+serialize#p74442
 	tree._xuserData = true;
-
-	//TODO Desabilitar o escapamento de caracteres, solucao abaixo nao fuciona
-	//O escapamento ja e feito pelo servidor, entao isto
-	//precisa ser desativado para evitar incompatibilidades
-	//http://docs.dhtmlx.com/tree__increasing_tree_s_performance.html
-	tree.setEscapingMode("none");
 	
 	//Carrega os dados do objeto JSON na arvore
 	tree.loadJSONObject( json );

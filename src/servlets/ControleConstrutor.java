@@ -21,7 +21,7 @@ import regex.Regex;
  */
 @WebServlet("/Regex")
 public class ControleConstrutor extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private Regex       regex;
@@ -59,9 +59,7 @@ public class ControleConstrutor extends HttpServlet {
 			//Tenta construir a expressao regular a partir do objeto JSON
 			try {
 				regex = construtor.construir(
-							//TODO a biblioteca DHTMLX escapa " mas nao escapa \
-							//Escapa todas as barras invertidas do JSON
-							escapeReverseSolidus(json)
+							json
 						);
 			}
 			catch (MalformedJson e) {
@@ -81,16 +79,20 @@ public class ControleConstrutor extends HttpServlet {
 			//Se conseguiu construir construir a expressao regular...
 			if (regex != null){
 				
+				//Se a expressao regular for valida
 				if (regex.isExpressaoValida()){
 					
+					//Recupera o texto da expressao regular
 					textoRegex = regex.getRegularExpresion();
 					
 					//Adiciona a regex construida em um parametro do request
-					request.setAttribute("regex", textoRegex);
+					request.setAttribute("regex", encodeHtmlString(textoRegex) );
 				}
+				
+				//Se a expressao regular nao for valida...
 				else{
 					//Adiciona uma mensagem de erro em um parametro do request
-					request.setAttribute("error", regex.getErrorMessage());
+					request.setAttribute("error", encodeHtmlString(regex.getErrorMessage()) );  
 				}
 
 			}
@@ -98,29 +100,11 @@ public class ControleConstrutor extends HttpServlet {
 			//Se nao conseguiu construir a expressao regular...
 			else {
 				//Adiciona uma mensagem de erro em um parametro do request
-				request.setAttribute("error", errorMessage);
+				request.setAttribute("error", encodeHtmlString(errorMessage) );
 			}
 			
-			//Segundo escape de barras invertidas para que seja
-			//possivel colocar a string dentro de uma variavel
-			//javascript da pagina, atraves de:
-			//var jsonString = "${jsonString}"; 
-			json = escapeReverseSolidus(json);
-			
-			//Terceiro escape de barras invertidas para que seja possivel
-			//converter a string para um objeto json via javascript no
-			//cliente, atraves de:
-			//var json = jQuery.parseJSON( jsonString );
-			json = escapeReverseSolidus(json);
-			
-			//Escapa todas as aspas duplas para que seja
-			//possivel colocar a string dentro de uma variavel
-			//javascript da pagina, atraves de:
-			//var jsonString = "${jsonString}"; 
-			json = escapeDoubleQuote(json);
-			
 			//Adiciona o proprio JSON recebido em um parametro do request
-			request.setAttribute("jsonString", json );
+			request.setAttribute("jsonString", escapeString(json) );
 			
 			//Cria um novo "pedido de despache", apontando para a pagina inicial
 			RequestDispatcher dispatcher = request.getRequestDispatcher("tree-test.jsp");

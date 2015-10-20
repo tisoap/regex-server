@@ -9428,6 +9428,13 @@ dhtmlXTreeObject.prototype.serializeTreeToJSON = function() {
     a.push("]}");
     return a.join("")
 };
+//Funcao de escape personalizada
+dhtmlXTreeObject.prototype._escape = function(a) {
+	a = String(a);                   //Cast para String
+	a = a.replace(/\\/g, '\\\\', a); //Escapa barras invertidas
+	a = a.replace(/\"/g, '\\"', a);  //Escapa aspas duplas
+	return a;
+}
 dhtmlXTreeObject.prototype._serializeItemJSON = function(h) {
     var a = [];
     if (h.unParsed) {
@@ -9439,7 +9446,7 @@ dhtmlXTreeObject.prototype._serializeItemJSON = function(h) {
         d = ""
     }
     var g = h.span.innerHTML;
-    g = g.replace(/\"/g, '\\"', g);
+    g = this._escape(g);
     if (!this._xfullXML) {
         a.push('{ "id":"' + h.id + '", ' + (this._getOpenState(h) == 1 ? ' "open":"1", ' : "") + (d == h.id ? ' "select":"1",' : "") + ' "text":"' + g + '"' + (((this.XMLsource) && (h.XMLload == 0)) ? ', "child":"1" ' : ""))
     } else {
@@ -9450,7 +9457,7 @@ dhtmlXTreeObject.prototype._serializeItemJSON = function(h) {
         var f = h._userdatalist.split(",");
         var e = [];
         for (var c = 0; c < f.length; c++) {
-            e.push('{ "name":"' + f[c] + '" , "content":"' + h.userData["t_" + f[c]] + '" }')
+            e.push('{ "name":"' + f[c] + '" , "content":"' + this._escape(h.userData["t_" + f[c]]) + '" }')
         }
         a.push(e.join(","));
         a.push("]")

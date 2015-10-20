@@ -64,7 +64,7 @@ public class ControleTradutor extends HttpServlet {
 
 			//Se nao ocorreu erro na analise
 			if (traducao.ocorreuErro()){
-				request.setAttribute("error", traducao.getMensagemErro());
+				request.setAttribute("error", encodeHtmlString(traducao.getMensagemErro()) );
 			}
 			
 			//Gera um objeto JSON em formato String a partir da traducao

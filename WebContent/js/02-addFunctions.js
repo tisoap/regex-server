@@ -299,6 +299,10 @@ function addCharacters() {
 	//Faz o encode dos caracteres para entidades HTML
 	var textoHtml = htmlEncode(texto);
 	
+	//Faz o escape de barras invertidas e aspas duplas
+	//var textoEscapado = texto.replace(/\\/g, '\\\\');
+	//textoEscapado = textoEscapado.replace(/\"/g, '\\"');
+	
 	if (texto.length == 1){
 	
 		if( canAddNode( "CHARACTER" ) ) {
@@ -307,7 +311,7 @@ function addCharacters() {
 			addTerminal( "Caractere: " + textoHtml, "CHARACTER" );
 			
 			//Adiciona o texto digitado pelo usuario nos metadados do elemento
-			tree.setUserData( lastID, "texto", textoHtml );
+			tree.setUserData( lastID, "texto", texto );
 			
 		}
 	
@@ -321,7 +325,7 @@ function addCharacters() {
 			addTerminal( "Caracteres: " + textoHtml, "CHARACTERS" );
 			
 			//Adiciona o texto digitado pelo usuario nos metadados do elemento
-			tree.setUserData( lastID, "texto", textoHtml );
+			tree.setUserData( lastID, "texto", texto );
 			
 		}
 		

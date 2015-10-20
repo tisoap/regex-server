@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
 	<title>Teste</title>
-
+	<meta charset="utf-8">
+	
 	<!-- JQuery 2.1.3 -->
 	<script src="ferramentas/jquery-2.1.3.min.js"></script>
 
@@ -37,7 +37,7 @@
 
 		<h1>Teste</h1>
 
-		<form id="regex-form" method="post" action="Traducao">
+		<form id="regex-form" method="post" action="Traducao" accept-charset=utf-8>
 			<input type="text" name="regex" class="form-control" value="${regex}" placeholder="Ex.: (a|b)*">
 			<button type="submit" class="btn btn-default">Traduzir Regex</button>
 			<input type="hidden" name="testPage" value="true">
@@ -101,7 +101,7 @@
 		<div id="regex-tree"></div>
 		<textarea rows="13" cols="40">${traducao}</textarea>
 
-		<form id="tree-form" method="post" action="Regex">
+		<form id="tree-form" method="post" action="Regex" accept-charset=utf-8>
 			<button onclick="serializeAndSubmit()">Construir Regex</button>
 			<input type="hidden" name="jsonTree" id="serializedInput">
 		</form>

@@ -299,36 +299,67 @@ function addCharacters() {
 	//Faz o encode dos caracteres para entidades HTML
 	var textoHtml = htmlEncode(texto);
 	
-	//Faz o escape de barras invertidas e aspas duplas
-	//var textoEscapado = texto.replace(/\\/g, '\\\\');
-	//textoEscapado = textoEscapado.replace(/\"/g, '\\"');
+	//Recupera a regra do no pai 
+	var pai = getParentRule();
 	
-	if (texto.length == 1){
-	
-		if( canAddNode( "CHARACTER" ) ) {
+	//Se o pai for uma lista
+	if (pai == "POSITIVE_LIST" || pai == "NEGATIVE_LIST"){
+		
+		//Se o texto tiver apenas 1 caractere
+		if (texto.length == 1){
 			
-			//Adiciona o elemento na arvore
-			addTerminal( "Caractere: " + textoHtml, "CHARACTER" );
-			
-			//Adiciona o texto digitado pelo usuario nos metadados do elemento
-			tree.setUserData( lastID, "texto", texto );
+			//Se pode adicionar o no nas circunstancias atuais
+			if( canAddNode( "LIST_CHARACTER" ) ) {
+				addTerminal( "Caractere: " + textoHtml, "LIST_CHARACTER" );
+				tree.setUserData( lastID, "texto", texto );
+			}
 			
 		}
-	
+		
+		//Se o texto tiver mais de um caractere
+		else{			
+			
+			if ( canAddNode( "LIST_CHARACTERS" ) ) {
+				addTerminal( "Caracteres: " + textoHtml, "LIST_CHARACTERS" );
+				tree.setUserData( lastID, "texto", texto );
+			}
+		}
 	}
 	
-	else {
+	else{
+	
+		//Faz o escape de barras invertidas e aspas duplas
+		//var textoEscapado = texto.replace(/\\/g, '\\\\');
+		//textoEscapado = textoEscapado.replace(/\"/g, '\\"');
 		
-		if( canAddNode( "CHARACTERS" ) ) {
-			
-			//Adiciona o elemento na arvore
-			addTerminal( "Caracteres: " + textoHtml, "CHARACTERS" );
-			
-			//Adiciona o texto digitado pelo usuario nos metadados do elemento
-			tree.setUserData( lastID, "texto", texto );
-			
+		if (texto.length == 1){
+		
+			if( canAddNode( "CHARACTER" ) ) {
+				
+				//Adiciona o elemento na arvore
+				addTerminal( "Caractere: " + textoHtml, "CHARACTER" );
+				
+				//Adiciona o texto digitado pelo usuario nos metadados do elemento
+				tree.setUserData( lastID, "texto", texto );
+				
+			}
+		
 		}
 		
+		else {
+			
+			if( canAddNode( "CHARACTERS" ) ) {
+				
+				//Adiciona o elemento na arvore
+				addTerminal( "Caracteres: " + textoHtml, "CHARACTERS" );
+				
+				//Adiciona o texto digitado pelo usuario nos metadados do elemento
+				tree.setUserData( lastID, "texto", texto );
+				
+			}
+			
+		}
+	
 	}
 
 }

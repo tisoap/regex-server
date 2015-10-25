@@ -234,3 +234,20 @@ function escapeString(text){
 	
 	return text;
 }
+
+function getParentRule(nextTo){
+	
+	//Se nao foi passado o parametro nextTo,
+	//assume o elemento atualmente selecionado.
+	if( typeof nextTo === 'undefined' ) nextTo = getCurrentSelectedNode();
+
+	//Se o no selecionado nao for terminal, utiliza o ID dele
+	//Se for terminal, utiliza do ID do pai dele.
+	var parentID = getNonTerminalID( nextTo );
+
+	//Recupera a regra do no pai
+	var parentRule = getRule( parentID );
+	
+	return parentRule;
+	
+}

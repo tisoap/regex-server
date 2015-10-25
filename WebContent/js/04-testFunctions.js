@@ -13,15 +13,11 @@
  * @param nextTo
  *  (opcional) O ID do outro no. Utiliza o no selecionado ou a raiz por padrao.
  *  
- * @param text
- *  (opcional) O texto digitado pelo usuario para este no. Aplicavel
- *  para testar se um no CHARACTERS pode ser adcionado.
- *  
  * @returns {Boolean}
  */
-function canAddNode( rule, nextTo, text ) {
+function canAddNode( rule, nextTo ) {
 	
-	var resultado = canAddNodeTest( rule, nextTo, text );
+	var resultado = canAddNodeTest( rule, nextTo );
 	
 	if (!resultado){
 		alert("Nao pode adicionar esse elemento aqui!");
@@ -39,14 +35,13 @@ function canAddNode( rule, nextTo, text ) {
  * @param nextTo
  *  (opcional) O ID do outro no. Utiliza o no selecionado ou a raiz por padrao.
  *  
- * @param text
- *  (opcional) O texto digitado pelo usuario para este no. Aplicavel
- *  para testar se um no CHARACTERS pode ser adcionado.
- *  
  * @returns {Boolean}
  */
 function canAddNodeTest( rule, nextTo ) {
 
+	//Retorna a regra do primeiro pai nao terminal
+	var parentRule = getParentRule(nextTo);
+	
 	//Se nao foi passado o parametro nextTo,
 	//assume o elemento atualmente selecionado.
 	if( typeof nextTo === 'undefined' ) nextTo = getCurrentSelectedNode();
@@ -90,6 +85,8 @@ function canAddNodeTest( rule, nextTo ) {
 		case "UPPER":
 		case "X_DIGIT":
 		case "RANGE":
+		case "LIST_CHARACTER":
+		case "LIST_CHARACTERS":
 			listOnly = true;
 			break;
 	
@@ -105,9 +102,9 @@ function canAddNodeTest( rule, nextTo ) {
 	if( listOnly && !parentIsList )
 		return false;
 
-	//Se nao for um elemento exclusivo de lista ou caracteres, e o pai for
+	//Se nao for um elemento exclusivo de lista e o pai for
 	//uma lista, nao pode adicionar
-	if( ( !listOnly && parentIsList ) && ( rule != "CHARACTERS" && rule != "CHARACTER" ) )
+	if( !listOnly && parentIsList )
 		return false;
 
 	//Verifica se a regra do pai e condicioal

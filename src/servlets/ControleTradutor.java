@@ -1,6 +1,6 @@
 package servlets;
 
-import static helper.EscapeHelper.*;
+import static helper.EscapeHelper.encodeHtmlString;
 
 import java.io.IOException;
 
@@ -22,9 +22,9 @@ import regex.Traducao;
  */
 @WebServlet("/Traducao")
 public class ControleTradutor extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private RequestDispatcher dispatcher;
 	private Regex             regex;
 	private Traducao          traducao;
@@ -33,6 +33,7 @@ public class ControleTradutor extends HttpServlet {
 	/**
 	 * Se invocado, o metodo doGet chama o metodo doPost.
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -43,58 +44,63 @@ public class ControleTradutor extends HttpServlet {
 	 * Recebe a expressao digitada pelo usuario no
 	 * formulario e retorna uma pagina com a traducao como resposta.
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		//Recupera o valor digitado pelo usuario
 		input = request.getParameter("regex");
 
-		//Se o valor recuperado nao for vazio...
-		if (input!=null && !input.isEmpty()){
+		//Se o valor recuperado for vazio, envia uma redirecionamento
+		//para a pagina inicial como resposta
+		if ((input==null) || input.isEmpty()){
+			response.sendRedirect("index.jsp");
+			return;
+		}
 
-			//Instancia a classe responsavel em fazer a traducao, passando
-			//para ela o valor recebido do formulario
-			/** ----- DS 3-16 ----- **/
-			regex = new Regex(input);
-
-			//Traduz a expressao inserida,
-			//gerando um objeto Traducao.
-			/** ----- DS 17-36 ----- **/
-			traducao = regex.traduzir();
-
-			//Se nao ocorreu erro na analise
-			if (traducao.ocorreuErro()){
-				request.setAttribute("error", encodeHtmlString(traducao.getMensagemErro()) );
-			}
-			
-			//Gera um objeto JSON em formato String a partir da traducao
-			/** ----- DS 37-38 ----- **/
-			jsonString = traducao.getEscapedJSONString();
-			
-			//Gera um texto puro a partir da traducao, com
-			//caracteres especiais convertidos para entidades HTML
-			texto = traducao.getTextHtml();
-			
-			//Converte os caracteres especiais do input pra entidades HTML
-			input = encodeHtmlString(input);
-			
-			//Adiciona os parametros do request
-			request.setAttribute("jsonString", jsonString);
-			request.setAttribute("regex", input);
-			request.setAttribute("traducao", texto);
-
-			dispatcher = request.getRequestDispatcher("tree-test.jsp");
-
-			//Encaminha o pedido para a pagina inicial
-			/** ----- DS 39 ----- **/
+		//Se o valor recuperado for muito grande, retorna uma mensagem de erro
+		if (input.length() >= 512){
+			request.setAttribute("error", "Tamanho da expressao maior do que o permitido.");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
+			return;
 		}
 
-		//Se o valor for vazio...
-		else {
-			//Envia uma redirecionamento para a pagina inicial como resposta
-			response.sendRedirect("tree-test.jsp");
-		}
+		//Instancia a classe responsavel em fazer a traducao, passando
+		//para ela o valor recebido do formulario
+		/** ----- DS 3-16 ----- **/
+		regex = new Regex(input);
+
+		//Traduz a expressao inserida,
+		//gerando um objeto Traducao.
+		/** ----- DS 17-36 ----- **/
+		traducao = regex.traduzir();
+
+		//Se nao ocorreu erro na analise
+		if (traducao.ocorreuErro())
+			request.setAttribute("error", encodeHtmlString(traducao.getMensagemErro()) );
+
+		//Gera um objeto JSON em formato String a partir da traducao
+		/** ----- DS 37-38 ----- **/
+		jsonString = traducao.getEscapedJSONString();
+
+		//Gera um texto puro a partir da traducao, com
+		//caracteres especiais convertidos para entidades HTML
+		texto = traducao.getTextHtml();
+
+		//Converte os caracteres especiais do input pra entidades HTML
+		input = encodeHtmlString(input);
+
+		//Adiciona os parametros do request
+		request.setAttribute("jsonString", jsonString);
+		request.setAttribute("regex", input);
+		request.setAttribute("traducao", texto);
+
+		dispatcher = request.getRequestDispatcher("index.jsp");
+
+		//Encaminha o pedido para a pagina inicial
+		/** ----- DS 39 ----- **/
+		dispatcher.forward(request, response);
 	}
 
 }

@@ -31,6 +31,11 @@ public class ControleConstrutor extends HttpServlet {
 	private String      json, errorMessage, textoRegex = null;
 
 	/**
+	 * JSON vazio padrao da biblioteca DHTMLX Tree.
+	 */
+	private static final String emptyJson = "{\"id\":\"0\", \"item\":[]}";
+
+	/**
 	 * Se invocado, o metodo doGet chama o metodo doPost.
 	 */
 	@Override
@@ -51,65 +56,73 @@ public class ControleConstrutor extends HttpServlet {
 		//Recupera o objeto JSON em formato String
 		json = request.getParameter("jsonTree");
 
-		//Se o valor recuperado nao for vazio...
-		if ((json!=null) && !json.isEmpty()) {
+		//Se o valor recuperado for vazio, envia um redirecionamento
+		//para a pagina inicial
+		if ((json==null) || json.isEmpty() || json.equals(emptyJson)){
+			response.sendRedirect("index.jsp");
+			return;
+		}
 
-			//Instancia a classe responsavel por construir o regex
-			construtor = new Construtor();
+		//Se o valor recuperado for muito grande, retorna uma mensagem de erro
+		if (json.length() >= 130000){
+			request.setAttribute("error", "Tamanho de arvore maior do que o permitido.");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
+			return;
+		}
 
-			//Remove qualquer quebra de linha no JSON
-			json = removeNewLines(json);
+		//Instancia a classe responsavel por construir o regex
+		construtor = new Construtor();
 
-			//Tenta construir a expressao regular a partir do objeto JSON
-			try {
-				regex = construtor.construir(
-						json
-						);
-			}
-			catch (MalformedJson e) {
-				errorMessage = e.getMessage();
-				System.err.println(errorMessage);
-				e.printStackTrace();
-			}
-			catch (IOException e){
-				errorMessage = "Erro de IO.";
-				e.printStackTrace();
-			}
-			catch (Exception e){
-				errorMessage = "Erro desconhecido.";
-				e.printStackTrace();
-			}
+		//Remove qualquer quebra de linha no JSON
+		json = removeNewLines(json);
 
-			//Se conseguiu construir construir a expressao regular...
-			if (regex != null){
+		//Tenta construir a expressao regular a partir do objeto JSON
+		try {
+			regex = construtor.construir(json);
+		}
+		catch (MalformedJson e) {
+			errorMessage = e.getMessage();
+			System.err.println(errorMessage);
+			e.printStackTrace();
+		}
+		catch (IOException e){
+			errorMessage = "Erro de IO.";
+			e.printStackTrace();
+		}
+		catch (Exception e){
+			errorMessage = "Erro desconhecido.";
+			e.printStackTrace();
+		}
 
-				//Se a expressao regular for valida
-				if (regex.isExpressaoValida()){
+		//Se conseguiu construir construir a expressao regular...
+		if (regex != null){
 
-					//Recupera o texto da expressao regular
-					textoRegex = regex.getRegularExpresion();
+			//Se a expressao regular for valida
+			if (regex.isExpressaoValida()){
 
-					//Adiciona a regex construida em um parametro do request
-					request.setAttribute("regex", encodeHtmlString(textoRegex) );
-				} else
-					//Adiciona uma mensagem de erro em um parametro do request
-					request.setAttribute("error", encodeHtmlString(regex.getErrorMessage()) );
+				//Recupera o texto da expressao regular
+				textoRegex = regex.getRegularExpresion();
+
+				//Adiciona a regex construida
+				request.setAttribute("regex", encodeHtmlString(textoRegex) );
 
 			} else
-				//Adiciona uma mensagem de erro em um parametro do request
-				request.setAttribute("error", encodeHtmlString(errorMessage) );
+				//Adiciona a mensagem indicando porque a expressao nao e valida
+				request.setAttribute("error", encodeHtmlString(regex.getErrorMessage()) );
 
-			//Adiciona o proprio JSON recebido em um parametro do request
-			request.setAttribute("jsonString", escapeString(json) );
-
-			//Cria um novo "pedido de despache", apontando para a pagina inicial
-			RequestDispatcher dispatcher = request.getRequestDispatcher("tree-test.jsp");
-
-			//Encaminha o pedido para a pagina inicial
-			dispatcher.forward(request, response);
 		} else
-			//Envia uma redirecionamento para a pagina inicial como resposta
-			response.sendRedirect("tree-test.jsp");
+			//Adiciona a mensagem indicando porque nao consegui construir a expressao
+			request.setAttribute("error", encodeHtmlString(errorMessage) );
+
+		//Adiciona o proprio JSON recebido em um parametro do request
+		request.setAttribute("jsonString", escapeString(json) );
+
+		//Cria um novo "pedido de despache", apontando para a pagina inicial
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+
+		//Encaminha o pedido para a pagina inicial
+		dispatcher.forward(request, response);
 	}
 
 }

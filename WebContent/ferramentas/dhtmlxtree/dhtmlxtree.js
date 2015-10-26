@@ -1,7 +1,7 @@
 /*
-Product Name: dhtmlxTree 
-Version: 4.2 
-Edition: Standard 
+Product Name: dhtmlxTree
+Version: 4.2
+Edition: Standard
 License: content of this file is covered by GPL. Usage outside GPL terms is prohibited. To obtain Commercial or Enterprise license contact sales@dhtmlx.com
 Copyright UAB Dinamenta http://www.dhtmlx.com
 */
@@ -62,7 +62,7 @@ if (typeof(window.dhx4) == "undefined") {
             if (typeof(a) == "string") {
                 a = a.toLowerCase()
             }
-            return (a == true || a == 1 || a == "true" || a == "1" || a == "yes" || a == "y")
+            return ((a == true) || (a == 1) || (a == "true") || (a == "1") || (a == "yes") || (a == "y"))
         },
         s2j: function(s) {
             var obj = null;
@@ -124,13 +124,13 @@ if (typeof(window.dhx4) == "undefined") {
             }
         },
         _isObj: function(a) {
-            return (a != null && typeof(a) == "object" && typeof(a.length) == "undefined")
+            return ((a != null) && (typeof(a) == "object") && (typeof(a.length) == "undefined"))
         },
         _copyObj: function(e) {
             if (this._isObj(e)) {
                 var d = {};
                 for (var c in e) {
-                    if (typeof(e[c]) == "object" && e[c] != null) {
+                    if ((typeof(e[c]) == "object") && (e[c] != null)) {
                         d[c] = this._copyObj(e[c])
                     } else {
                         d[c] = e[c]
@@ -139,7 +139,7 @@ if (typeof(window.dhx4) == "undefined") {
             } else {
                 var d = [];
                 for (var c = 0; c < e.length; c++) {
-                    if (typeof(e[c]) == "object" && e[c] != null) {
+                    if ((typeof(e[c]) == "object") && (e[c] != null)) {
                         d[c] = this._copyObj(e[c])
                     } else {
                         d[c] = e[c]
@@ -192,7 +192,7 @@ if (typeof(window.dhx4) == "undefined") {
                     transition: "transitionend"
                 };
                 for (var c in d) {
-                    if (this.transData.transProp == false && document.documentElement.style[c] != null) {
+                    if ((this.transData.transProp == false) && (document.documentElement.style[c] != null)) {
                         this.transData.transProp = c;
                         this.transData.transEv = d[c]
                     }
@@ -209,13 +209,13 @@ if (typeof(window.dhx4) == "undefined") {
             return d
         }
     };
-    window.dhx4.isIE = (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0);
-    window.dhx4.isIE6 = (window.XMLHttpRequest == null && navigator.userAgent.indexOf("MSIE") >= 0);
-    window.dhx4.isIE7 = (navigator.userAgent.indexOf("MSIE 7.0") >= 0 && navigator.userAgent.indexOf("Trident") < 0);
-    window.dhx4.isIE8 = (navigator.userAgent.indexOf("MSIE 8.0") >= 0 && navigator.userAgent.indexOf("Trident") >= 0);
+    window.dhx4.isIE = ((navigator.userAgent.indexOf("MSIE") >= 0) || (navigator.userAgent.indexOf("Trident") >= 0));
+    window.dhx4.isIE6 = ((window.XMLHttpRequest == null) && (navigator.userAgent.indexOf("MSIE") >= 0));
+    window.dhx4.isIE7 = ((navigator.userAgent.indexOf("MSIE 7.0") >= 0) && (navigator.userAgent.indexOf("Trident") < 0));
+    window.dhx4.isIE8 = ((navigator.userAgent.indexOf("MSIE 8.0") >= 0) && (navigator.userAgent.indexOf("Trident") >= 0));
     window.dhx4.isOpera = (navigator.userAgent.indexOf("Opera") >= 0);
     window.dhx4.isChrome = (navigator.userAgent.indexOf("Chrome") >= 0);
-    window.dhx4.isKHTML = (navigator.userAgent.indexOf("Safari") >= 0 || navigator.userAgent.indexOf("Konqueror") >= 0);
+    window.dhx4.isKHTML = ((navigator.userAgent.indexOf("Safari") >= 0) || (navigator.userAgent.indexOf("Konqueror") >= 0));
     window.dhx4.isFF = (navigator.userAgent.indexOf("Firefox") >= 0);
     window.dhx4.isIPad = (navigator.userAgent.search(/iPad/gi) >= 0)
 }
@@ -233,7 +233,7 @@ if (typeof(window.dhx4.template) == "undefined") {
                 g = g.split(":");
                 var e = [];
                 for (var l = 0; l < g.length; l++) {
-                    if (l > 0 && e[e.length - 1].match(/\\$/) != null) {
+                    if ((l > 0) && (e[e.length - 1].match(/\\$/) != null)) {
                         e[e.length - 1] = e[e.length - 1].replace(/\\$/, "") + ":" + g[l]
                     } else {
                         e.push(g[l])
@@ -244,10 +244,10 @@ if (typeof(window.dhx4.template) == "undefined") {
                     f.push(e[l])
                 }
             }
-            if (typeof(j) == "string" && typeof(window.dhx4.template[j]) == "function") {
+            if ((typeof(j) == "string") && (typeof(window.dhx4.template[j]) == "function")) {
                 return window.dhx4.template[j].apply(window.dhx4.template, f)
             }
-            if (h.length > 0 && typeof(d[h]) != "undefined") {
+            if ((h.length > 0) && (typeof(d[h]) != "undefined")) {
                 if (a == true) {
                     return window.dhx4.trim(d[h])
                 }
@@ -281,20 +281,20 @@ if (typeof(window.dhx4.template) == "undefined") {
         return window.dhx4.template._getFmtValue(e, c)
     };
     window.dhx4.template.lowercase = function(a) {
-        if (typeof(a) == "undefined" || a == null) {
+        if ((typeof(a) == "undefined") || (a == null)) {
             a = ""
         }
         return String(a).toLowerCase()
     };
     window.dhx4.template.uppercase = function(a) {
-        if (typeof(a) == "undefined" || a == null) {
+        if ((typeof(a) == "undefined") || (a == null)) {
             a = ""
         }
         return String(a).toUpperCase()
     };
     window.dhx4.template._parseFmt = function(j, d, a) {
         var e = j.match(/^([^\.\,0-9]*)([0\.\,]*)([^\.\,0-9]*)/);
-        if (e == null || e.length != 4) {
+        if ((e == null) || (e.length != 4)) {
             return false
         }
         var c = {
@@ -317,7 +317,7 @@ if (typeof(window.dhx4.template) == "undefined") {
     };
     window.dhx4.template._getFmtValue = function(value, fmt) {
         var r = String(value).match(/^(-)?([0-9]{1,})(\.([0-9]{1,}))?$/);
-        if (r != null && r.length == 5) {
+        if ((r != null) && (r.length == 5)) {
             var v0 = "";
             if (r[1] != null) {
                 v0 += r[1]
@@ -328,7 +328,7 @@ if (typeof(window.dhx4.template) == "undefined") {
                 var v1 = "";
                 for (var q = r[2].length - 1; q >= 0; q--) {
                     v1 = "" + r[2].charAt(q) + v1;
-                    if (++i == fmt.i_len && q > 0) {
+                    if ((++i == fmt.i_len) && (q > 0)) {
                         v1 = fmt.i_sep + v1;
                         i = 0
                     }
@@ -371,10 +371,10 @@ if (typeof(window.dhx4.dateLang) == "undefined") {
         en: "%Y-%m-%d"
     };
     window.dhx4.date2str = function(g, e, a) {
-        if (e == null || typeof(e) == "undefnied") {
+        if ((e == null) || (typeof(e) == "undefnied")) {
             e = window.dhx4.dateFormat[window.dhx4.dateLang]
         }
-        if (a == null || typeof(a) == "undefnied") {
+        if ((a == null) || (typeof(a) == "undefnied")) {
             a = window.dhx4.dateStrings[window.dhx4.dateLang]
         }
         if (g instanceof Date) {
@@ -424,7 +424,7 @@ if (typeof(window.dhx4.dateLang) == "undefined") {
                     case "%u":
                         return g.getMilliseconds();
                     case "%P":
-                        if (window.dhx4.temp_calendar != null && window.dhx4.temp_calendar.tz != null) {
+                        if ((window.dhx4.temp_calendar != null) && (window.dhx4.temp_calendar.tz != null)) {
                             return window.dhx4.temp_calendar.tz
                         }
                         var n = g.getTimezoneOffset();
@@ -440,10 +440,10 @@ if (typeof(window.dhx4.dateLang) == "undefined") {
         return (d || String(g))
     };
     window.dhx4.str2date = function(h, x, B) {
-        if (x == null || typeof(x) == "undefnied") {
+        if ((x == null) || (typeof(x) == "undefnied")) {
             x = window.dhx4.dateFormat[window.dhx4.dateLang]
         }
-        if (B == null || typeof(B) == "undefnied") {
+        if ((B == null) || (typeof(B) == "undefnied")) {
             B = window.dhx4.dateStrings[window.dhx4.dateLang]
         }
         x = x.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\\:|]/g, "\\$&");
@@ -492,7 +492,7 @@ if (typeof(window.dhx4.dateLang) == "undefined") {
         });
         var C = new RegExp(x, "i");
         var n = h.match(C);
-        if (n == null || n.length - 1 != m.length) {
+        if ((n == null) || (n.length - 1 != m.length)) {
             return "Invalid Date"
         }
         for (var c = 1; c < n.length; c++) {
@@ -579,7 +579,7 @@ if (typeof(window.dhx4.dateLang) == "undefined") {
                             "%i": "setMinutes",
                             "%s": "setSeconds",
                             "%u": "setMilliseconds"
-                        }[m[c]]](Number(A[c]) + (m[c] == "%m" || m[c] == "%n" ? -1 : 0))
+                        }[m[c]]](Number(A[c]) + ((m[c] == "%m") || (m[c] == "%n") ? -1 : 0))
                     }
                     break;
                 case "%M":
@@ -602,7 +602,7 @@ if (typeof(window.dhx4.dateLang) == "undefined") {
                 case "%h":
                     if (!isNaN(A[c])) {
                         var y = Number(A[c]);
-                        if (y <= 12 && y >= 0) {
+                        if ((y <= 12) && (y >= 0)) {
                             a.setHours(y + (s("pm", A) >= 0 ? (y == 12 ? 0 : 12) : (y == 12 ? -12 : 0)))
                         }
                     }
@@ -638,7 +638,7 @@ if (typeof(window.dhx4.ajax) == "undefined") {
             return c
         },
         xmltop: function(a, f, d) {
-            if (typeof f.status == "undefined" || f.status < 400) {
+            if ((typeof f.status == "undefined") || (f.status < 400)) {
                 xml = (!f.responseXML) ? dhx4.ajax.parse(f.responseText || f) : (f.responseXML || f);
                 if (xml && xml.documentElement !== null) {
                     try {
@@ -692,7 +692,7 @@ if (typeof(window.dhx4.ajax) == "undefined") {
             if (arguments.length == 1) {
                 a = ""
             } else {
-                if (arguments.length == 2 && (typeof(a) == "function" || typeof(window[a]) == "function")) {
+                if ((arguments.length == 2) && ((typeof(a) == "function") || (typeof(window[a]) == "function"))) {
                     d = a;
                     a = ""
                 } else {
@@ -711,7 +711,7 @@ if (typeof(window.dhx4.ajax) == "undefined") {
             })
         },
         postLong: function(c, a, d) {
-            if (arguments.length == 2 && (typeof(a) == "function" || typeof(window[a]))) {
+            if ((arguments.length == 2) && ((typeof(a) == "function") || typeof(window[a]))) {
                 d = a;
                 a = ""
             }
@@ -722,11 +722,11 @@ if (typeof(window.dhx4.ajax) == "undefined") {
         },
         _call: function(a, c, d, f, h, l, e) {
             var k = (window.XMLHttpRequest && !dhx4.isIE ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"));
-            var g = (navigator.userAgent.match(/AppleWebKit/) != null && navigator.userAgent.match(/Qt/) != null && navigator.userAgent.match(/Safari/) != null);
+            var g = ((navigator.userAgent.match(/AppleWebKit/) != null) && (navigator.userAgent.match(/Qt/) != null) && (navigator.userAgent.match(/Safari/) != null));
             if (f == true) {
                 k.onreadystatechange = function() {
-                    if ((k.readyState == 4) || (g == true && k.readyState == 3)) {
-                        if (k.status != 200 || k.responseText == "") {
+                    if ((k.readyState == 4) || ((g == true) && (k.readyState == 3))) {
+                        if ((k.status != 200) || (k.responseText == "")) {
                             if (!dhx4.callEvent("onAjaxError", [k])) {
                                 return
                             }
@@ -752,7 +752,7 @@ if (typeof(window.dhx4.ajax) == "undefined") {
                     }
                 }
             }
-            if (a == "GET" && this.cache != true) {
+            if ((a == "GET") && (this.cache != true)) {
                 c += (c.indexOf("?") >= 0 ? "&" : "?") + "dhxr" + new Date().getTime() + "=1"
             }
             k.open(a, c, f);
@@ -761,7 +761,7 @@ if (typeof(window.dhx4.ajax) == "undefined") {
                     k.setRequestHeader(j, e[j])
                 }
             } else {
-                if (a == "POST" || a == "PUT" || a == "DELETE") {
+                if ((a == "POST") || (a == "PUT") || (a == "DELETE")) {
                     k.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
                 } else {
                     if (a == "GET") {
@@ -817,7 +817,7 @@ if (typeof(window.dhx4._enableDataLoading) == "undefined") {
                         o = this[this._dhxdataload.xmlToJson].apply(this, [o])
                     }
                 }
-                if (o == null && (n.match(/^\{.*\}$/) != null || n.match(/^\[.*\]$/) != null)) {
+                if ((o == null) && ((n.match(/^\{.*\}$/) != null) || (n.match(/^\[.*\]$/) != null))) {
                     o = dhx4.s2j(n)
                 }
                 if (o == null) {
@@ -825,7 +825,7 @@ if (typeof(window.dhx4._enableDataLoading) == "undefined") {
                     var m = [];
                     if (typeof(this._dhxdataload.onBeforeXLS) == "function") {
                         var n = this._dhxdataload.onBeforeXLS.apply(this, [p]);
-                        if (n != null && typeof(n) == "object") {
+                        if ((n != null) && (typeof(n) == "object")) {
                             if (n.url != null) {
                                 p = n.url
                             }
@@ -839,7 +839,7 @@ if (typeof(window.dhx4._enableDataLoading) == "undefined") {
                     var u = this;
                     var l = function(a) {
                         var k = null;
-                        if ((a.xmlDoc.getResponseHeader("Content-Type") || "").search(/xml/gi) >= 0 || (a.xmlDoc.responseText.replace(/^\s{1,}/, "")).match(/^</) != null) {
+                        if (((a.xmlDoc.getResponseHeader("Content-Type") || "").search(/xml/gi) >= 0) || ((a.xmlDoc.responseText.replace(/^\s{1,}/, "")).match(/^</) != null)) {
                             k = u[u._dhxdataload.xmlToJson].apply(u, [a.xmlDoc.responseXML])
                         } else {
                             k = dhx4.s2j(a.xmlDoc.responseText)
@@ -871,7 +871,7 @@ if (typeof(window.dhx4._enableDataLoading) == "undefined") {
                     return
                 }
             } else {
-                if (typeof(p.documentElement) == "object" || (typeof(p.tagName) != "undefined" && typeof(p.getElementsByTagName) != "undefined" && p.getElementsByTagName(this._dhxdataload.xmlRootTag).length > 0)) {
+                if ((typeof(p.documentElement) == "object") || ((typeof(p.tagName) != "undefined") && (typeof(p.getElementsByTagName) != "undefined") && (p.getElementsByTagName(this._dhxdataload.xmlRootTag).length > 0))) {
                     o = this[this._dhxdataload.xmlToJson].apply(this, [p])
                 } else {
                     o = window.dhx4._copyObj(p)
@@ -1004,28 +1004,28 @@ if (!window.dhtmlxValidation) {
         },
         isValidDatetime: function(c) {
             var a = c.toString().match(/^(\d{4})-(\d{2})-(\d{2})\s(\d{2}):(\d{2}):(\d{2})$/);
-            return a && !!(a[1] <= 9999 && a[2] <= 12 && a[3] <= 31 && a[4] <= 59 && a[5] <= 59 && a[6] <= 59) || false
+            return (a && !!((a[1] <= 9999) && (a[2] <= 12) && (a[3] <= 31) && (a[4] <= 59) && (a[5] <= 59) && (a[6] <= 59))) || false
         },
         isValidDate: function(a) {
             var c = a.toString().match(/^(\d{4})-(\d{2})-(\d{2})$/);
-            return c && !!(c[1] <= 9999 && c[2] <= 12 && c[3] <= 31) || false
+            return (c && !!((c[1] <= 9999) && (c[2] <= 12) && (c[3] <= 31))) || false
         },
         isValidTime: function(c) {
             var a = c.toString().match(/^(\d{1,2}):(\d{1,2}):(\d{1,2})$/);
-            return a && !!(a[1] <= 24 && a[2] <= 59 && a[3] <= 59) || false
+            return (a && !!((a[1] <= 24) && (a[2] <= 59) && (a[3] <= 59))) || false
         },
         isValidIPv4: function(a) {
             var c = a.toString().match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);
-            return c && !!(c[1] <= 255 && c[2] <= 255 && c[3] <= 255 && c[4] <= 255) || false
+            return (c && !!((c[1] <= 255) && (c[2] <= 255) && (c[3] <= 255) && (c[4] <= 255))) || false
         },
         isValidCurrency: function(a) {
-            return a.toString().match(/^\$?\s?\d+?([\.,\,]?\d+)?\s?\$?$/) && true || false
+            return (a.toString().match(/^\$?\s?\d+?([\.,\,]?\d+)?\s?\$?$/) && true) || false
         },
         isValidSSN: function(a) {
-            return a.toString().match(/^\d{3}\-?\d{2}\-?\d{4}$/) && true || false
+            return (a.toString().match(/^\d{3}\-?\d{2}\-?\d{4}$/) && true) || false
         },
         isValidSIN: function(a) {
-            return a.toString().match(/^\d{9}$/) && true || false
+            return (a.toString().match(/^\d{9}$/) && true) || false
         }
     };
     dhtmlxValidation = new dhtmlxValidation()
@@ -1046,7 +1046,7 @@ if (typeof(window.dhtmlx) == "undefined") {
                 return
             }
             window[a] = function(h) {
-                if (h && typeof h == "object" && !h.tagName) {
+                if (h && (typeof h == "object") && !h.tagName) {
                     var g = c.apply(this, (e._init ? e._init(h) : arguments));
                     for (var f in dhtmlx) {
                         if (e[f]) {
@@ -1113,7 +1113,7 @@ dhtmlDragAndDropObject.prototype.addDragLanding = function(a, c) {
     a.dragLanding = c
 };
 dhtmlDragAndDropObject.prototype.preCreateDragCopy = function(a) {
-    if ((a || window.event) && (a || event).button == 2) {
+    if ((a || window.event) && ((a || event).button == 2)) {
         return
     }
     if (window.dhtmlDragAndDrop.waitDrag) {
@@ -1166,7 +1166,7 @@ dhtmlDragAndDropObject.prototype.callDrag = function(d) {
             return dragger.stopDrag(d, true)
         }
     }
-    if (dragger.dragNode.parentNode != window.document.body && dragger.gldragNode) {
+    if ((dragger.dragNode.parentNode != window.document.body) && dragger.gldragNode) {
         var a = dragger.gldragNode;
         if (dragger.gldragNode.old) {
             a = dragger.gldragNode.old
@@ -1342,11 +1342,11 @@ if ((navigator.userAgent.indexOf("Safari") != -1) || (navigator.userAgent.indexO
     } else {
         if (navigator.appName.indexOf("Microsoft") != -1) {
             _isIE = true;
-            if ((navigator.appVersion.indexOf("MSIE 8.0") != -1 || navigator.appVersion.indexOf("MSIE 9.0") != -1 || navigator.appVersion.indexOf("MSIE 10.0") != -1 || document.documentMode > 7) && document.compatMode != "BackCompat") {
+            if (((navigator.appVersion.indexOf("MSIE 8.0") != -1) || (navigator.appVersion.indexOf("MSIE 9.0") != -1) || (navigator.appVersion.indexOf("MSIE 10.0") != -1) || (document.documentMode > 7)) && (document.compatMode != "BackCompat")) {
                 _isIE = 8
             }
         } else {
-            if (navigator.appName == "Netscape" && navigator.userAgent.indexOf("Trident") != -1) {
+            if ((navigator.appName == "Netscape") && (navigator.userAgent.indexOf("Trident") != -1)) {
                 _isIE = 8
             } else {
                 _isFF = true;
@@ -1391,7 +1391,7 @@ if (typeof(dhtmlxEvent.initTouch) == "undefined") {
         }
         dhtmlxEvent(document.body, "touchmove", function(g) {
             if (e) {
-                if (Math.abs(g.touches[0].clientX - c) > 50 || Math.abs(g.touches[0].clientY - a) > 50) {
+                if ((Math.abs(g.touches[0].clientX - c) > 50) || (Math.abs(g.touches[0].clientY - a) > 50)) {
                     window.clearTimeout(e);
                     e = f = false
                 }
@@ -1490,7 +1490,7 @@ dataProcessor.prototype = {
         var c = this.findRow(e);
         f = f || "updated";
         var a = this.obj.getUserData(e, this.action_param);
-        if (a && f == "updated") {
+        if (a && (f == "updated")) {
             f = a
         }
         if (d) {
@@ -1557,13 +1557,13 @@ dataProcessor.prototype = {
         return true
     },
     sendData: function(a) {
-        if (this._waitMode && (this.obj.mytype == "tree" || this.obj._h2)) {
+        if (this._waitMode && ((this.obj.mytype == "tree") || this.obj._h2)) {
             return
         }
         if (this.obj.editStop) {
             this.obj.editStop()
         }
-        if (typeof a == "undefined" || this._tSend) {
+        if ((typeof a == "undefined") || this._tSend) {
             return this.sendAllData()
         }
         if (this._in_progress[a]) {
@@ -1612,7 +1612,7 @@ dataProcessor.prototype = {
         var a = [];
         for (var d in e) {
             if (e.hasOwnProperty(d)) {
-                if ((d == "id" || d == this.action_param) && this._tMode == "REST") {
+                if (((d == "id") || (d == this.action_param)) && (this._tMode == "REST")) {
                     continue
                 }
                 a.push(this.escape((c || "") + d) + "=" + this.escape(e[d]))
@@ -1712,7 +1712,7 @@ dataProcessor.prototype = {
                         continue
                     }
                     this._beforeSendData(this._getRowData(this.updatedRows[a]), this.updatedRows[a]);
-                    if (this._waitMode && (this.obj.mytype == "tree" || this.obj._h2)) {
+                    if (this._waitMode && ((this.obj.mytype == "tree") || this.obj._h2)) {
                         return
                     }
                 }
@@ -1761,7 +1761,7 @@ dataProcessor.prototype = {
     },
     afterUpdateCallback: function(c, h, g, f) {
         var a = c;
-        var e = (g != "error" && g != "invalid");
+        var e = ((g != "error") && (g != "invalid"));
         if (!e) {
             this.set_invalid(c, g)
         }
@@ -1812,7 +1812,7 @@ dataProcessor.prototype = {
             } catch (l) {}
         }
         var n = dhx4.ajax.xmltop("data", j.xmlDoc);
-        if (!n || n.tagName == "DIV") {
+        if (!n || (n.tagName == "DIV")) {
             return this.cleanUpdate(a)
         }
         var m = dhx4.ajax.xpath("//data/action", n);
@@ -1839,7 +1839,7 @@ dataProcessor.prototype = {
         if (this._waitMode) {
             this._waitMode--
         }
-        if ((this.obj.mytype == "tree" || this.obj._h2) && this.updatedRows.length) {
+        if (((this.obj.mytype == "tree") || this.obj._h2) && this.updatedRows.length) {
             this.sendData()
         }
         this.callEvent("onAfterUpdateFinish", []);
@@ -1972,7 +1972,7 @@ function dhtmlXMenuObject(f, g) {
         fixed_pos: false,
         rtl: false,
         icons_path: "",
-        arrow_ff_fix: (navigator.userAgent.indexOf("MSIE") >= 0 && document.compatMode == "BackCompat"),
+        arrow_ff_fix: ((navigator.userAgent.indexOf("MSIE") >= 0) && (document.compatMode == "BackCompat")),
         live_id: window.dhx4.newId(),
         tags: {
             root: "menu",
@@ -2026,8 +2026,8 @@ function dhtmlXMenuObject(f, g) {
         selected_sub: [],
         opened_poly: []
     };
-    if (typeof(f) == "object" && f != null && typeof(f.tagName) == "undefined") {
-        if (f.icons_path != null || f.icon_path != null) {
+    if ((typeof(f) == "object") && (f != null) && (typeof(f.tagName) == "undefined")) {
+        if ((f.icons_path != null) || (f.icon_path != null)) {
             this.conf.icons_path = (f.icons_path || f.icon_path)
         }
         if (f.skin != null) {
@@ -2184,7 +2184,7 @@ function dhtmlXMenuObject(f, g) {
             if (this.idPull["polygon_" + a]._zId != null) {
                 window.dhx4.zim.clear(this.idPull["polygon_" + a]._zId)
             }
-            if (typeof(this._menuEffect) != "undefined" && this._menuEffect !== false) {
+            if ((typeof(this._menuEffect) != "undefined") && this._menuEffect !== false) {
                 this._hidePolygonEffect("polygon_" + a)
             } else {
                 if (this.idPull["polygon_" + a].style.display == "none") {
@@ -2198,7 +2198,7 @@ function dhtmlXMenuObject(f, g) {
                     this.idPull["arrowdown_" + a].style.display = "none"
                 }
                 this._updateItemComplexState(a, true, false);
-                if (window.dhx4.isIE6 && this.idPull["polygon_" + a + "_ie6cover"] != null) {
+                if (window.dhx4.isIE6 && (this.idPull["polygon_" + a + "_ie6cover"] != null)) {
                     this.idPull["polygon_" + a + "_ie6cover"].style.display = "none"
                 }
             }
@@ -2207,7 +2207,7 @@ function dhtmlXMenuObject(f, g) {
                 a = null
             }
             this.callEvent("onHide", [a]);
-            if (a != null && this.conf.skin == "dhx_terrace" && this.itemPull[this.idPrefix + a].parent == this.idPrefix + this.topId) {
+            if ((a != null) && (this.conf.skin == "dhx_terrace") && (this.itemPull[this.idPrefix + a].parent == this.idPrefix + this.topId)) {
                 this._improveTerraceButton(this.idPrefix + a, true)
             }
         }
@@ -2219,8 +2219,8 @@ function dhtmlXMenuObject(f, g) {
         }
         var C = "polygon_" + B;
         if ((this.idPull[C] != null) && (this.idPull[B] != null)) {
-            if (this.conf.top_mode && this.conf.mode == "web" && !this.conf.context) {
-                if (!this.idPull[B]._mouseOver && k == this.conf.dir_toplv) {
+            if (this.conf.top_mode && (this.conf.mode == "web") && !this.conf.context) {
+                if (!this.idPull[B]._mouseOver && (k == this.conf.dir_toplv)) {
                     return
                 }
             }
@@ -2254,7 +2254,7 @@ function dhtmlXMenuObject(f, g) {
                     }
                 }
             }
-            if (this.conf.overflow_limit > 0 && this.conf.overflow_limit < G) {
+            if ((this.conf.overflow_limit > 0) && (this.conf.overflow_limit < G)) {
                 if (this.idPull["arrowup_" + B] == null) {
                     this._addUpArrow(String(B).replace(this.idPrefix, ""))
                 }
@@ -2335,21 +2335,21 @@ function dhtmlXMenuObject(f, g) {
                     }
                 }
             }
-            if (p + r > A && !this.conf.rtl) {
+            if ((p + r > A) && !this.conf.rtl) {
                 p = a - r + 2
             }
-            if (p < this.conf.v.x1 && this.conf.rtl) {
+            if ((p < this.conf.v.x1) && this.conf.rtl) {
                 p = a + j - 2
             }
             if (p < 0) {
                 p = 0
             }
-            if (o + E > v && this.conf.v.y2 != null) {
+            if ((o + E > v) && (this.conf.v.y2 != null)) {
                 o = Math.max(H + l - E + 2, (this.conf.v_enabled ? this.conf.v.y1 + 2 : 2));
-                if (this.conf.context && this.idPrefix + this.topId == B && u != null) {
+                if (this.conf.context && (this.idPrefix + this.topId == B) && (u != null)) {
                     o = o - 2
                 }
-                if (this.itemPull[B] != null && !this.conf.context) {
+                if ((this.itemPull[B] != null) && !this.conf.context) {
                     if (this.itemPull[B]["parent"] == this.idPrefix + this.topId) {
                         o = o - this.base.offsetHeight
                     }
@@ -2357,11 +2357,11 @@ function dhtmlXMenuObject(f, g) {
             }
             this.idPull[C].style.left = p + "px";
             this.idPull[C].style.top = o + "px";
-            if (typeof(this._menuEffect) != "undefined" && this._menuEffect !== false) {
+            if ((typeof(this._menuEffect) != "undefined") && this._menuEffect !== false) {
                 this._showPolygonEffect(C)
             } else {
                 this.idPull[C].style.visibility = "";
-                if (this.conf.overflow_limit > 0 && this.conf.overflow_limit < G) {
+                if ((this.conf.overflow_limit > 0) && (this.conf.overflow_limit < G)) {
                     this.idPull[C].childNodes[1].scrollTop = 0;
                     this._checkArrowsState(B)
                 }
@@ -2388,7 +2388,7 @@ function dhtmlXMenuObject(f, g) {
                 B = null
             }
             this.callEvent("onShow", [B]);
-            if (B != null && this.conf.skin == "dhx_terrace" && this.itemPull[this.idPrefix + B].parent == this.idPrefix + this.topId) {
+            if ((B != null) && (this.conf.skin == "dhx_terrace") && (this.itemPull[this.idPrefix + B].parent == this.idPrefix + this.topId)) {
                 this._improveTerraceButton(this.idPrefix + B, false)
             }
         }
@@ -2443,7 +2443,7 @@ function dhtmlXMenuObject(f, g) {
     };
     this._doOnClick = function(h, v, n) {
         this.conf.last_click = h;
-        if (this.itemPull[this.idPrefix + h]["href_link"] != null && this.itemPull[this.idPrefix + h].state == "enabled") {
+        if ((this.itemPull[this.idPrefix + h]["href_link"] != null) && (this.itemPull[this.idPrefix + h].state == "enabled")) {
             var o = document.createElement("FORM");
             var s = String(this.itemPull[this.idPrefix + h]["href_link"]).split("?");
             o.action = s[0];
@@ -2482,7 +2482,7 @@ function dhtmlXMenuObject(f, g) {
         if (this.checkEvent("onClick")) {
             this.callEvent("onClick", [h, this.conf.ctx_zoneid, n])
         } else {
-            if ((v.charAt(1) == "d") || (this.conf.mode == "win" && v.charAt(2) == "t")) {
+            if ((v.charAt(1) == "d") || ((this.conf.mode == "win") && (v.charAt(2) == "t"))) {
                 return
             }
         }
@@ -2596,7 +2596,7 @@ function dhtmlXMenuObject(f, g) {
     this.idPrefix = this._genStr(12) + "_";
     this._bodyClick = function(a) {
         a = a || event;
-        if (a.button == 2 || (window.dhx4.isOpera && a.ctrlKey == true)) {
+        if ((a.button == 2) || (window.dhx4.isOpera && (a.ctrlKey == true))) {
             return
         }
         if (e.conf.context) {
@@ -2612,7 +2612,7 @@ function dhtmlXMenuObject(f, g) {
     this._bodyContext = function(j) {
         j = j || event;
         var h = String((j.srcElement || j.target).className);
-        if (h.search("dhtmlxMenu") != -1 && h.search("SubLevelArea") != -1) {
+        if ((h.search("dhtmlxMenu") != -1) && (h.search("SubLevelArea") != -1)) {
             return
         }
         var a = true;
@@ -2766,7 +2766,7 @@ dhtmlXMenuObject.prototype._countVisiblePolygonItems = function(g) {
         var d = this.itemPull[c]["parent"];
         var f = this.itemPull[c]["type"];
         if (this.idPull[c] != null) {
-            if (d == g && (f == "item" || f == "radio" || f == "checkbox") && this.idPull[c].style.display != "none") {
+            if ((d == g) && ((f == "item") || (f == "radio") || (f == "checkbox")) && (this.idPull[c].style.display != "none")) {
                 e++
             }
         }
@@ -2827,7 +2827,7 @@ dhtmlXMenuObject.prototype._updateItemComplexState = function(f, d, e) {
     }
     if ((!this.itemPull[f]["complex"]) && (a != null)) {
         c.removeChild(a);
-        if (this.itemPull[f]["hotkey_backup"] != null && this.setHotKey) {
+        if ((this.itemPull[f]["hotkey_backup"] != null) && this.setHotKey) {
             this.setHotKey(f.replace(this.idPrefix, ""), this.itemPull[f]["hotkey_backup"])
         }
     }
@@ -2841,10 +2841,10 @@ dhtmlXMenuObject.prototype.setIconsPath = function(a) {
 dhtmlXMenuObject.prototype._updateItemImage = function(d, f) {
     d = this.idPrefix + d;
     var k = this.itemPull[d]["type"];
-    if (k == "checkbox" || k == "radio") {
+    if ((k == "checkbox") || (k == "radio")) {
         return
     }
-    var g = (this.itemPull[d]["parent"] == this.idPrefix + this.topId && !this.conf.context);
+    var g = ((this.itemPull[d]["parent"] == this.idPrefix + this.topId) && !this.conf.context);
     var h = null;
     if (g) {
         for (var a = 0; a < this.idPull[d].childNodes.length; a++) {
@@ -2858,7 +2858,7 @@ dhtmlXMenuObject.prototype._updateItemImage = function(d, f) {
         try {
             var h = this.idPull[d].childNodes[this.conf.rtl ? 2 : 0].childNodes[0]
         } catch (j) {}
-        if (!(h != null && typeof(h.className) != "undefined" && h.className == "sub_icon")) {
+        if (!((h != null) && (typeof(h.className) != "undefined") && (h.className == "sub_icon"))) {
             h = null
         }
     }
@@ -2873,7 +2873,7 @@ dhtmlXMenuObject.prototype._updateItemImage = function(d, f) {
                 h.src = this.conf.icons_path + m;
                 h.border = "0";
                 h.id = "image_" + d;
-                if (!this.conf.rtl && this.idPull[d].childNodes.length > 0) {
+                if (!this.conf.rtl && (this.idPull[d].childNodes.length > 0)) {
                     this.idPull[d].insertBefore(h, this.idPull[d].childNodes[0])
                 } else {
                     this.idPull[d].appendChild(h)
@@ -2934,7 +2934,7 @@ dhtmlXMenuObject.prototype.getItemPosition = function(f) {
     var a = this.itemPull[f]["parent"];
     var d = (this.idPull["polygon_" + a] != null ? this.idPull["polygon_" + a].tbd : this.cont);
     for (var c = 0; c < d.childNodes.length; c++) {
-        if (d.childNodes[c] == this.idPull["separator_" + f] || d.childNodes[c] == this.idPull[f]) {
+        if ((d.childNodes[c] == this.idPull["separator_" + f]) || (d.childNodes[c] == this.idPull[f])) {
             e = c
         }
     }
@@ -2954,7 +2954,7 @@ dhtmlXMenuObject.prototype.setItemPosition = function(h, g) {
     if (g < 0) {
         g = 0
     }
-    if (c && g < 1) {
+    if (c && (g < 1)) {
         g = 1
     }
     if (g < f.childNodes.length) {
@@ -3024,7 +3024,7 @@ dhtmlXMenuObject.prototype._renderToplevelItem = function(h, g) {
     var f = this;
     var a = document.createElement("DIV");
     a.id = h;
-    if (this.itemPull[h]["state"] == "enabled" && this.itemPull[h]["cssNormal"] != null) {
+    if ((this.itemPull[h]["state"] == "enabled") && (this.itemPull[h]["cssNormal"] != null)) {
         a.className = this.itemPull[h]["cssNormal"]
     } else {
         a.className = "dhtmlxMenu_" + this.conf.skin + "_TopLevel_Item_" + (this.itemPull[h]["state"] == "enabled" ? "Normal" : "Disabled")
@@ -3046,7 +3046,7 @@ dhtmlXMenuObject.prototype._renderToplevelItem = function(h, g) {
             c.id = "image_" + h;
             c.src = this.conf.icons_path + d;
             c.className = "dhtmlxMenu_TopLevel_Item_Icon";
-            if (a.childNodes.length > 0 && !this.conf.rtl) {
+            if ((a.childNodes.length > 0) && !this.conf.rtl) {
                 a.insertBefore(c, a.childNodes[0])
             } else {
                 a.appendChild(c)
@@ -3137,13 +3137,13 @@ dhtmlXMenuObject.prototype._renderToplevelItem = function(h, g) {
                     };
                     f.loadStruct(f.conf.dload_url)
                 }
-                if (f.conf.top_mode && f.conf.mode == "web" && !f.conf.context) {
+                if (f.conf.top_mode && (f.conf.mode == "web") && !f.conf.context) {
                     this._mouseOver = true
                 }
             }
-            if ((!f.conf.dload) || (f.conf.dload && (!f.itemPull[this.id]["loaded"] || f.itemPull[this.id]["loaded"] == "yes"))) {
+            if ((!f.conf.dload) || (f.conf.dload && (!f.itemPull[this.id]["loaded"] || (f.itemPull[this.id]["loaded"] == "yes")))) {
                 if ((f.itemPull[this.id]["complex"]) && (f.conf.selected != -1)) {
-                    if (f.conf.top_mode && f.conf.mode == "web" && !f.conf.context) {
+                    if (f.conf.top_mode && (f.conf.mode == "web") && !f.conf.context) {
                         this._mouseOver = true;
                         var k = this.id;
                         this._menuOpenTM = window.setTimeout(function() {
@@ -3171,7 +3171,7 @@ dhtmlXMenuObject.prototype._renderToplevelItem = function(h, g) {
                 f._clearAndHide()
             }, f.conf.tm_sec, "JavaScript")
         }
-        if (f.conf.top_mode && f.conf.mode == "web" && !f.conf.context) {
+        if (f.conf.top_mode && (f.conf.mode == "web") && !f.conf.context) {
             this._mouseOver = false;
             window.clearTimeout(this._menuOpenTM)
         }
@@ -3180,7 +3180,7 @@ dhtmlXMenuObject.prototype._renderToplevelItem = function(h, g) {
         if (f.conf.mode == "web") {
             window.clearTimeout(f.conf.tm_handler)
         }
-        if (f.conf.mode != "web" && f.itemPull[this.id]["state"] == "disabled") {
+        if ((f.conf.mode != "web") && (f.itemPull[this.id]["state"] == "disabled")) {
             return
         }
         m = m || event;
@@ -3295,13 +3295,13 @@ dhtmlXMenuObject.prototype._renderSublevelItem = function(a, l) {
     var m = this.itemPull[a][(this.itemPull[a]["state"] == "enabled" ? "imgen" : "imgdis")];
     if (m != "") {
         var p = this.itemPull[a]["type"];
-        if (p == "checkbox" || p == "radio") {
+        if ((p == "checkbox") || (p == "radio")) {
             var f = document.createElement("DIV");
             f.id = "image_" + this.itemPull[a]["id"];
             f.className = "sub_icon " + m;
             h.appendChild(f)
         }
-        if (!(p == "checkbox" || p == "radio")) {
+        if (!((p == "checkbox") || (p == "radio"))) {
             var f = document.createElement("IMG");
             f.id = "image_" + this.itemPull[a]["id"];
             f.className = "sub_icon";
@@ -3329,7 +3329,7 @@ dhtmlXMenuObject.prototype._renderSublevelItem = function(a, l) {
         c.id = "arrow_" + this.itemPull[a]["id"];
         e.appendChild(c)
     } else {
-        if (this.itemPull[a]["hotkey"].length > 0 && !this.itemPull[a]["complex"]) {
+        if ((this.itemPull[a]["hotkey"].length > 0) && !this.itemPull[a]["complex"]) {
             var d = document.createElement("DIV");
             d.className = "sub_item_hk";
             d.innerHTML = this.itemPull[a]["hotkey"];
@@ -3427,7 +3427,7 @@ dhtmlXMenuObject.prototype._renderSublevelItem = function(a, l) {
             l = null
         }
     }
-    if (l != null && n.tbd.childNodes[l] != null) {
+    if ((l != null) && (n.tbd.childNodes[l] != null)) {
         n.tbd.insertBefore(k, n.tbd.childNodes[l])
     } else {
         n.tbd.appendChild(k)
@@ -3436,7 +3436,7 @@ dhtmlXMenuObject.prototype._renderSublevelItem = function(a, l) {
 };
 dhtmlXMenuObject.prototype._renderSeparator = function(c, h) {
     var a = (this.conf.context ? "SubLevelArea" : (this.itemPull[c]["parent"] == this.idPrefix + this.topId ? "TopLevel" : "SubLevelArea"));
-    if (a == "TopLevel" && this.conf.context) {
+    if ((a == "TopLevel") && this.conf.context) {
         return
     }
     var f = this;
@@ -3499,7 +3499,7 @@ dhtmlXMenuObject.prototype._renderSeparator = function(c, h) {
                 h = null
             }
         }
-        if (h != null && j.tbd.childNodes[h] != null) {
+        if ((h != null) && (j.tbd.childNodes[h] != null)) {
             j.tbd.insertBefore(g, j.tbd.childNodes[h])
         } else {
             j.tbd.appendChild(g)
@@ -3517,13 +3517,13 @@ dhtmlXMenuObject.prototype.addNewSeparator = function(a, c) {
 dhtmlXMenuObject.prototype._initObj = function(n, o, h) {
     if (!(n instanceof Array)) {
         h = n.parentId;
-        if (h != null && String(h).indexOf(this.idPrefix) !== 0) {
+        if ((h != null) && String(h).indexOf(this.idPrefix) !== 0) {
             h = this.idPrefix + String(h)
         }
         n = n.items
     }
     for (var d = 0; d < n.length; d++) {
-        if (typeof(n[d].id) == "undefined" || n[d].id == null) {
+        if ((typeof(n[d].id) == "undefined") || (n[d].id == null)) {
             n[d].id = this._genStr(24)
         }
         if (n[d].text == null) {
@@ -3545,13 +3545,13 @@ dhtmlXMenuObject.prototype._initObj = function(n, o, h) {
                 n[d][p] = e[p]
             }
         }
-        if (n[d].imgen == "" && n[d].img != null) {
+        if ((n[d].imgen == "") && (n[d].img != null)) {
             n[d].imgen = n[d].img
         }
-        if (n[d].imgdis == "" && n[d].img_disabled != null) {
+        if ((n[d].imgdis == "") && (n[d].img_disabled != null)) {
             n[d].imgdis = n[d].img_disabled
         }
-        if (n[d].title == null && n[d].text != null) {
+        if ((n[d].title == null) && (n[d].text != null)) {
             n[d].title = n[d].text
         }
         if (n[d].href != null) {
@@ -3567,10 +3567,10 @@ dhtmlXMenuObject.prototype._initObj = function(n, o, h) {
                 this.userData[n[d].id + "_" + p] = n[d].userdata[p]
             }
         }
-        if (typeof(n[d].enabled) != "undefined" && window.dhx4.s2b(n[d].enabled) == false) {
+        if ((typeof(n[d].enabled) != "undefined") && (window.dhx4.s2b(n[d].enabled) == false)) {
             n[d].state = "disabled"
         } else {
-            if (typeof(n[d].disabled) != "undefined" && window.dhx4.s2b(n[d].disabled) == true) {
+            if ((typeof(n[d].disabled) != "undefined") && (window.dhx4.s2b(n[d].disabled) == true)) {
                 n[d].state = "disabled"
             }
         }
@@ -3584,7 +3584,7 @@ dhtmlXMenuObject.prototype._initObj = function(n, o, h) {
         if (n[d].type == "radio") {
             n[d].checked = window.dhx4.s2b(n[d].checked);
             n[d].imgen = n[d].imgdis = "rdbt_" + (n[d].checked ? "1" : "0");
-            if (typeof(n[d].group) == "undefined" || n[d].group == null) {
+            if ((typeof(n[d].group) == "undefined") || (n[d].group == null)) {
                 n[d].group = this._genStr(24)
             }
             if (this.radio[n[d].group] == null) {
@@ -3593,11 +3593,11 @@ dhtmlXMenuObject.prototype._initObj = function(n, o, h) {
             this.radio[n[d].group].push(n[d].id)
         }
         this.itemPull[n[d].id] = n[d];
-        if (n[d].items != null && n[d].items.length > 0) {
+        if ((n[d].items != null) && (n[d].items.length > 0)) {
             this.itemPull[n[d].id].complex = true;
             this._initObj(n[d].items, true, n[d].id)
         } else {
-            if (this.conf.dload && n[d].complex == true) {
+            if (this.conf.dload && (n[d].complex == true)) {
                 this.itemPull[n[d].id].loaded = "no"
             }
         }
@@ -3613,7 +3613,7 @@ dhtmlXMenuObject.prototype._initObj = function(n, o, h) {
                     var m = (this.itemPull[h].parent == this.idPrefix + this.topId);
                     var c = (m && !this.conf.context ? this.conf.dir_toplv : this.conf.dir_sublv);
                     var f = false;
-                    if (m && this.conf.top_mode && this.conf.mode == "web" && !this.conf.context) {
+                    if (m && this.conf.top_mode && (this.conf.mode == "web") && !this.conf.context) {
                         var r = this.idPull[h];
                         if (r._mouseOver == true) {
                             var g = this.conf.top_tmtime - (new Date().getTime() - r._dynLoadTM);
@@ -3646,7 +3646,7 @@ dhtmlXMenuObject.prototype._xmlToJson = function(g, f) {
     var j = [];
     if (f == null) {
         var k = g.getElementsByTagName(this.conf.tags.root);
-        if (k == null || (k != null && k.length == 0)) {
+        if ((k == null) || ((k != null) && (k.length == 0))) {
             return {
                 items: []
             }
@@ -3659,7 +3659,7 @@ dhtmlXMenuObject.prototype._xmlToJson = function(g, f) {
         f = this.idPrefix + k.getAttribute("parentId")
     }
     for (var c = 0; c < k.childNodes.length; c++) {
-        if (typeof(k.childNodes[c].tagName) != "undefined" && String(k.childNodes[c].tagName).toLowerCase() == this.conf.tags.item) {
+        if ((typeof(k.childNodes[c].tagName) != "undefined") && (String(k.childNodes[c].tagName).toLowerCase() == this.conf.tags.item)) {
             var a = k.childNodes[c];
             var n = {
                 id: this.idPrefix + (a.getAttribute("id") || this._genStr(24)),
@@ -3681,10 +3681,10 @@ dhtmlXMenuObject.prototype._xmlToJson = function(g, f) {
                 n.group = a.getAttribute("group")
             }
             n.state = "enabled";
-            if (a.getAttribute("enabled") != null && window.dhx4.s2b(a.getAttribute("enabled")) == false) {
+            if ((a.getAttribute("enabled") != null) && (window.dhx4.s2b(a.getAttribute("enabled")) == false)) {
                 n.state = "disabled"
             } else {
-                if (a.getAttribute("disabled") != null && window.dhx4.s2b(a.getAttribute("disabled")) == true) {
+                if ((a.getAttribute("disabled") != null) && (window.dhx4.s2b(a.getAttribute("disabled")) == true)) {
                     n.state = "disabled"
                 }
             }
@@ -3705,7 +3705,7 @@ dhtmlXMenuObject.prototype._xmlToJson = function(g, f) {
                     if (m == this.conf.tags.userdata) {
                         var h = a.childNodes[l];
                         if (h.getAttribute("name") != null) {
-                            this.userData[n.id + "_" + h.getAttribute("name")] = (h.firstChild != null && h.firstChild.nodeValue != null ? h.firstChild.nodeValue : "")
+                            this.userData[n.id + "_" + h.getAttribute("name")] = ((h.firstChild != null) && (h.firstChild.nodeValue != null) ? h.firstChild.nodeValue : "")
                         }
                     }
                     if (m == this.conf.tags.text_ext) {
@@ -3717,7 +3717,7 @@ dhtmlXMenuObject.prototype._xmlToJson = function(g, f) {
                     if (m == this.conf.tags.hotkey) {
                         n.hotkey = a.childNodes[l].firstChild.nodeValue
                     }
-                    if (m == this.conf.tags.href && n.type == "item") {
+                    if ((m == this.conf.tags.href) && (n.type == "item")) {
                         n.href_link = a.childNodes[l].firstChild.nodeValue;
                         if (a.childNodes[l].getAttribute("target") != null) {
                             n.href_target = a.childNodes[l].getAttribute("target")
@@ -3854,7 +3854,7 @@ dhtmlXMenuObject.prototype.removeItem = function(e, g, f) {
         }
     }
     var l = new Array(e);
-    if (h != null && !f) {
+    if ((h != null) && !f) {
         if (this.idPull["polygon_" + h] != null) {
             if (this.idPull["polygon_" + h].tbd.childNodes.length == 0) {
                 l.push(h);
@@ -3881,10 +3881,10 @@ dhtmlXMenuObject.prototype.removeItem = function(e, g, f) {
                     delete this.idPull[j]
                 }
             }
-            if (this.idPull["arrowup_" + e] != null && this._removeArrow) {
+            if ((this.idPull["arrowup_" + e] != null) && this._removeArrow) {
                 this._removeArrow("arrowup_" + e)
             }
-            if (this.idPull["arrowdown_" + e] != null && this._removeArrow) {
+            if ((this.idPull["arrowdown_" + e] != null) && this._removeArrow) {
                 this._removeArrow("arrowdown_" + e)
             }
             this.idPull["polygon_" + l[c]] = null;
@@ -3892,7 +3892,7 @@ dhtmlXMenuObject.prototype.removeItem = function(e, g, f) {
         }
     }
     l = null;
-    if (this.conf.skin == "dhx_terrace" && arguments.length == 1) {
+    if ((this.conf.skin == "dhx_terrace") && (arguments.length == 1)) {
         this._improveTerraceSkin()
     }
 };
@@ -3947,7 +3947,7 @@ dhtmlXMenuObject.prototype.addContextZone = function(c) {
         };
         e.addEventListener("mouseup", this.operaContext, false)
     } else {
-        if (e.oncontextmenu != null && !e._oldContextMenuHandler) {
+        if ((e.oncontextmenu != null) && !e._oldContextMenuHandler) {
             e._oldContextMenuHandler = e.oncontextmenu
         }
         e.oncontextmenu = function(h) {
@@ -3984,7 +3984,7 @@ dhtmlXMenuObject.prototype._doOnContextMenuOpera = function(d, a) {
     } else {
         d.returnValue = false
     }
-    if (d.button == 0 && d.ctrlKey == true) {
+    if ((d.button == 0) && (d.ctrlKey == true)) {
         a._doOnContextBeforeCall(d, this)
     }
     return false
@@ -4010,7 +4010,7 @@ dhtmlXMenuObject.prototype.removeContextZone = function(a) {
     return true
 };
 dhtmlXMenuObject.prototype.isContextZone = function(a) {
-    if (a == document.body && this.conf.ctx_zones["document.body." + this.idPrefix] != null) {
+    if ((a == document.body) && (this.conf.ctx_zones["document.body." + this.idPrefix] != null)) {
         return true
     }
     var c = false;
@@ -4087,7 +4087,7 @@ dhtmlXMenuObject.prototype.getContextMenuHideAllMode = function() {
 };
 dhtmlXMenuObject.prototype._improveTerraceSkin = function() {
     for (var d in this.itemPull) {
-        if (this.itemPull[d].parent == this.idPrefix + this.topId && this.idPull[d] != null) {
+        if ((this.itemPull[d].parent == this.idPrefix + this.topId) && (this.idPull[d] != null)) {
             var f = false;
             var e = false;
             if (this.idPull[d].parentNode.firstChild == this.idPull[d]) {
@@ -4097,7 +4097,7 @@ dhtmlXMenuObject.prototype._improveTerraceSkin = function() {
                 e = true
             }
             for (var c in this.itemPull) {
-                if (this.itemPull[c].type == "separator" && this.itemPull[c].parent == this.idPrefix + this.topId) {
+                if ((this.itemPull[c].type == "separator") && (this.itemPull[c].parent == this.idPrefix + this.topId)) {
                     if (this.idPull[d].nextSibling == this.idPull["separator_" + c]) {
                         e = true
                     }
@@ -4190,7 +4190,7 @@ dhtmlXMenuObject.prototype._changeItemState = function(f, e, c) {
     if ((this.itemPull[a] != null) && (this.idPull[a] != null)) {
         if (this.itemPull[a]["state"] != e) {
             this.itemPull[a]["state"] = e;
-            if (this.itemPull[a]["parent"] == this.idPrefix + this.topId && !this.conf.context) {
+            if ((this.itemPull[a]["parent"] == this.idPrefix + this.topId) && !this.conf.context) {
                 this.idPull[a].className = "dhtmlxMenu_" + this.conf.skin + "_TopLevel_Item_" + (this.itemPull[a]["state"] == "enabled" ? "Normal" : "Disabled")
             } else {
                 this.idPull[a].className = "sub_item" + (this.itemPull[a]["state"] == "enabled" ? "" : "_dis")
@@ -4200,7 +4200,7 @@ dhtmlXMenuObject.prototype._changeItemState = function(f, e, c) {
             if ((this.idPrefix + this.conf.last_click == a) && (c != "TopLevel")) {
                 this._redistribSubLevelSelection(a, this.itemPull[a]["parent"])
             }
-            if (c == "TopLevel" && !this.conf.context) {}
+            if ((c == "TopLevel") && !this.conf.context) {}
         }
     }
     return d
@@ -4213,7 +4213,7 @@ dhtmlXMenuObject.prototype.setItemText = function(g, f) {
     if ((this.itemPull[g] != null) && (this.idPull[g] != null)) {
         this._clearAndHide();
         this.itemPull[g]["title"] = f;
-        if (this.itemPull[g]["parent"] == this.idPrefix + this.topId && !this.conf.context) {
+        if ((this.itemPull[g]["parent"] == this.idPrefix + this.topId) && !this.conf.context) {
             var d = null;
             for (var a = 0; a < this.idPull[g].childNodes.length; a++) {
                 try {
@@ -4222,7 +4222,7 @@ dhtmlXMenuObject.prototype.setItemText = function(g, f) {
                     }
                 } catch (c) {}
             }
-            if (String(this.itemPull[g]["title"]).length == "" || this.itemPull[g]["title"] == null) {
+            if ((String(this.itemPull[g]["title"]).length == "") || (this.itemPull[g]["title"] == null)) {
                 if (d != null) {
                     d.parentNode.removeChild(d)
                 }
@@ -4230,7 +4230,7 @@ dhtmlXMenuObject.prototype.setItemText = function(g, f) {
                 if (!d) {
                     d = document.createElement("DIV");
                     d.className = "top_level_text";
-                    if (this.conf.rtl && this.idPull[g].childNodes.length > 0) {
+                    if (this.conf.rtl && (this.idPull[g].childNodes.length > 0)) {
                         this.idPull[g].insertBefore(d, this.idPull[g].childNodes[0])
                     } else {
                         this.idPull[g].appendChild(d)
@@ -4245,7 +4245,7 @@ dhtmlXMenuObject.prototype.setItemText = function(g, f) {
                     d = this.idPull[g].childNodes[1].childNodes[a]
                 }
             }
-            if (String(this.itemPull[g]["title"]).length == "" || this.itemPull[g]["title"] == null) {
+            if ((String(this.itemPull[g]["title"]).length == "") || (this.itemPull[g]["title"] == null)) {
                 if (d) {
                     d.parentNode.removeChild(d);
                     d = null;
@@ -4352,7 +4352,7 @@ dhtmlXMenuObject.prototype.setVisibleArea = function(c, a, e, d) {
 };
 dhtmlXMenuObject.prototype.setTooltip = function(c, a) {
     c = this.idPrefix + c;
-    if (!(this.itemPull[c] != null && this.idPull[c] != null)) {
+    if (!((this.itemPull[c] != null) && (this.idPull[c] != null))) {
         return
     }
     this.idPull[c].title = (a.length > 0 ? a : null);
@@ -4379,7 +4379,7 @@ dhtmlXMenuObject.prototype.setAlign = function(a) {
     if (this.conf.align == a) {
         return
     }
-    if (a == "left" || a == "right") {
+    if ((a == "left") || (a == "right")) {
         this.conf.align = a;
         if (this.cont) {
             this.cont.className = (this.conf.align == "right" ? "align_right" : "align_left")
@@ -4462,11 +4462,11 @@ dhtmlXMenuObject.prototype.getCheckboxState = function(a) {
     return this._getCheckboxState(a)
 };
 dhtmlXMenuObject.prototype.addCheckbox = function(j, e, k, l, m, a, f) {
-    if (this.conf.context && e == this.topId) {} else {
+    if (this.conf.context && (e == this.topId)) {} else {
         if (this.itemPull[this.idPrefix + e] == null) {
             return
         }
-        if (j == "child" && this.itemPull[this.idPrefix + e]["type"] != "item") {
+        if ((j == "child") && (this.itemPull[this.idPrefix + e]["type"] != "item")) {
             return
         }
     }
@@ -4492,17 +4492,17 @@ dhtmlXMenuObject.prototype.addCheckbox = function(j, e, k, l, m, a, f) {
 };
 dhtmlXMenuObject.prototype.setHotKey = function(h, a) {
     h = this.idPrefix + h;
-    if (!(this.itemPull[h] != null && this.idPull[h] != null)) {
+    if (!((this.itemPull[h] != null) && (this.idPull[h] != null))) {
         return
     }
-    if (this.itemPull[h]["parent"] == this.idPrefix + this.topId && !this.conf.context) {
+    if ((this.itemPull[h]["parent"] == this.idPrefix + this.topId) && !this.conf.context) {
         return
     }
     if (this.itemPull[h]["complex"]) {
         return
     }
     var c = this.itemPull[h]["type"];
-    if (!(c == "item" || c == "checkbox" || c == "radio")) {
+    if (!((c == "item") || (c == "checkbox") || (c == "radio"))) {
         return
     }
     var g = null;
@@ -4546,7 +4546,7 @@ dhtmlXMenuObject.prototype._clearAllSelectedSubItemsInPolygon = function(a) {
         }
     }
     for (var c = 0; c < d.length; c++) {
-        if (this.idPull[d[c]] != null && this.itemPull[d[c]]["state"] == "enabled") {
+        if ((this.idPull[d[c]] != null) && (this.itemPull[d[c]]["state"] == "enabled")) {
             this.idPull[d[c]].className = "dhtmlxMenu_" + this.conf.skin + "_SubLevelArea_Item_Normal"
         }
     }
@@ -4728,14 +4728,14 @@ dhtmlXMenuObject.prototype._removeArrow = function(a) {
     } catch (d) {}
 };
 dhtmlXMenuObject.prototype._isArrowExists = function(a) {
-    if (this.idPull["arrowup_" + a] != null && this.idPull["arrowdown_" + a] != null) {
+    if ((this.idPull["arrowup_" + a] != null) && (this.idPull["arrowdown_" + a] != null)) {
         return true
     }
     return false
 };
 dhtmlXMenuObject.prototype._doScrollUp = function(g, e) {
     var a = this.idPull["polygon_" + g].childNodes[1];
-    if (this._canScrollUp && a.scrollTop > 0) {
+    if (this._canScrollUp && (a.scrollTop > 0)) {
         var d = false;
         var f = a.scrollTop - this.conf.of_ustep;
         if (f < 0) {
@@ -4762,7 +4762,7 @@ dhtmlXMenuObject.prototype._doScrollUp = function(g, e) {
 };
 dhtmlXMenuObject.prototype._doScrollDown = function(g, e) {
     var a = this.idPull["polygon_" + g].childNodes[1];
-    if (this._canScrollDown && a.scrollTop + a.offsetHeight <= a.scrollHeight) {
+    if (this._canScrollDown && (a.scrollTop + a.offsetHeight <= a.scrollHeight)) {
         var d = false;
         var f = a.scrollTop + this.conf.of_dstep;
         if (f + a.offsetHeight >= a.scrollHeight) {
@@ -4792,7 +4792,7 @@ dhtmlXMenuObject.prototype._countPolygonItems = function(g) {
     for (var c in this.itemPull) {
         var d = this.itemPull[c]["parent"];
         var f = this.itemPull[c]["type"];
-        if (d == this.idPrefix + g && (f == "item" || f == "radio" || f == "checkbox")) {
+        if ((d == this.idPrefix + g) && ((f == "item") || (f == "radio") || (f == "checkbox"))) {
             e++
         }
     }
@@ -4804,15 +4804,15 @@ dhtmlXMenuObject.prototype.setOverflowHeight = function(e) {
         this.conf.auto_overflow = true;
         return
     }
-    if (this.conf.overflow_limit == 0 && e <= 0) {
+    if ((this.conf.overflow_limit == 0) && (e <= 0)) {
         return
     }
     this._clearAndHide();
-    if (this.conf.overflow_limit >= 0 && e > 0) {
+    if ((this.conf.overflow_limit >= 0) && (e > 0)) {
         this.conf.overflow_limit = e;
         return
     }
-    if (this.conf.overflow_limit > 0 && e <= 0) {
+    if ((this.conf.overflow_limit > 0) && (e <= 0)) {
         for (var d in this.itemPull) {
             if (this._isArrowExists(d)) {
                 var c = String(d).replace(this.idPrefix, "");
@@ -4844,7 +4844,7 @@ dhtmlXMenuObject.prototype._setRadioState = function(e, d) {
     }
 };
 dhtmlXMenuObject.prototype._radioOnClickHandler = function(e, a, c) {
-    if (a.charAt(1) == "d" || this.itemPull[this.idPrefix + e]["group"] == null) {
+    if ((a.charAt(1) == "d") || (this.itemPull[this.idPrefix + e]["group"] == null)) {
         return
     }
     var d = this.itemPull[this.idPrefix + e]["group"];
@@ -4883,11 +4883,11 @@ dhtmlXMenuObject.prototype.setRadioChecked = function(c, e) {
     }
 };
 dhtmlXMenuObject.prototype.addRadioButton = function(k, f, l, m, n, o, a, g) {
-    if (this.conf.context && f == this.topId) {} else {
+    if (this.conf.context && (f == this.topId)) {} else {
         if (this.itemPull[this.idPrefix + f] == null) {
             return
         }
-        if (k == "child" && this.itemPull[this.idPrefix + f]["type"] != "item") {
+        if ((k == "child") && (this.itemPull[this.idPrefix + f]["type"] != "item")) {
             return
         }
     }
@@ -4967,7 +4967,7 @@ dhtmlXMenuObject.prototype._readLevel = function(e) {
     return f
 };
 dhtmlXMenuObject.prototype.enableEffect = function(d, f, e) {
-    this._menuEffect = (d == "opacity" || d == "slide" || d == "slide+" ? d : false);
+    this._menuEffect = ((d == "opacity") || (d == "slide") || (d == "slide+") ? d : false);
     this._pOpStyleIE = (navigator.userAgent.search(/MSIE\s[678]\.0/gi) >= 0);
     for (var c in this.idPull) {
         if (c.search(/polygon/) === 0) {
@@ -4995,17 +4995,17 @@ dhtmlXMenuObject.prototype._pShowHide = function(a, c) {
         return
     }
     if (this.idPull[a]._tmShow != null) {
-        if ((this.idPull[a]._step_h > 0 && c == true) || (this.idPull[a]._step_h < 0 && c == false)) {
+        if (((this.idPull[a]._step_h > 0) && (c == true)) || ((this.idPull[a]._step_h < 0) && (c == false))) {
             return
         }
         window.clearTimeout(this.idPull[a]._tmShow);
         this.idPull[a]._tmShow = null;
         this.idPull[a]._max_h = null
     }
-    if (c == false && (this.idPull[a].style.visibility == "hidden" || this.idPull[a].style.display == "none")) {
+    if ((c == false) && ((this.idPull[a].style.visibility == "hidden") || (this.idPull[a].style.display == "none"))) {
         return
     }
-    if (c == true && this.idPull[a].style.display == "none") {
+    if ((c == true) && (this.idPull[a].style.display == "none")) {
         this.idPull[a].style.visibility = "hidden";
         this.idPull[a].style.display = ""
     }
@@ -5017,7 +5017,7 @@ dhtmlXMenuObject.prototype._pShowHide = function(a, c) {
             return
         }
         this.idPull[a]._step_tm = Math.round(this._pSlTMTimeMax / this._pSlSteps);
-        if (this._menuEffect == "slide+" || this._menuEffect == "opacity") {
+        if ((this._menuEffect == "slide+") || (this._menuEffect == "opacity")) {
             this.idPull[a].op_tm = this.idPull[a]._step_tm;
             this.idPull[a].op_step = (this._pOpMax / this._pSlSteps) * (c == true ? 1 : -1);
             if (this._pOpStyleIE) {
@@ -5048,11 +5048,11 @@ dhtmlXMenuObject.prototype._pEffectSet = function(d, c) {
         this.idPull[d].style.height = this.idPull[d]._h + "px"
     }
     c += this.idPull[d]._step_h;
-    if (this._menuEffect == "slide+" || this._menuEffect == "opacity") {
+    if ((this._menuEffect == "slide+") || (this._menuEffect == "opacity")) {
         this.idPull[d]._op = Math.max(0, Math.min(this._pOpMax, this.idPull[d]._op + this.idPull[d].op_step));
         this._pOpacityApply(d)
     }
-    if ((this.idPull[d]._step_h > 0 && c <= this.idPull[d]._max_h) || (this.idPull[d]._step_h < 0 && c >= 0)) {
+    if (((this.idPull[d]._step_h > 0) && (c <= this.idPull[d]._max_h)) || ((this.idPull[d]._step_h < 0) && (c >= 0))) {
         var a = this;
         this.idPull[d]._tmShow = window.setTimeout(function() {
             a._pEffectSet(d, c)
@@ -5064,7 +5064,7 @@ dhtmlXMenuObject.prototype._pEffectSet = function(d, c) {
         if (this.idPull[d]._step_h < 0) {
             this.idPull[d].style.visibility = "hidden"
         }
-        if (this._menuEffect == "slide+" || this._menuEffect == "opacity") {
+        if ((this._menuEffect == "slide+") || (this._menuEffect == "opacity")) {
             this.idPull[d]._op = (this.idPull[d]._step_h < 0 ? (this._pOpStyleIE ? 100 : 1) : this._pOpMax);
             this._pOpacityApply(d)
         }
@@ -5153,7 +5153,7 @@ xmlPointer.prototype = {
         var k = this.d.childNodes;
         if (k.length) {
             for (var e = 0; e < k.length; e++) {
-                if (k[e].tagName == d && k[e].getAttribute(j) != null && k[e].getAttribute(j) != "" && (!m || k[e].getAttribute(j) == m)) {
+                if ((k[e].tagName == d) && (k[e].getAttribute(j) != null) && (k[e].getAttribute(j) != "") && (!m || (k[e].getAttribute(j) == m))) {
                     var h = new xmlPointer(k[e]);
                     g.apply(n, [h, e])
                 }
@@ -5289,7 +5289,7 @@ dhtmlXTreeObject.prototype.setDataMode = function(a) {
     this._datamode = a
 };
 dhtmlXTreeObject.prototype._doContClick = function(h, a) {
-    if (!a && h.button != 2) {
+    if (!a && (h.button != 2)) {
         if (this._acMenu) {
             if (this._acMenu.hideContextMenu) {
                 this._acMenu.hideContextMenu()
@@ -5515,7 +5515,7 @@ dhtmlXTreeObject.prototype._getAllCheckedXML = function(c, a, e) {
     }
     if (e == 0) {
         c.through("item", "id", null, function(f) {
-            if (!f.get("checked") || f.get("checked") == 0) {
+            if (!f.get("checked") || (f.get("checked") == 0)) {
                 d.push(f.get("id"))
             }
         }, this)
@@ -5532,7 +5532,7 @@ dhtmlXTreeObject.prototype._getAllCheckedXML = function(c, a, e) {
 dhtmlXTreeObject.prototype._setSubCheckedXML = function(a, c) {
     var d = a ? "1" : "";
     c.through("item", "id", null, function(e) {
-        if (!e.get("disabled") || e.get("disabled") == 0) {
+        if (!e.get("disabled") || (e.get("disabled") == 0)) {
             e.set("checked", d)
         }
     }, this)
@@ -5590,7 +5590,7 @@ dhtmlXTreeObject.prototype.reParse = function(d) {
     for (var f = 0; f < this.parsedArray.length; f++) {
         d.htmlNode.childNodes[0].appendChild(this.parsedArray[f])
     }
-    if (e.get("order") && e.get("order") != "none") {
+    if (e.get("order") && (e.get("order") != "none")) {
         this._reorderBranch(d, e.get("order"), true)
     }
     this.oldsmcheck = this.smcheck;
@@ -5664,7 +5664,7 @@ dhtmlXTreeObject.prototype.loadXMLString = function(d, c) {
     }, c)
 };
 dhtmlXTreeObject.prototype.loadXML = function(c, e) {
-    if (this._datamode && this._datamode != "xml") {
+    if (this._datamode && (this._datamode != "xml")) {
         return this["load" + this._datamode.toUpperCase()](c, e)
     }
     var d = this;
@@ -5729,7 +5729,7 @@ dhtmlXTreeObject.prototype._attachChildNode = function(h, g, e, j, w, v, u, k, d
         }
     }
     var m;
-    if (!(m = this._idpull[g]) || m.span != -1) {
+    if (!(m = this._idpull[g]) || (m.span != -1)) {
         m = x[l] = new dhtmlXTreeItemObject(g, e, h, this, j, 1);
         g = x[l].id;
         h.childsCount++
@@ -6081,7 +6081,7 @@ dhtmlXTreeObject.prototype._parse = function(d, g, a, c) {
             }
         }
         this._redrawFrom(this, null, c);
-        if (d.get("order") && d.get("order") != "none") {
+        if (d.get("order") && (d.get("order") != "none")) {
             this._reorderBranch(o, d.get("order"), true)
         }
         if (this.nodeAskingCall != "") {
@@ -6093,7 +6093,7 @@ dhtmlXTreeObject.prototype._parse = function(d, g, a, c) {
     }
     if (this.parsCount == 1) {
         this.parsingOn = null;
-        if (this._srnd && o.id != this.rootId) {
+        if (this._srnd && (o.id != this.rootId)) {
             this.prepareSR(o.id);
             if (this.XMLsource) {
                 this.openItem(o.id)
@@ -7845,7 +7845,7 @@ dhtmlXTreeObject.prototype._deleteItem = function(g, c, f) {
     var d = this.getParentId(g);
     var e = a.parentObject;
     this._deleteNode(g, a, f);
-    if (this._editCell && this._editCell.id == g) {
+    if (this._editCell && (this._editCell.id == g)) {
         this._editCell = null
     }
     this._correctPlus(e);
@@ -8148,7 +8148,7 @@ dhtmlXTreeObject.prototype.findStrInXML = function(c, d, f) {
     for (var a = 0; a < c.childNodes.length; a++) {
         if (c.childNodes[a].nodeType == 1) {
             var e = c.childNodes[a].getAttribute(d);
-            if (!e && c.childNodes[a].tagName == "itemtext") {
+            if (!e && (c.childNodes[a].tagName == "itemtext")) {
                 e = c.childNodes[a].firstChild.data
             }
             if ((e) && (e.toLowerCase().search(f) != -1)) {
@@ -8324,7 +8324,7 @@ dhtmlXTreeObject.prototype.moveItem = function(j, c, k, a) {
             }
             break
     }
-    if (_isIE && _isIE < 8) {
+    if (_isIE && (_isIE < 8)) {
         this.allTree.childNodes[0].border = "1";
         this.allTree.childNodes[0].border = "0"
     }
@@ -8511,7 +8511,7 @@ dhtmlXTreeObject.prototype.updateItem = function(h, g, e, d, c, f, j) {
     if (f) {
         this._setCheck(a, true)
     }
-    if (j == "1" && !this.hasChildren(h)) {
+    if ((j == "1") && !this.hasChildren(h)) {
         a.XMLload = 0
     }
     this._correctPlus(a);
@@ -8560,7 +8560,7 @@ dhtmlXTreeObject.prototype.setItemTopOffset = function(g, e) {
                 f.childNodes[c].insertBefore(a, f.childNodes[c].firstChild)
             }
             a.style.height = parseInt(e) + "px";
-            if ((d.parentObject.id != this.rootId || d.parentObject.childNodes[0] != d) && this.treeLinesOn) {
+            if (((d.parentObject.id != this.rootId) || (d.parentObject.childNodes[0] != d)) && this.treeLinesOn) {
                 a.style.backgroundImage = "url(" + this.imPath + this.lineArray[5] + ")"
             }
             a.innerHTML = "&nbsp;";
@@ -8872,7 +8872,7 @@ dhtmlXTreeObject.prototype.enableDragAndDropScrolling = function(a) {
 dhtmlXTreeObject.prototype.setSkin = function(a) {
     var c = this.parentObject.className.replace(/dhxtree_[^ ]*/gi, "");
     this.parentObject.className = c + " dhxtree_" + a;
-    if (a == "dhx_terrace" || a == "dhx_web") {
+    if ((a == "dhx_terrace") || (a == "dhx_web")) {
         this.enableTreeLines(false)
     }
 };
@@ -9280,7 +9280,7 @@ jsonPointer.prototype = {
         var k = this.d[d];
         if (k.length) {
             for (var e = 0; e < k.length; e++) {
-                if (k[e][j] != null && k[e][j] != "" && (!m || k[e][j] == m)) {
+                if ((k[e][j] != null) && (k[e][j] != "") && (!m || (k[e][j] == m))) {
                     var h = new jsonPointer(k[e], this.d);
                     g.apply(n, [h, e])
                 }
@@ -9431,8 +9431,8 @@ dhtmlXTreeObject.prototype.serializeTreeToJSON = function() {
 //Funcao de escape personalizada
 dhtmlXTreeObject.prototype._escape = function(a) {
 	a = String(a);                   //Cast para String
-	a = a.replace(/\\/g, '\\\\', a); //Escapa barras invertidas
-	a = a.replace(/\"/g, '\\"', a);  //Escapa aspas duplas
+	a = a.replace(/\\/g, "\\\\", a); //Escapa barras invertidas
+	a = a.replace(/\"/g, "\\\"", a);  //Escapa aspas duplas
 	return a;
 }
 dhtmlXTreeObject.prototype._serializeItemJSON = function(h) {

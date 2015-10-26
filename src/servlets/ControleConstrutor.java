@@ -1,6 +1,8 @@
 package servlets;
 
-import static helper.EscapeHelper.*;
+import static helper.EscapeHelper.encodeHtmlString;
+import static helper.EscapeHelper.escapeString;
+import static helper.EscapeHelper.removeNewLines;
 
 import java.io.IOException;
 
@@ -31,6 +33,7 @@ public class ControleConstrutor extends HttpServlet {
 	/**
 	 * Se invocado, o metodo doGet chama o metodo doPost.
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -41,6 +44,7 @@ public class ControleConstrutor extends HttpServlet {
 	 * Recebe a expressao em linguagem natural montada pelo usuario
 	 * e retorna a expressao regular em texto.
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -48,18 +52,18 @@ public class ControleConstrutor extends HttpServlet {
 		json = request.getParameter("jsonTree");
 
 		//Se o valor recuperado nao for vazio...
-		if (json!=null && !json.isEmpty()) {
-			
+		if ((json!=null) && !json.isEmpty()) {
+
 			//Instancia a classe responsavel por construir o regex
 			construtor = new Construtor();
-			
+
 			//Remove qualquer quebra de linha no JSON
 			json = removeNewLines(json);
 
 			//Tenta construir a expressao regular a partir do objeto JSON
 			try {
 				regex = construtor.construir(
-							json
+						json
 						);
 			}
 			catch (MalformedJson e) {
@@ -78,46 +82,34 @@ public class ControleConstrutor extends HttpServlet {
 
 			//Se conseguiu construir construir a expressao regular...
 			if (regex != null){
-				
+
 				//Se a expressao regular for valida
 				if (regex.isExpressaoValida()){
-					
+
 					//Recupera o texto da expressao regular
 					textoRegex = regex.getRegularExpresion();
-					
+
 					//Adiciona a regex construida em um parametro do request
 					request.setAttribute("regex", encodeHtmlString(textoRegex) );
-				}
-				
-				//Se a expressao regular nao for valida...
-				else{
+				} else
 					//Adiciona uma mensagem de erro em um parametro do request
-					request.setAttribute("error", encodeHtmlString(regex.getErrorMessage()) );  
-				}
+					request.setAttribute("error", encodeHtmlString(regex.getErrorMessage()) );
 
-			}
-
-			//Se nao conseguiu construir a expressao regular...
-			else {
+			} else
 				//Adiciona uma mensagem de erro em um parametro do request
 				request.setAttribute("error", encodeHtmlString(errorMessage) );
-			}
-			
+
 			//Adiciona o proprio JSON recebido em um parametro do request
 			request.setAttribute("jsonString", escapeString(json) );
-			
+
 			//Cria um novo "pedido de despache", apontando para a pagina inicial
 			RequestDispatcher dispatcher = request.getRequestDispatcher("tree-test.jsp");
-			
+
 			//Encaminha o pedido para a pagina inicial
 			dispatcher.forward(request, response);
-		}
-		
-		//Se o valor for vazio...
-		else {
+		} else
 			//Envia uma redirecionamento para a pagina inicial como resposta
 			response.sendRedirect("tree-test.jsp");
-		}
 	}
 
 }

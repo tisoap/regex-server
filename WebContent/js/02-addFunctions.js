@@ -26,55 +26,55 @@ function addBlank() {
 function addCntrl(){
 	if( canAddNode( "CNTRL" ) ) {
 		addTerminal( "Caracteres de controle", "CNTRL" );
-	}	
+	}
 }
 
 function addDigitClass(){
 	if( canAddNode( "DIGIT_CLASS" ) ) {
 		addTerminal( "Digitos", "DIGIT_CLASS" );
-	}	
+	}
 }
 
 function addGraph(){
 	if( canAddNode( "GRAPH" ) ) {
 		addTerminal( "Caracteres visiveis", "GRAPH" );
-	}	
+	}
 }
 
 function addLower(){
 	if( canAddNode( "LOWER" ) ) {
 		addTerminal( "Letras minusculas", "LOWER" );
-	}	
+	}
 }
 
 function addPrint(){
 	if( canAddNode( "PRINT" ) ) {
 		addTerminal( "Caracteres visiveis e espaco", "PRINT" );
-	}	
+	}
 }
 
 function addPunct(){
 	if( canAddNode( "PUNCT" ) ) {
 		addTerminal( "Caracteres de pontuacao", "PUNCT" );
-	}	
+	}
 }
 
 function addSpaceClass(){
 	if( canAddNode( "SPACE_CLASS" ) ) {
 		addTerminal( "Caracteres brancos", "SPACE_CLASS" );
-	}	
+	}
 }
 
 function addUpper(){
 	if( canAddNode( "UPPER" ) ) {
 		addTerminal( "Letras maiusculas", "UPPER" );
-	}	
+	}
 }
 
 function addXDigit(){
 	if( canAddNode( "X_DIGIT" ) ) {
 		addTerminal( "Numeros hexadecimais", "X_DIGIT" );
-	}	
+	}
 }
 
 function addOneOrMore() {
@@ -109,7 +109,9 @@ function addExact() {
 		var numero = parseInt( texto );
 
 		//So adiciona se o numero for valido
-		if( isNotValid( numero ) ) return;
+		if( isNotValid( numero ) ) {
+			return;
+		}
 
 		addNonTerminal( "Exatamente " + numero + " repeticoes de:", "EXACT" );
 
@@ -130,7 +132,9 @@ function addAtLeast() {
 		var numero = parseInt( texto );
 
 		//So adiciona se o numero for valido
-		if( isNotValid( numero ) ) return;
+		if( isNotValid( numero ) ) {
+			return;
+		}
 
 		addNonTerminal( "Pelo menos " + numero + " repeticoes de:", "AT_LEAST" );
 
@@ -153,10 +157,14 @@ function addBetween() {
 		var numero2 = parseInt( texto2 );
 
 		//So adiciona se os numeros forem validos
-		if( isNotValid( numero1 ) || isNotValid( numero2 ) ) return;
-		
+		if( isNotValid( numero1 ) || isNotValid( numero2 ) ) {
+			return;
+		}
+
 		//So adiciona se o 1o numero for menor que o 2o
-		if( numero1 > numero2 ) return;
+		if( numero1 > numero2 ) {
+			return;
+		}
 
 		addNonTerminal( "Entre " + numero1 + " e " + numero2 + " repeticoes de:", "BETWEEN" );
 
@@ -223,7 +231,9 @@ function addClass() {
 	var regra = getSelectedValue( "class-select" )
 
 	//Se a opcao escolhida for uma em branco, retorna sem fazer nada
-	if( regra == "none" ) return;
+	if( regra == "none" ) {
+		return;
+	}
 
 	//Recupera o texto da opcao selecionada
 	//Sera utilizado no texto do no
@@ -270,15 +280,15 @@ function addRange() {
 
 		//Se foi digitado mais de um caractere ou nenhum caractere,
 		//retorna sem fazer nada
-		if( texto1.length != 1 || texto2.length != 1 ){
+		if( (texto1.length != 1) || (texto2.length != 1) ){
 			alert("So pode ter 1 caractere de cada lado!")
 			return;
 		}
-		
+
 		//Faz o encode do texto digitado para entidades HTML
 		texto1 = htmlEncode(texto1);
 		texto2 = htmlEncode(texto2);
-		
+
 		//Adiciona o elemento na arvore
 		addTerminal( "Todos os caracteres entre " + texto1 + " e " + texto2, "RANGE" );
 
@@ -289,77 +299,79 @@ function addRange() {
 }
 
 function addCharacters() {
-	
+
 	//Exibe um prompt e armazena o que foi digitado nele
 	var texto = prompt( "Digite seu texto:" );
 
 	//Se o texto nao for um valor valido, retorna sem fazer nada
-	if( isNotValid( texto ) ) return;
-	
+	if( isNotValid( texto ) ) {
+		return;
+	}
+
 	//Faz o encode dos caracteres para entidades HTML
 	var textoHtml = htmlEncode(texto);
-	
-	//Recupera a regra do no pai 
+
+	//Recupera a regra do no pai
 	var pai = getParentRule();
-	
+
 	//Se o pai for uma lista
-	if (pai == "POSITIVE_LIST" || pai == "NEGATIVE_LIST"){
-		
+	if ((pai == "POSITIVE_LIST") || (pai == "NEGATIVE_LIST")){
+
 		//Se o texto tiver apenas 1 caractere
 		if (texto.length == 1){
-			
+
 			//Se pode adicionar o no nas circunstancias atuais
 			if( canAddNode( "LIST_CHARACTER" ) ) {
-				addTerminal( "Caractere: " + textoHtml, "LIST_CHARACTER" );
+				addTerminal( textoHtml, "LIST_CHARACTER" );
 				tree.setUserData( lastID, "texto", texto );
 			}
-			
+
 		}
-		
+
 		//Se o texto tiver mais de um caractere
-		else{			
-			
+		else{
+
 			if ( canAddNode( "LIST_CHARACTERS" ) ) {
-				addTerminal( "Caracteres: " + textoHtml, "LIST_CHARACTERS" );
+				addTerminal( textoHtml, "LIST_CHARACTERS" );
 				tree.setUserData( lastID, "texto", texto );
 			}
 		}
 	}
-	
+
 	else{
-	
+
 		//Faz o escape de barras invertidas e aspas duplas
 		//var textoEscapado = texto.replace(/\\/g, '\\\\');
 		//textoEscapado = textoEscapado.replace(/\"/g, '\\"');
-		
+
 		if (texto.length == 1){
-		
+
 			if( canAddNode( "CHARACTER" ) ) {
-				
+
 				//Adiciona o elemento na arvore
 				addTerminal( "Caractere: " + textoHtml, "CHARACTER" );
-				
+
 				//Adiciona o texto digitado pelo usuario nos metadados do elemento
 				tree.setUserData( lastID, "texto", texto );
-				
+
 			}
-		
+
 		}
-		
+
 		else {
-			
+
 			if( canAddNode( "CHARACTERS" ) ) {
-				
+
 				//Adiciona o elemento na arvore
 				addTerminal( "Caracteres: " + textoHtml, "CHARACTERS" );
-				
+
 				//Adiciona o texto digitado pelo usuario nos metadados do elemento
 				tree.setUserData( lastID, "texto", texto );
-				
+
 			}
-			
+
 		}
-	
+
 	}
 
 }

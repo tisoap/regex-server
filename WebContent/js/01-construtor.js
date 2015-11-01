@@ -19,9 +19,14 @@ var lastID;
 
 //So executa a inicializacao quando a pagina estiver carregada
 $( document ).ready( function () {
-	
-	console.log( jsonString );
-	
+
+	//Se nao recebeu nenhum erro
+	if (error == ""){
+		//Esconde a caixa de erro
+		var errorBox = document.getElementById("errorBox");
+		errorBox.style.display = "none" ;
+	}
+
 	//Testa se foi recebida uma String JSON
 	if( isNotValid( jsonString ) ) {
 		jsonString = "{\"id\":0, \"item\":[]}";
@@ -34,10 +39,10 @@ $( document ).ready( function () {
 	//docs.dhtmlx.com/tree__initialization_of_dhtmlxtree.html#objectbasedinitialization
 	tree = new dhtmlXTreeObject( "regex-tree", "100%", "100%", 0 );
 
-	//Desativa a opcao de clicar e arastar elementos da arvore. 
+	//Desativa a opcao de clicar e arastar elementos da arvore.
 	//http://docs.dhtmlx.com/api__dhtmlxtree_enabledraganddrop.html
 	tree.enableDragAndDrop( false, false );
-	
+
 	//Define o caminho com as imagens a serem usadas pela arvore
 	//docs.dhtmlx.com/tree__initialization_of_dhtmlxtree.html#objectbasedinitialization
 	tree.setImagePath( "ferramentas/dhtmlxtree/imgs/dhxtree_web/" );
@@ -45,7 +50,7 @@ $( document ).ready( function () {
 	//Abilita a serializacao de dados adicionais
 	//http://forum.dhtmlx.com/viewtopic.php?f=3&t=23155&p=74442&hilit=json+serialize#p74442
 	tree._xuserData = true;
-	
+
 	//Carrega os dados do objeto JSON na arvore
 	tree.loadJSONObject( json );
 

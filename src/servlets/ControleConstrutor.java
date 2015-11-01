@@ -64,7 +64,7 @@ public class ControleConstrutor extends HttpServlet {
 		}
 
 		//Se o valor recuperado for muito grande, retorna uma mensagem de erro
-		if (json.length() >= 130000){
+		if (json.length() >= 30000){
 			request.setAttribute("error", "Tamanho de arvore maior do que o permitido.");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);

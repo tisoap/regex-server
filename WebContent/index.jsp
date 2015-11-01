@@ -11,6 +11,7 @@
 
 	<script type="text/javascript">
 		var jsonString  = "${jsonString}";
+		var error = "${error}";
 	</script>
 
 	<script type="text/javascript" src="js/01-construtor.js" ></script>
@@ -54,8 +55,14 @@
 			float: left;
 			width: auto;
 		}
+		.header{
+			margin-top: 3em;
+		}
 		.footer {
 			text-align: center;
+		}
+		.conteudo {
+			min-height: 600px;
 		}
 	</style>
 
@@ -63,60 +70,11 @@
 
 <body>
 
-	<div class="conteudo">
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-				</div>
-
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-					<ul class="nav navbar-nav">
-						<li><a href="#"> <span class="glyphicon glyphicon-home"></span></a> </li>					
-						<li><a href="#regex-portugues" >Tradutor de Regex para Portugu&ecirc;s<span class="glyphicon glyphicon-arrow-up"></span></a></li>
-						<li><a href="#portugues-regex" >Tradutor de Portugu&ecirc;s para Regex <span class="glyphicon glyphicon-arrow-down"></span></a></li>
-					</ul>
-
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
-								<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-							</a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">Separated link</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#">One more separated link</a></li>
-							</ul>
-						</li>
-
-						<li><a href="#"><span class="glyphicon glyphicon-info-sign" aria-hidden="true" ></span></a></li>
-
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</div>
-
-	<br/>
-	<br/>
-	<br/>
-	<br/>
-
-	<div class="row1">  
+	<div class="row1 header">  
 		<p align="center"><img src="img/no.png" alt="Smiley" /></p>
 	</div>
 	
-	<div class="well" style="min-height: 550px">
+	<div class="well conteudo">
 		<div role="main">
 
 			<div class="row">
@@ -130,7 +88,7 @@
 							<h3 class="panel-title">Regex para Portugu&ecirc;s:</h3>
 						</div>
 
-						<form id="regex-form" method="post" action="Traducao">
+						<form id="regex-form" method="post" action="Traducao" accept-charset=utf-8>
 							<div class="input-group">
 								<input type="text" name="regex" value="${regex}" placeholder="Ex.: (a|b)*" class="form-control">
 								<div class="input-group-btn">
@@ -210,8 +168,8 @@
 									<li><a onclick="removeNode()">Excluir</a></li>
 									
 									<li>
-										<!-- DS 1 -->
-										<form id="tree-form" method="post" action="Regex">
+										<!-- Contrucao DS 1 -->
+										<form id="tree-form" method="post" action="Regex" accept-charset=utf-8>
 											<button type="submit" onclick="serializeAndSubmit()" class="btn btn-success" style="float: left; border-radius: 2px; background-color: #886EB3; border-color: #886EB3" tabindex="0">
 												Construir Regex
 											</button>
@@ -258,12 +216,13 @@
 
 				<div class="col-sm-1"></div>
 
-				<div class="col-sm-10 alert alert-danger alert-dismissible" role="alert">
+				<div id="errorBox" class="col-sm-10 alert alert-danger alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<p>${error}</p>	
 				</div>
+				
 			</div>
 
 		</div>  

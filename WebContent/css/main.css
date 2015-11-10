@@ -1,0 +1,59 @@
+body {
+	min-width: 600px;
+}
+#header{
+	text-align: center;
+	height: 100%;
+	min-height: 8em;
+}
+
+#header-wrapper .list-unstyled li {
+	font-size: 3em;
+	float: right;
+	margin: 0 0.5em;
+}
+#header-wrapper .list-unstyled li.logo,
+#header-wrapper .list-unstyled li.logo a,
+#header-wrapper .list-unstyled li.logo a img {
+	width: 576px;
+}
+#footer{
+	height: 8em;
+}
+#painel-regex{
+	min-height: 170px;
+}
+#content-wrapper{
+	display: block;
+	height: 100%;
+}
+#content-wrapper,
+#header-wrapper,
+#footer-wrapper {
+	max-width: 1200px;
+	margin: auto;
+}
+#footer-wrapper p {
+	margin-bottom: 0;
+	margin-top: 1em;
+}
+.well {
+	margin: 0;
+	border: none;
+}
+input.form-control {
+	border: none;
+}
+.input-group {
+	width: 100%;
+}
+.nav-justified > li {
+	float: left;
+	width: auto;
+}
+.footer {
+	text-align: center;
+}
+.clear{
+	clear: both;
+}

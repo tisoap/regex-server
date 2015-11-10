@@ -20,7 +20,9 @@ function canAddNode( rule, nextTo ) {
 	var resultado = canAddNodeTest( rule, nextTo );
 	
 	if (!resultado){
-		alert("Nao pode adicionar esse elemento aqui!");
+		$('#modalText').empty();
+		$('#modalText').text("Não pode adicionar esse elemento aqui!");
+		$('#testModal').modal('show');
 	}
 	
 	return resultado;
@@ -175,7 +177,10 @@ function canRemoveNode( currentSelected ) {
 	var resultado = canRemoveNodeTest( currentSelected );
 	
 	if (!resultado){
-		alert("Nao pode remover este no!");
+		$('#modalText').empty();
+		$('#modalText').text("Não pode remover este no!");
+		$('#testModal').modal('show');
+//		alert("Nao pode remover este no!");
 	}
 	
 	return resultado;

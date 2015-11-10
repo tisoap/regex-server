@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tradutor de Regex</title>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="robots" content="all">
+	
+	<script type="text/javascript" src="ferramentas/jquery-2.1.3.min.js" ></script>
+	<script type="text/javascript" src="ferramentas/bootflat/js/bootstrap.min.js" ></script>
+
+	<link rel="stylesheet" type="text/css" href="ferramentas/bootflat/css/bootstrap.min.css" ></link>
+	<link rel="stylesheet" type="text/css" href="ferramentas/dhtmlxtree/dhtmlxtree.css" ></link>
+	<link rel="stylesheet" type="text/css" href="css/main.css" ></link>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			// Inicializa os tooltips
+			$(function () {
+			  $('[data-toggle="tooltip"]').tooltip()
+			});
+			
+		});
+	</script>
+
+	<style type="text/css">
+		.titulo{
+			color: #737272;
+			text-decoration: none;
+			font-style: italic;
+			font-weight: bold;
+			text-align: center;
+			margin-top: 0;
+			margin-bottom: 1em;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div id="header" class="row1">
+		<div id="header-wrapper">
+			<ul class="list-unstyled">
+				<li>
+					<a href="tabela.html" data-toggle="tooltip" data-placement="bottom" title="Tabela de símbolos Regex"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></a>
+				</li>
+				<li>
+					<a href="tutorial.html" data-toggle="tooltip" data-placement="bottom" title="Como usar o tradutor?"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
+				</li>
+				<li>
+					<a href="regex.html" data-toggle="tooltip" data-placement="bottom" title="O que são expressões regulares?"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a>
+				</li>
+				<li class="logo">
+					<a href="index.jsp" ><img src="img/no.png" alt="Smiley" /></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="clear"></div>
+	
+	<div class="row well" style="min-height: 950px; border-radius: 0px">
+  		
+  		<h2 class="titulo">Tabela Regex</h2>
+  		<h4 class="titulo">Padrão POSIX ERE V1</h4>
+  		
+		<table class="table table-bordered table-hover table-striped" style="width: 85%; margin: auto;">
+			<thead>
+				<tr class="info">
+					<th class="text-center" style="vertical-align: middle;">#</th>
+					<th class="text-center" style="vertical-align: middle;">-</th>
+					<th class="text-center" style="vertical-align: middle;">Significado:</th>
+					<th class="text-center" style="vertical-align: middle;">Como digitar na página:</th>
+					<th class="text-center" style="vertical-align: middle;">Como aparecerá na estrutura de árvore:</th>
+					<th class="text-center" style="vertical-align: middle;">Significado literal:</th>
+				</tr>
+			</thead>
+			<tbody >
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">1</th>
+					<th class="text-center info" style="vertical-align: middle;">Múltiplas Opções</th>
+					<td class="text-center" style="vertical-align: middle;">Ou</td>
+					<td class="text-center" style="vertical-align: middle;">a|b</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Uma das Opções:
+    Opção 1:
+        Caracteres: a
+    Opção 2:
+        Caracteres: b
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Ou "a" ou "b"</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">2</th>
+					<th class="text-center info" style="vertical-align: middle;">Grupo</th>
+					<td class="text-center" style="vertical-align: middle;">Grupo</td>
+					<td class="text-center" style="vertical-align: middle;">(a)</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Grupo 1:
+    Caracteres: a
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Grupo "a"</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">3</th>
+					<th class="text-center info" style="vertical-align: middle;">Âncora do Início</th>
+					<td class="text-center" style="vertical-align: middle;">Início</td>
+					<td class="text-center" style="vertical-align: middle;">^a</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Início:
+Caracteres: a
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Começa com "a"</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">4</th>
+					<th class="text-center info" style="vertical-align: middle;">Âncora de Fim</th>
+					<td class="text-center" style="vertical-align: middle;">Fim</td>
+					<td class="text-center" style="vertical-align: middle;">a$</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Caracteres a:
+Fim
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Termina com "a"</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">5</th>
+					<th class="text-center info" style="vertical-align: middle;">Quantificador Um ou Mais</th>
+					<td class="text-center" style="vertical-align: middle;">Um ou Mais</td>
+					<td class="text-center" style="vertical-align: middle;">a+</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Um ou mais:
+    a
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Um ou mais "a"</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">6</th>
+					<th class="text-center info" style="vertical-align: middle;">Quantificador Zero ou Mais</th>
+					<td class="text-center" style="vertical-align: middle;">Zero ou Mais</td>
+					<td class="text-center" style="vertical-align: middle;">a*</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Zero ou mais:
+    a
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Pode ter um "a", vários "a" ou nenhum "a"</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">7</th>
+					<th class="text-center info" style="vertical-align: middle;">Quantificador Condicional</th>
+					<td class="text-center" style="vertical-align: middle;">Pode ou não pode</td>
+					<td class="text-center" style="vertical-align: middle;">a?</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Pode ou não conter:
+    a
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Pode ter "a", ou não</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">8</th>
+					<th class="text-center info" style="vertical-align: middle;">Quantificador de Ocorrência Exata</th>
+					<td class="text-center" style="vertical-align: middle;">Exatamente</td>
+					<td class="text-center" style="vertical-align: middle;">a{1}</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Exatamente 1 repetições de:
+    a
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Exatamente um "a"</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">9</th>
+					<th class="text-center info" style="vertical-align: middle;">Quantificador de Ocorrência Mínima</th>
+					<td class="text-center" style="vertical-align: middle;">Pelo menos um</td>
+					<td class="text-center" style="vertical-align: middle;">a{1,}</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Pelo menos 1 repetições de:
+    a
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Pelo menos um "a"</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">10</th>
+					<th class="text-center info" style="vertical-align: middle;">Quantificador de Extensão</th>
+					<td class="text-center" style="vertical-align: middle;">De m a n repetições de x</td>
+					<td class="text-center" style="vertical-align: middle;">a{1, 2}</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Entre 1 e 2 repetições de a:
+    a
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Uma ou duas repetições de "a"</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">11</th>
+					<th class="text-center info" style="vertical-align: middle;">Lista negativa</th>
+					<td class="text-center" style="vertical-align: middle;">Lista negativa</td>
+					<td class="text-center" style="vertical-align: middle;">[^a]</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Qualquer caracter que não seja:
+    a
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Qualquer caractere, menos o caractere "a"</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">12</th>
+					<th class="text-center info" style="vertical-align: middle;">Lista positiva</th>
+					<td class="text-center" style="vertical-align: middle;">Lista positiva</td>
+					<td class="text-center" style="vertical-align: middle;">[a]</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Qualquer um dos caracteres:
+    a
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Haverá um caractere "a"</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">13</th>
+					<th class="text-center info" style="vertical-align: middle;">Série</th>
+					<td class="text-center" style="vertical-align: middle;">Série</td>
+					<td class="text-center" style="vertical-align: middle;">[a-z]</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Qualquer um dos caracateres:
+    Todos os caracteres entre 'a' e 'z'
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Um caractere, sendo entre A até Z</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">14</th>
+					<th class="text-center info" style="vertical-align: middle;">Classe de Dígitos</th>
+					<td class="text-center" style="vertical-align: middle;">Dígito</td>
+					<td class="text-center" style="vertical-align: middle;">[[:digit:]]</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Qualquer um dos caracteres:
+  Dígitos
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Um dígito</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">15</th>
+					<th class="text-center info" style="vertical-align: middle;">Classe de Caracteres Branco</th>
+					<td class="text-center" style="vertical-align: middle;">Espaço</td>
+					<td class="text-center" style="vertical-align: middle;">[[:space:]]</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Qualquer um dos caracateres:
+    Caracteres brancos
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Espaço branco</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">16</th>
+					<th class="text-center info" style="vertical-align: middle;">Classe de Caracteres Alfanuméricos</th>
+					<td class="text-center" style="vertical-align: middle;">Caractere alfanumérico</td>
+					<td class="text-center" style="vertical-align: middle;">[[:alnum:]]</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Qualquer um dos caracteres:
+    Carcacteres alfanuméricos
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Letras maiúsculas, minúsculas ou dígitos</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">17</th>
+					<th class="text-center info" style="vertical-align: middle;">Classe de Caracteres Alfabéticos</th>
+					<td class="text-center" style="vertical-align: middle;">Caractere alfabético</td>
+					<td class="text-center" style="vertical-align: middle;">[[:alpha:]]</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Qualquer um dos caracteres:
+    Caracteres alfabéticos
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Letras maiúsculas e minúsculas</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">18</th>
+					<th class="text-center info" style="vertical-align: middle;">Classe de Espaço e Tabulação</th>
+					<td class="text-center" style="vertical-align: middle;">Espaço e tabulações</td>
+					<td class="text-center" style="vertical-align: middle;">[[:blank:]]</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Qualquer um dos caracateres:
+    Espaço e tabulação
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Espaço e tabulação</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">19</th>
+					<th class="text-center info" style="vertical-align: middle;">Classe de Caracteres de Controle</th>
+					<td class="text-center" style="vertical-align: middle;">Caractere de controle</td>
+					<td class="text-center" style="vertical-align: middle;">[[:cntrl:]]</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Qualquer um dos caracteres:
+    Caracteres de controle
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Final de arquivo, final de linha, fim de transmissão, etc...</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">20</th>
+					<th class="text-center info" style="vertical-align: middle;">Classe de Caracteres Visíveis</th>
+					<td class="text-center" style="vertical-align: middle;">Caractere visível</td>
+					<td class="text-center" style="vertical-align: middle;">[[:graph:]]</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Qualquer um dos caracteres:
+    Caracteres visíveis
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Qualquer caracter que pode ser visível</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">21</th>
+					<th class="text-center info" style="vertical-align: middle;">Classe de Letras Minúsculas</th>
+					<td class="text-center" style="vertical-align: middle;">Letra minúscula</td>
+					<td class="text-center" style="vertical-align: middle;">[[:lower:]]</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Qualquer um dos caracteres:
+    Letras Minúsculas
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Letra minúscula</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">22</th>
+					<th class="text-center info" style="vertical-align: middle;">Classe de Caracteres Visíveis e Espaço</th>
+					<td class="text-center" style="vertical-align: middle;">Caracter visível e o espaço</td>
+					<td class="text-center" style="vertical-align: middle;">[[:print:]]</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Qualquer um dos caracteres:
+    Caracteres visíveis e espaço
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Todo caracter visível e o espaço</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">23</th>
+					<th class="text-center info" style="vertical-align: middle;">Classe de Caracteres Visíveis</th>
+					<td class="text-center" style="vertical-align: middle;">Classe de pontuação</td>
+					<td class="text-center" style="vertical-align: middle;">[[:punct:]]</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Qualquer um dos caracteres:
+    Caracteres de pontuação
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Todos os caracteres de pontuação (. ; , )</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">24</th>
+					<th class="text-center info" style="vertical-align: middle;">Classe de Letras Maiúsculas</th>
+					<td class="text-center" style="vertical-align: middle;">Letras maiúsculas</td>
+					<td class="text-center" style="vertical-align: middle;">[[:upper:]]</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Qualquer um dos caracteres:
+    Letras Maiúsculas
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Letras maiúsculas</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">25</th>
+					<th class="text-center info" style="vertical-align: middle;">Classe de Números Hexadecimais</th>
+					<td class="text-center" style="vertical-align: middle;">Números hexadecimais</td>
+					<td class="text-center" style="vertical-align: middle;">[[:xdigit:]]</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Qualquer um dos caracteres:
+    Números Hexadecimais
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Números hexadecimais</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">26</th>
+					<th class="text-center info" style="vertical-align: middle;">Qualquer Caractere</th>
+					<td class="text-center" style="vertical-align: middle;">Qualquer caractere</td>
+					<td class="text-center" style="vertical-align: middle;">.</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Qualquer caractere
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Qualquer caractere</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">27</th>
+					<th class="text-center info" style="vertical-align: middle;">Caracteres</th>
+					<td class="text-center" style="vertical-align: middle;">Caracteres</td>
+					<td class="text-center" style="vertical-align: middle;">abc</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Caracteres:
+abc
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Caracteres abc</td>
+				</tr>
+				<tr  style="background-color: white;">
+					<th class="info" style="vertical-align: middle;">28</th>
+					<th class="text-center info" style="vertical-align: middle;">Caracteres Especiais Escapados</th>
+					<td class="text-center" style="vertical-align: middle;">Caracteres especiais escapados</td>
+					<td class="text-center" style="vertical-align: middle;">\+\*\?\.\(\)\[\]\{\}\^\$\|\\</td>
+					<td>
+					<textarea class="form-control" rows="5" style="resize: none; overflow: hidden;
+					 background-color: #eee; opacity: 1;">Caracteres:                                               +*?.()[]{}^$|\
+					</textarea>
+        			</td>
+					<td class="text-center" style="vertical-align: middle;">Caracteres: +*?.()[]{}^$|\</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div id="footer" class="footer well" style="background-color: #5CB85C; border-radius: 0px">
+		<div id="footer-wrapper">
+			<p>
+				<b>RegEx - Padrão POSIX ERE V1</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="regex.html" style="color: white">O que são expressões regulares?</a>&nbsp;&bull;&nbsp;
+				<a href="tabela.html" style="color: white">Tabela de símbolos Regex</a>&nbsp;&bull;&nbsp;
+				<a href="tutorial.html" style="color: white">Como usar o tradutor?</a>
+				
+			</p>
+	
+			<p>
+				&copy; 2015 
+				<a href="index.jsp" target="_blank" style="color: white">
+					Tradutor de Regex
+				</a>
+			</p>
+		</div>
+	</div>
+	
+</body>
+</html>

@@ -101,9 +101,11 @@ function addConditional() {
 function addExact() {
 
 	if( canAddNode( "EXACT" ) ) {
-
+		//Recebe o valor digitado
+		var texto = $('#inputText1').val();
+		
 		//Exibe um prompt e armazena o que foi digitado nele
-		var texto = prompt( "Digite a quantidade:" );
+		//var texto = prompt( "Digite a quantidade:" );
 
 		//Converte o texto para um numero inteiro
 		var numero = parseInt( texto );
@@ -124,9 +126,11 @@ function addExact() {
 function addAtLeast() {
 
 	if( canAddNode( "AT_LEAST" ) ) {
-
+		//Recebe o valor digitado
+		var texto = $('#inputText1').val();
+		
 		//Exibe um prompt e armazena o que foi digitado nele
-		var texto = prompt( "Digite a quantidade:" );
+		//var texto = prompt( "Digite a quantidade:" );
 
 		//Converte o texto para um numero inteiro
 		var numero = parseInt( texto );
@@ -147,10 +151,13 @@ function addAtLeast() {
 function addBetween() {
 
 	if( canAddNode( "BETWEEN" ) ) {
-
+		//Recebe os valores digitados
+		var texto1 = $('#inputText1').val();
+		var texto2 = $('#inputText2').val();
+		
 		//Exibe um prompt e armazena o que foi digitado nele
-		var texto1 = prompt( "Digite o primeiro numero:" );
-		var texto2 = prompt( "Digite o segundo numero:" );
+		//var texto1 = prompt( "Digite o primeiro numero:" );
+		//var texto2 = prompt( "Digite o segundo numero:" );
 
 		//Converte o texto para um numero inteiro
 		var numero1 = parseInt( texto1 );
@@ -273,15 +280,21 @@ function addAnyChar() {
 function addRange() {
 
 	if( canAddNode( "RANGE" ) ) {
-
+		//Recebe os valores digitados
+		var texto1 = $('#inputText1').val();
+		var texto2 = $('#inputText2').val();
+		
 		//Exibe um prompt e armazena o que foi digitado nele
-		var texto1 = prompt( "Digite o primeiro caractere:" );
-		var texto2 = prompt( "Digite o ultimo caractere:" );
+		//var texto1 = prompt( "Digite o primeiro caractere:" );
+		//var texto2 = prompt( "Digite o ultimo caractere:" );
 
 		//Se foi digitado mais de um caractere ou nenhum caractere,
 		//retorna sem fazer nada
 		if( (texto1.length != 1) || (texto2.length != 1) ){
-			alert("So pode ter 1 caractere de cada lado!")
+			$('#modalText').empty();
+			$('#modalText').text("Só pode ter 1 caractere de cada lado!");
+			$('#testModal').modal('show');
+//			alert("So pode ter 1 caractere de cada lado!")
 			return;
 		}
 
@@ -299,9 +312,12 @@ function addRange() {
 }
 
 function addCharacters() {
-
+	//Recebe o valor digitado
+	var texto = $('#inputText1').val();
+	
 	//Exibe um prompt e armazena o que foi digitado nele
-	var texto = prompt( "Digite seu texto:" );
+//	var texto = prompt( "Digite seu texto:" );
+//	texto = $('#inputText').val();
 
 	//Se o texto nao for um valor valido, retorna sem fazer nada
 	if( isNotValid( texto ) ) {

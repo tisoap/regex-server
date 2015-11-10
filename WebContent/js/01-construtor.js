@@ -19,6 +19,16 @@ var lastID;
 
 //So executa a inicializacao quando a pagina estiver carregada
 $( document ).ready( function () {
+	
+	//Recupera o tamanho da janela, do header e do footer
+    var windowHeight  = $(window).innerHeight();
+    var headerHeight  = $('#header').innerHeight();
+    var footerHeight  = $('#footer').innerHeight();
+
+    //Define o tamanho do conteudo como o tamanho da janela menos 
+    //o tamanho do footer e do header
+    var contentHeight = windowHeight - (headerHeight + footerHeight + 10); 
+    $('#content-wrapper').css('min-height', contentHeight);   
 
 	//Se nao recebeu nenhum erro
 	if (error == ""){
@@ -92,16 +102,22 @@ $( document ).ready( function () {
 	$( document ).click( function ( e ) {
 
 		//Se foi clicado ou no elemento que contem a arvore,
-		//ou em um dos botoes...
-		if( $( e.target ).is( '#regex-tree, #regex-tree *, #buttons, #buttons *' ) ) {
+		//em um dos botoes, ou em um input...
+		if( $( e.target ).is( '#regex-tree, #regex-tree *, #buttons, #buttons *, #inputText1, #inputText2, #inputModal' ) ) {
 			//Nao faz nada
 			return;
 		}
-
-		//Se foi clicado fora dela...
+		//Se foi clicado fora...
 		else {
 			//Recupera o item selecionado e remove a selecao dele.
 			tree.clearSelection( tree.getSelectedItemId() );
 		}
 	} );
+	
+	
+	// Inicializa os tooltips
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip()
+	});
+	
 } );

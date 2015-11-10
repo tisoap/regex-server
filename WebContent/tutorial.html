@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tradutor de Regex</title>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="robots" content="all">
+	
+	<script type="text/javascript" src="ferramentas/jquery-2.1.3.min.js" ></script>
+	<script type="text/javascript" src="ferramentas/bootflat/js/bootstrap.min.js" ></script>
+
+	<link rel="stylesheet" type="text/css" href="ferramentas/bootflat/css/bootstrap.min.css" ></link>
+	<link rel="stylesheet" type="text/css" href="ferramentas/dhtmlxtree/dhtmlxtree.css" ></link>
+	<link rel="stylesheet" type="text/css" href="css/main.css" ></link>
+	
+	<script>
+		$(document).ready(function() {
+			
+			//Recupera o tamanho da janela, do header e do footer
+		    var windowHeight  = $(window).innerHeight();
+		    var headerHeight  = $('#header').innerHeight();
+		    var footerHeight  = $('#footer').innerHeight();
+
+		    //Define o tamanho do conteudo como o tamanho da janela menos 
+		    //o tamanho do footer e do header
+		    var contentHeight = windowHeight - (headerHeight + footerHeight + 10); 
+		    $('#content-wrapper').css('min-height', contentHeight);   
+
+			
+			// Inicializa os tooltips
+			$(function () {
+			  $('[data-toggle="tooltip"]').tooltip()
+			});
+			
+		});
+	</script>
+	
+	<style type="text/css">
+		.titulo{
+			color: #737272;
+			text-decoration: none;
+			font-style: italic;
+			font-weight: bold;
+			text-align: center;
+			margin-top: 0;
+			margin-bottom: 1em;
+		}
+		
+		#img-arvore{
+			float: left;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div id="header" class="row1">
+		<div id="header-wrapper">
+			<ul class="list-unstyled">
+				<li>
+					<a href="tabela.html" data-toggle="tooltip" data-placement="bottom" title="Tabela de símbolos Regex"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></a>
+				</li>
+				<li>
+					<a href="tutorial.html" data-toggle="tooltip" data-placement="bottom" title="Como usar o tradutor?"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
+				</li>
+				<li>
+					<a href="regex.html" data-toggle="tooltip" data-placement="bottom" title="O que são expressões regulares?"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a>
+				</li>
+				<li class="logo">
+					<a href="index.jsp" ><img src="img/no.png" alt="Smiley" /></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="clear"></div>
+	
+	
+	<div class="row well" style="min-height: 950px; border-radius: 0px">
+	<div id="content-wrapper">
+		
+		<h2 class="titulo">Tutorial de Tradução</h2>
+		
+		<div class="col-sm-6" align="center">
+			<div style="height: 654px" class="alert alert-info" role="alert">
+				<h3><b>Regex para Português</b></h3>
+				<p style="font-size: 17px"><b style="font-size: 20px">1.</b> Digitar alguma expressão regular no campo de texto.</p>
+				<br/>
+				<div class="panel panel-primary" >
+					<div class="panel-heading">
+						<h3 class="panel-title">Regex para Portugu&ecirc;s:</h3>
+					</div>
+					<div class="input-group">
+						<input type="text" name="regex" value="(a|b)*" placeholder="Ex.: (a|b)*" class="form-control">
+					</div>
+				</div>
+				<p style="font-size: 17px"><b style="font-size: 20px">2.</b> Clicar no botão "Traduzir" </p>
+				<br/>
+				<div class="input-group-btn">
+					<button type="submit" class="btn btn-success" style="border-radius: 2px; background-color: #886EB3; border-color: #886EB3" tabindex="0">Traduzir</button>
+				</div>
+				<br/>
+				<p style="font-size: 17px"><b style="font-size: 20px">3.</b> O resultado da expressão traduzida será mostrado de duas formas diferentes (<a style="color: #31708f">texto</a> e <a style="color: #3c763d">árvore</a>): </p>
+				<br/>
+				<div class="panel panel-primary"> 
+					<div class="panel-heading">
+						<h3 class="panel-title">Resultado em texto:</h3>
+					</div>
+					
+					<textarea class="form-control" rows="5">
+Zero ou mais:
+   Grupo:
+      Uma das opções:
+         Opção:
+            Caracteres: a
+					</textarea>
+					
+				</div>
+			</div>
+			<div class="alert alert-danger" role="alert">
+				<b>Oh, deu erro!</b> Atente-se a mensagem  em vermelho que aparece para entender o que deu errado!	
+			</div>
+		</div>
+		
+		<div class="col-sm-6" align="center">
+			<div class="alert alert-success" role="alert">
+				<h3><b>Português para Regex</b></h3>
+				<p style="font-size: 17px"><b style="font-size: 20px">1.</b> Escolher expressões regulares no campo abaixo.</p>
+				<br/>
+				<div class="panel panel-primary" >
+					<div class="panel-heading">
+						<h3 class="panel-title">Regex para Portugu&ecirc;s:</h3>
+					</div>
+					<ul class="nav nav-pills nav-justified">
+						<!-- Classe -->
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Classe <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a>Caracteres alfanumericos</a></li>
+								<li><a>Caracteres alfabeticos</a></li>
+								<li><a>Espacos e tabula&ccedil;oes</a></li>
+								<li><a>Caracteres de controle</a></li>
+								<li><a>Digitos</a></li>
+								<li><a>Caracteres visiveis</a></li>
+								<li><a>Letras minusculas</a></li>
+								<li><a>Caracteres visiveis e espaco</a></li>
+								<li><a>Caracteres de pontuacao</a></li>
+								<li><a>Caracteres brancos</a></li>
+								<li><a>Letras maiusculas</a></li>
+								<li><a>Numeros hexadecimais</a></li>
+							</ul>
+						</li>
+						<!-- Lista -->
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown">Lista <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a>Lista</a></li>
+								<li><a>Lista negada</a></li>	
+								<li><a>S&eacute;rie</a></li>
+							</ul>
+						</li>
+						<!-- Posição -->
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Posi&ccedil;&atilde;o <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a>In&iacute;cio</a></li>
+								<li><a>Fim</a></li>									
+							</ul>
+						</li>
+						<!-- Repetição -->
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown">Repeti&ccedil;&atilde;o <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a>Um ou mais</a></li>
+								<li><a>Zero ou mais</a></li>	
+								<li><a>Pode ou n&atilde;o pode ter</a></li>
+								<li><a>Exatamente N</a></li>
+								<li><a>Pelo menos N</a></li>
+								<li><a>Entre N e M</a></li>
+							</ul>
+						</li>
+						<!-- Restante das opções sem dropdown -->
+						<li><a>Grupo</a></li>
+						<li><a>M&uacute;ltiplas Op&ccedil;&otilde;es</a></li>
+						<li><a>Op&ccedil;&atilde;o</a></li>
+						<li><a>Qualquer caractere</a></li>
+						<li><a>Texto</a></li>
+						<li><a style="color: red">Excluir</a></li>
+					</ul>
+				</div>
+				<p style="font-size: 17px"><b style="font-size: 20px">2.</b> Clicar no botão "Construir Regex" </p>
+				<br/>
+				<div class="input-group-btn">
+					<button type="submit" class="btn btn-success" style="border-radius: 2px; background-color: #886EB3; border-color: #886EB3" tabindex="0">Construir Regex</button>
+					<input type="hidden" name="jsonTree" id="serializedInput">
+				</div>
+				<br/>
+				<p style="font-size: 17px"><b style="font-size: 20px">3.</b> O resultado da expressão traduzida será mostrado em árvore: </p>
+				<br/>
+				<div class="panel panel-primary" id="painel-regex">
+					<div class="panel-heading">
+						<h3 class="panel-title">Resultado em árvore:</h3>
+					</div>
+					
+					<img id="img-arvore" alt="Arvore" src="img/arvore.png" />
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="alert alert-warning" role="alert">
+				Note que ao selecionar uma expressão em português <span style="color: #3c763d">(painel verde)</span>, é
+				gerada a expressão regular correspondente para você modificar <span style="color: #31708f">(painel azul)</span>!
+			</div>
+		</div>
+		
+	</div>
+	</div>
+	
+	<div id="footer" class="footer well" style="background-color: #5CB85C; border-radius: 0px">
+		<div id="footer-wrapper">
+			<p>
+				<b>RegEx - Padrão POSIX ERE V1</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="regex.html" style="color: white">O que são expressões regulares?</a>&nbsp;&bull;&nbsp;
+				<a href="tabela.html" style="color: white">Tabela de símbolos Regex</a>&nbsp;&bull;&nbsp;
+				<a href="tutorial.html" style="color: white">Como usar o tradutor?</a>
+				
+			</p>
+	
+			<p>
+				&copy; 2015 
+				<a href="index.jsp" target="_blank" style="color: white">
+					Tradutor de Regex
+				</a>
+			</p>
+		</div>
+	</div>
+	
+</body>
+</html>

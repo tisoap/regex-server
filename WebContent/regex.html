@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>O que são expressões regulares?</title>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="robots" content="all">
+
+	<script type="text/javascript" src="ferramentas/jquery-2.1.3.min.js" ></script>
+	<script type="text/javascript" src="ferramentas/bootflat/js/bootstrap.min.js" ></script>
+
+	<link rel="stylesheet" type="text/css" href="ferramentas/bootflat/css/bootstrap.min.css" ></link>
+	<link rel="stylesheet" type="text/css" href="ferramentas/dhtmlxtree/dhtmlxtree.css" ></link>
+	<link rel="stylesheet" type="text/css" href="css/main.css" ></link>
+	
+	<script>
+		$(document).ready(function() {
+			// Inicializa os tooltips
+			$(function () {
+			  $('[data-toggle="tooltip"]').tooltip()
+			});
+		});
+	</script>
+	
+	<style type="text/css">
+		.alert {
+			max-width: 1200px;
+			margin: 1.2em auto;
+		}
+		#row-wrapper .row {
+			border-bottom: 2px solid #ccc;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div id="header" class="row1">
+		<div id="header-wrapper">
+			<ul class="list-unstyled">
+				<li>
+					<a href="tabela.html" data-toggle="tooltip" data-placement="bottom" title="Tabela de símbolos Regex"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></a>
+				</li>
+				<li>
+					<a href="tutorial.html" data-toggle="tooltip" data-placement="bottom" title="Como usar o tradutor?"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
+				</li>
+				<li>
+					<a href="regex.html" data-toggle="tooltip" data-placement="bottom" title="O que são expressões regulares?"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a>
+				</li>
+				<li class="logo">
+					<a href="index.jsp" ><img src="img/no.png" alt="Smiley" /></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="clear"></div>
+	
+		<div class="row well" style="margin-top: 10px">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-2" align="center" >
+				<button type="button" class="btn btn-info" style="border-radius: 100px; height: 60px; width:60px; font-size: 16px; margin-left: 70px; margin-right: 70px; margin-bottom: 5px" tabindex="0">
+					<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+				</button>
+				<h4 style="margin: 5px; color: #888888">O que são expressões regulares?</h4>
+			</div>
+			<div class="col-sm-2" align="center">
+				<button type="button" class="btn btn-success" style="border-radius: 100px; height: 60px; width:60px; font-size: 16px; margin-left: 70px; margin-right: 70px; margin-bottom: 5px" tabindex="0">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				</button>
+				<h4 style="margin: 5px; color: #888888">Qual a aplicação?</h4>
+			</div>
+			<div class="col-sm-2" align="center">
+				<button type="button" class="btn btn-danger" style="border-radius: 100px; height: 60px; width:60px; font-size: 16px; margin-left: 70px; margin-right: 70px; margin-bottom: 5px" tabindex="0">
+					<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+				</button>
+				<h4 style="margin: 5px; color: #888888">Exemplos de expressões regulares?</h4>
+			</div>
+			<div class="col-sm-3"></div>
+		</div>
+	
+	<div id="row-wrapper">
+	
+	<div class="row" style=" border-radius: 0px; background-color: #F5FDFF">
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8" style="margin-top: 30px">
+			<div class="alert alert-info" role="alert">
+				<h4>O que são expressões regulares?</h4>
+				<p> 
+				Expressões regulares descrevem um conjunto ou padrão de caracteres de interesse. É como um “localizar e substituir” mais completo. As expressões regulares constroem uma regra e verificam se os dados digitados se “encaixam ”nessa regra.
+				</p>
+			</div>
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+	
+	<div class="row" style=" border-radius: 0px; background-color: #F5FFF5">
+		<div style="width: 66%; margin: auto; " >
+			<div class="col-sm-12" style="margin-top: 30px;">
+				<div class="alert alert-success" role="alert">
+					<h4>Qual a aplicação?</h4>
+					<p style="font-size: 15px"> As expressões regulares são utilizadas para criar regras com o objetivo de validar um dado, por exemplo, verificar se o que foi digitado é um endereço válido de e-mail, se é um CPF ou CNPJ, se uma senha contém apenas letras ... </p>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="alert alert-success" role="alert">
+					
+					<p style="font-size: 15px"> A validação dos dados é importante porque além de reconhecer se aqueles dados tem um significado, também dão segurança ao impedir que conteúdo inválido, suspeito ou perigoso seja fornecido. </p>
+				</div>
+			</div>
+			
+			<div class="col-sm-12">
+				<div class="alert alert-success" role="alert">
+					
+					<p style="font-size: 15px"> A validação pode ser feita comparando os dados que o usuário fornece com algum padrão identificado como bom para o sistema que ele está utilizando. Uma aplicação seria dar segurança às senhas de cadastros de logins. Uma outra seria validar se o CPF de um cadastro de cliente está sendo enviado de forma correta. </p>
+				</div>
+			</div>			
+			<div class="col-sm-12">
+				<div class="alert alert-success" role="alert">
+					
+					<p style="font-size: 15px"> Para maior segurança e proteção a suas informações, é indicado  normalmente que a senha tenha pelo menos 6 letras, um símbolo especial e números para maior segurança . Com as expressões regulares, podemos verificar a senha que o usuário quer registrar possui apenas números, deixando seu login e informações em risco, e então colocaremos uma mensagem na tela dizendo que o login deve conter no mínimo 6 dígitos, um caractere especial e números. </p>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="alert alert-success" role="alert">
+					
+					<p style="font-size: 15px"> Abaixo daremos exemplo de qual seria uma expressão para validar se um número dado é um CPF.</p>
+				</div>
+			</div>	
+		</div>	
+	</div>
+	
+	<div class="row" style=" border-radius: 0px; background-color: #FFF7F7">
+		<div style="width: 66%; margin: auto" >
+			<div class="col-sm-12" style="margin-top: 30px;">
+				<div class="alert alert-danger" role="alert">
+					<h4>Exemplos de expressões regulares:</h4>
+					<p>
+						<b>Vamos verificar se os números digitados podem formar um CPF?</b>
+					</p>
+					<p>
+					O CPF é composto por 11 números, mas o usuário pode também querer digitar os caracteres especiais ponto e hífen. Isso nos leva a dois padrões:
+					</p>
+					<p> 111.222.333-44 ou 11122233344 </p> 
+					
+					<p> A expressão que validaria nosso CPF é:</p>
+					<br>
+					<p> /^[0-9]{3}.?[0-9]{3}.?[0-9]{3}-?[0-9]{2}/   </p>
+					<br>
+					<p> O símbolo “^” indica a obrigatoriedade de iniciar com números (de 0 a 9), com apenas 3 ocorrências desses número ({3}).  </p>
+					<p> O ponto pode significar em Regex “ Qualquer Caractere”, porém, aqui, usamos a barra invertida(\) para que o ponto seja apenas um ponto, um caractere comum, não um metacaracter. Assim, o ponto é parte do CPF, não significa “Qualquer Caractere”. A interrogação “?” significa que o ponto é opcional, por ser colocada em seguida a ele.  </p>
+					<p> No final da regra, [0-9]{2} indica que esperamos encontrar apenas números e que eles devem ser exatamente duas repetições. </p>
+					<p> Nessa regra, também é válida a entrada de um CPF: 111.222333-44. Se quiséssemos apenas os dois padrões acima, contendo números, pontos e hifen ou um CPF contendo apenas números, seria:</p>
+					<br>
+					<p> /^(([0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}) <b>|([0-9]{11}))$/</b> </p>
+					<br>
+					<p> "|" significa OU. e "([0-9]{11})" já conseguimos ler que significam 11 números, que podem ser de 0 a 9. </p>  
+				</div>
+			</div>
+			<div class="col-sm-12" style="margin-top: 30px;">
+				<div class="alert alert-danger" role="alert">
+					<b>Outros exemplos:</b>
+					
+					<p>
+						<b>Endereço IPV4:</b>      
+					</p>
+					<p> 
+						(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)  
+					</p>
+					<p>
+						<b>Endereço de email:</b>      
+					</p>
+					<p>
+						([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})
+					</p>
+					<br>Para ver exemplos mais simples que expliquem Regex,clique em: <a href="tabelaRegex.jsp"> Tabela de símbolos Regex padrão POSIX ERE V1</a>
+					<br/>
+					<br/>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	</div>
+	
+	<div id="footer" class="footer well" style="background-color: #5CB85C; border-radius: 0px">
+		<div id="footer-wrapper">
+			<p>
+				<b>RegEx - Padrão POSIX ERE V1</b>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="regex.html" style="color: white">O que são expressões regulares?</a>&nbsp;&bull;&nbsp;
+				<a href="tabela.html" style="color: white">Tabela de símbolos Regex</a>&nbsp;&bull;&nbsp;
+				<a href="tutorial.html" style="color: white">Como usar o tradutor?</a>
+				
+			</p>
+	
+			<p>
+				&copy; 2015 
+				<a href="index.jsp" target="_blank" style="color: white">
+					Tradutor de Regex
+				</a>
+			</p>
+		</div>
+	</div>
+	
+</body>
+</html>

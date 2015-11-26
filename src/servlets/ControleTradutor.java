@@ -40,6 +40,8 @@ public class ControleTradutor extends HttpServlet {
 		doPost(request, response);
 	}
 
+	/** DS1 02-61 */
+
 	/**
 	 * Recebe a expressao digitada pelo usuario no
 	 * formulario e retorna uma pagina com a traducao como resposta.
@@ -68,26 +70,27 @@ public class ControleTradutor extends HttpServlet {
 
 		//Instancia a classe responsavel em fazer a traducao, passando
 		//para ela o valor recebido do formulario
-		/** ----- DS 3-16 ----- **/
 		regex = new Regex(input);
 
 		//Traduz a expressao inserida,
 		//gerando um objeto Traducao.
-		/** ----- DS 17-36 ----- **/
 		traducao = regex.traduzir();
 
 		//Se nao ocorreu erro na analise
 		if (traducao.ocorreuErro())
 			request.setAttribute("error", encodeHtmlString(traducao.getMensagemErro()) );
 
+
+		/** ----- DS1 36-56 ----- **/
 		//Gera um objeto JSON em formato String a partir da traducao
-		/** ----- DS 37-38 ----- **/
 		jsonString = traducao.getEscapedJSONString();
 
+		/** DS1 57-58 */
 		//Gera um texto puro a partir da traducao, com
 		//caracteres especiais convertidos para entidades HTML
 		texto = traducao.getTextHtml();
 
+		/** DS1 59-60 */
 		//Converte os caracteres especiais do input pra entidades HTML
 		input = encodeHtmlString(input);
 
@@ -99,7 +102,7 @@ public class ControleTradutor extends HttpServlet {
 		dispatcher = request.getRequestDispatcher("index.jsp");
 
 		//Encaminha o pedido para a pagina inicial
-		/** ----- DS 39 ----- **/
+		/** ----- DS 61 ----- **/
 		dispatcher.forward(request, response);
 	}
 

@@ -123,6 +123,7 @@
 	<div id="content-wrapper">
 		<div class="col-sm-6" align="center">
 			<div id="blueBox" class="alert alert-info" role="alert">
+				<!-- DS1 01-62 -->
 				<form id="regex-form" method="post" action="Traducao" accept-charset=utf-8>
 					<div class="panel panel-primary" >
 						<div class="panel-heading">
@@ -212,6 +213,7 @@
 						<li><a href="#/" onclick="removeNode()" style="color: red">Excluir</a></li>
 					</ul>
 				</div>
+				<!-- DS2 1-38 -->
 				<form id="tree-form" method="post" action="Regex" accept-charset=utf-8>
 					<div style="margin-top: -10px;">
 						<button type="submit" onclick="serializeAndSubmit()" class="btn btn-success" style="border-radius: 2px; background-color: #886EB3; border-color: #886EB3; width: 100%" tabindex="0">Construir Regex</button>

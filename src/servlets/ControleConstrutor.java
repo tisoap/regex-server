@@ -45,6 +45,8 @@ public class ControleConstrutor extends HttpServlet {
 		doPost(request, response);
 	}
 
+	/** DS2 2-37 */
+
 	/**
 	 * Recebe a expressao em linguagem natural montada pelo usuario
 	 * e retorna a expressao regular em texto.
@@ -79,6 +81,7 @@ public class ControleConstrutor extends HttpServlet {
 
 		//Tenta construir a expressao regular a partir do objeto JSON
 		try {
+			/** DS2 03-34 */
 			regex = construtor.construir(json);
 		}
 		catch (MalformedJson e) {
@@ -116,12 +119,14 @@ public class ControleConstrutor extends HttpServlet {
 			request.setAttribute("error", encodeHtmlString(errorMessage) );
 
 		//Adiciona o proprio JSON recebido em um parametro do request
+		/** DS2 35-36*/
 		request.setAttribute("jsonString", escapeString(json) );
 
 		//Cria um novo "pedido de despache", apontando para a pagina inicial
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 
 		//Encaminha o pedido para a pagina inicial
+		/** DS2 37*/
 		dispatcher.forward(request, response);
 	}
 

@@ -1,6 +1,8 @@
 # Tradutor Regex Web
 
-Aplicação Web para tradução de expressões regulares para linguagem natural, e vice versa. O algorítimo de tradução pode ser encontrado [neste repositório](https://github.com/tisoap/regex-grammar).
+Aplicação Web para tradução de expressões regulares para linguagem natural, e vice versa. O algorítimo de tradução pode ser encontrado [neste repositório](https://github.com/tisoap/regex-grammar), e o artigo com a descrição detalhada [se encontra aqui](./midia/artigo.pdf).
+
+![](./midia/poster.jpeg)
 
 ## Rodando a aplicação
 
@@ -14,6 +16,8 @@ $ docker-compose up
 ```
 
 ...e em seguida acesse [localhost](http://localhost/) no seu navegador.
+
+![](./midia/preview.gif)
 
 ## Tecnologias utilizadas
 
